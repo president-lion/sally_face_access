@@ -55,6 +55,9 @@ public sealed class Mod : MelonMod
         try { CutsceneHandler.Tick(); }
         catch (Exception ex) { Log.Once("CutsceneHandler", ex); }
 
+        try { TourMode.Tick(); }
+        catch (Exception ex) { Log.Once("TourMode", ex); }
+
         // Write the text dump once per session as soon as AC's managers exist, if there
         // is not one already. F11 rewrites it on demand.
         if (!_dumpedThisSession && TextDump.Ready)
@@ -80,7 +83,7 @@ public sealed class Mod : MelonMod
     public override void OnSceneWasLoaded(int buildIndex, string sceneName)
     {
         Log.Debug("Scene", $"loaded {buildIndex} {sceneName}");
-        try { InventoryHandler.OnSceneLoaded(); GoalHandler.OnSceneLoaded(); CutsceneHandler.OnSceneLoaded(sceneName); WorldHandler.OnSceneLoaded(sceneName); }
+        try { InventoryHandler.OnSceneLoaded(); GoalHandler.OnSceneLoaded(); CutsceneHandler.OnSceneLoaded(sceneName); TourMode.OnSceneLoaded(sceneName); WorldHandler.OnSceneLoaded(sceneName); }
         catch (Exception ex) { Log.Once("SceneLoaded", ex); }
     }
 

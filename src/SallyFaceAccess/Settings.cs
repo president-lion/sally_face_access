@@ -12,11 +12,13 @@ internal static class Settings
     private static MelonPreferences_Entry<bool> _speakerNames;
     private static MelonPreferences_Entry<float> _stepSize;
     private static MelonPreferences_Entry<bool> _captureCutscenes;
+    private static MelonPreferences_Entry<bool> _tour;
 
     public static string Backend => _backend?.Value ?? "auto";
     public static bool DebugLog => _debugLog?.Value ?? false;
     public static bool RunInBackground => _runInBackground?.Value ?? false;
     public static bool SpeakerNames => _speakerNames?.Value ?? true;
+    public static bool Tour => _tour?.Value ?? false;
     public static bool CaptureCutscenes => _captureCutscenes?.Value ?? false;
     public static float StepSize => Math.Max(0.01f, _stepSize?.Value ?? 1f);
 
@@ -37,6 +39,8 @@ internal static class Settings
             "World units per 'step' when the room scan gives distances");
         _captureCutscenes = cat.CreateEntry("CaptureCutscenes", false, "Capture cutscenes",
             "Development aid: screenshot cutscenes so they can be described");
+        _tour = cat.CreateEntry("Tour", false, "Tour the game",
+            "Development tool: visit every scene, screenshot every camera, dump objects and cutscene scripts");
         _debugLog = cat.CreateEntry("DebugLog", false, "Verbose logging");
         _speakUnhandled = cat.CreateEntry("SpeakUnhandled", false, "Speak unhandled text",
             "Development aid: also speak on-screen text that no handler covers");

@@ -53,6 +53,9 @@ internal static class Speech
     private static readonly RepeatFilter _repeats = new(TimeSpan.FromMilliseconds(400));
 
     public static string BackendName { get; private set; } = "<none>";
+
+    /// <summary>Silences output (still logged) - used while the tour runs.</summary>
+    public static bool Muted { get; set; }
     public static bool Ready => _backend != IntPtr.Zero;
 
     /// <summary>The last line spoken, for the repeat key.</summary>
@@ -120,7 +123,7 @@ internal static class Speech
 
         Last = text;
         Log.Append("speech.log", (interrupt ? "! " : "+ ") + text);
-        if (_backend == IntPtr.Zero) return;
+        if (_backend == IntPtr.Zero || Muted) return;
         try
         {
             var buf = Encoding.UTF8.GetBytes(text + "\0");
