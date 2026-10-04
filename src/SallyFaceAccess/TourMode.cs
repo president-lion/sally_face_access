@@ -43,6 +43,7 @@ internal static class TourMode
             // Start once AC is up (the title screen is enough).
             if (KickStarter.sceneChanger == null) return;
             Directory.CreateDirectory(Dir);
+            BackUpSaves();
             _index = File.Exists(ProgressFile) && int.TryParse(File.ReadAllText(ProgressFile), out var i) ? i : 0;
             Speech.Muted = true;
             Log.Info("Tour", $"starting at build index {_index} of {SceneManager.sceneCountInBuildSettings}");
@@ -73,6 +74,8 @@ internal static class TourMode
                     {
                         KickStarter.mainCamera?.FadeIn(0f);
                         WriteSceneText();
+                        WriteGeometry();
+                        HideTitleCards();
                         QueueShots();
                         Begin(Step.Shooting);
                     }
@@ -90,6 +93,21 @@ internal static class TourMode
             Log.Once($"Tour.{_index}", ex);
             Finish();
         }
+    }
+
+    /// <summary>
+    /// Second line of defence after SaveGuard: a copy of the player's saves, taken before the
+    /// tour touches anything, in UserData\SallyFaceAccess\save_backups\(time).
+    /// </summary>
+    private static void BackUpSaves()
+    {
+        var from = Application.persistentDataPath;
+        var to = System.IO.Path.Combine(Log.Dir, "save_backups", DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+        Directory.CreateDirectory(to);
+        foreach (var f in Directory.GetFiles(from))
+            if (f.EndsWith(".save") || f.EndsWith(".prefs"))
+                File.Copy(f, System.IO.Path.Combine(to, System.IO.Path.GetFileName(f)));
+        Log.Info("Tour", $"saves backed up from {from} to {to}");
     }
 
     private static void Begin(Step s)
@@ -210,6 +228,71 @@ internal static class TourMode
     }
 
     private static string Safe(string s) => string.Join("_", s.Split(Path.GetInvalidFileNameChars()));
+
+    /// <summary>The handheld games draw their title card as a scene object over every camera.</summary>
+    private static void HideTitleCards()
+    {
+        foreach (var t in UnityEngine.Object.FindObjectsOfType<Transform>())
+            if (t != null && t.gameObject.activeInHierarchy && t.gameObject.name.Equals("title", StringComparison.OrdinalIgnoreCase))
+            {
+                Log.Debug("Tour", $"hiding title card {PathOf(t)}");
+                t.gameObject.SetActive(false);
+            }
+    }
+
+    private static string PathOf(Transform t)
+    {
+        var parts = new List<string>();
+        for (var x = t; x != null; x = x.parent) parts.Add(x.gameObject.name);
+        parts.Reverse();
+        return string.Join("/", parts);
+    }
+
+    /// <summary>
+    /// geometry.txt: every 2D collider (walls, trap zones, triggers), every character with
+    /// its position, and every AC path's nodes - what a positional audio layer has to read.
+    /// </summary>
+    private static void WriteGeometry()
+    {
+        var sb = new StringBuilder();
+        sb.AppendLine("== Colliders2D (kind trigger? enabled active layer bounds-center size path)");
+        foreach (var c in UnityEngine.Object.FindObjectsOfType<Collider2D>(true).OrderBy(c => PathOf(c.transform)))
+        {
+            if (c == null) continue;
+            var b = c.bounds;
+            sb.AppendLine($"  {c.GetIl2CppType().Name} trig={c.isTrigger} en={c.enabled} act={c.gameObject.activeInHierarchy} " +
+                          $"layer={LayerMask.LayerToName(c.gameObject.layer)} c=({b.center.x:0.00},{b.center.y:0.00}) " +
+                          $"s=({b.size.x:0.00},{b.size.y:0.00}) {PathOf(c.transform)}" +
+                          (c.GetComponent<AC_Trigger>() != null ? " [AC_Trigger]" : "") +
+                          (c.GetComponent<Hotspot>() != null ? " [Hotspot]" : ""));
+        }
+        sb.AppendLine().AppendLine("== Characters");
+        foreach (var ch in UnityEngine.Object.FindObjectsOfType<Il2CppAC.Char>(true))
+        {
+            if (ch == null) continue;
+            var p = ch.transform.position;
+            sb.AppendLine($"  {ch.GetIl2CppType().Name} '{ch.gameObject.name}' at ({p.x:0.00},{p.y:0.00}) act={ch.gameObject.activeInHierarchy} " +
+                          $"walk={ch.walkSpeedScale} run={ch.runSpeedScale} path={(ch.GetPath() is { } cp ? cp.gameObject.name : "-")} {PathOf(ch.transform)}");
+        }
+        sb.AppendLine().AppendLine("== Paths");
+        foreach (var path in UnityEngine.Object.FindObjectsOfType<Paths>(true))
+        {
+            if (path == null) continue;
+            var nodes = path.nodes;
+            var pts = new List<string>();
+            for (var i = 0; nodes != null && i < nodes.Count; i++) pts.Add($"({nodes[i].x:0.00},{nodes[i].y:0.00})");
+            sb.AppendLine($"  '{path.gameObject.name}' type={path.pathType} speed={path.pathSpeed} {string.Join(" ", pts)}");
+        }
+        sb.AppendLine().AppendLine("== Markers");
+        foreach (var m in UnityEngine.Object.FindObjectsOfType<Marker>(true))
+        {
+            if (m == null) continue;
+            var p = m.transform.position;
+            sb.AppendLine($"  '{m.gameObject.name}' ({p.x:0.00},{p.y:0.00}) {PathOf(m.transform)}");
+        }
+        Directory.CreateDirectory(SceneDir());
+        File.WriteAllText(System.IO.Path.Combine(SceneDir(), "geometry.txt"), sb.ToString());
+    }
 
     // ---- text -----------------------------------------------------------------------------
 
