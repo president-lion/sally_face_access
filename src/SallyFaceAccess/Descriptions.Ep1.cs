@@ -81,7 +81,6 @@ internal static partial class Descriptions
             Cutscenes["lvl02/graveClimb"] = "An open grave lies before a headstone that reads: Diane Fisher, beloved mother and wife.";
             Cutscenes["lvl04/momHS: Use"] = "A morgue: a wall of metal body drawers, and a body under a sheet on a gurney.";
             Cutscenes["F5/eyeHole-Look"] = "Sal leans in close to the hole in the wall. Darkness inside.";
-            Cutscenes["Fbr1/demonTrigger"] = "In the dark kitchen, for a split second, Sal glimpses a demonic figure. Then it is gone.";
             Cutscenes["F2r4/charleyIntro"] = "Charley, a huge, sweaty man in a stained vest, sits slumped in a battered green armchair.";
             Cutscenes["F2r4/look: Look at"] = "While Sal looks over the ponies, the view closes in on Charley's face, staring, wide-eyed, unblinking.";
             Cutscenes["F2r4/Look at (2)"] = "While Sal looks over the ponies, the view closes in on Charley's face, staring, wide-eyed, unblinking.";
@@ -97,11 +96,7 @@ internal static partial class Descriptions
             Lines[242] = "An eye appears in the hole, staring out at Sal.";
             // F5r4: the man in 504, then the ghost in the bathroom.
             Lines[275] = "A knock. Sal turns back, and the man is gone.";
-            Lines[276] = "Handprints have appeared on the bathroom door.";
-            Lines[253] = "The ghost of a little girl appears.";
             Lines[264] = "A door bangs somewhere. The girl has vanished.";
-            Lines[278] = "The ghost girl rises into view again.";
-            Lines[284] = "She sinks away and is gone.";
             // t02: the end of Episode 1's session.
             Lines[795] = "Sal takes his mask from the table and puts it on.";
             Lines[796] = "Sal stands. He wears an orange prison jumpsuit marked Inmate, and his wrists are chained.";
@@ -112,10 +107,8 @@ internal static partial class Descriptions
 
         // ---- AfterLines
             // F2r4: Charley and the spiked tea.
-            AfterLines[388] = "Charley's eyes droop and he slumps in his armchair, snoring.";
             AfterLines[414] = "Charley heaves himself out of the chair and dashes into the bathroom. The door slams.";
             // End: the coroner's van.
-            AfterLines[764] = "Through the back window of the van, a body lies inside.";
             // t02
             AfterLines[797] = "Dr. Enon stands. Chains rattle.";
     }

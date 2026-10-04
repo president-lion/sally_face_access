@@ -34,7 +34,23 @@ internal static partial class Descriptions
 
     public static string Area(string scene, string camera) =>
         Areas.TryGetValue($"{scene}/{camera}", out var d) ? d
-        : Areas.TryGetValue(scene, out d) ? d : null;
+        : Areas.TryGetValue(scene, out d) ? d
+        : Hallways.TryGetValue(WorldText.HallwayFloor(scene), out d) ? d : null;
+
+    // Every episode's version of a hallway looks the same unless it has its own entry.
+    private static readonly Dictionary<int, string> Hallways = new()
+    {
+        [1] = "The first floor hallway. Doors to 101 and 102 on the left, the elevator, then 103, Mr. Addison's door " +
+              "with his nameplate, and 104. Further right, the way out of the building.",
+        [2] = "The second floor hallway: green doors to 201 and 202 on the left, the elevator in the middle, " +
+              "203 and 204 on the right.",
+        [3] = "The third floor hallway: doors to 301 and 302 on the left, the elevator, 303 and 304 on the right.",
+        [4] = "The fourth floor hallway: striped wallpaper over wood panelling. Doors to 401 and 402 on the left, " +
+              "the elevator, 403 and 404 on the right.",
+        [5] = "The fifth floor hallway, half torn apart for renovation: peeling wallpaper, loose planks propped against " +
+              "the walls and scattered on the floor, and notices saying the floor is being renovated. " +
+              "Grey doors to 501 and 502 on the left, the elevator, 503 and 504 on the right.",
+    };
 
     public static string Cutscene(string scene, string list) =>
         Cutscenes.TryGetValue($"{scene}/{list}", out var d) ? d : null;
@@ -42,4 +58,39 @@ internal static partial class Descriptions
     public static string Line(int lineID) => Lines.TryGetValue(lineID, out var d) ? d : null;
 
     public static string AfterLine(int lineID) => AfterLines.TryGetValue(lineID, out var d) ? d : null;
+
+    // Visual events by name, in any scene (see ActionHooks): "anim:clip", "show:object", "hide:object".
+    private static readonly Dictionary<string, string> Visuals = new()
+    {
+        ["anim:ghostGirlUp"] = "The ghost girl rises into view.",
+        ["anim:ghostGirlDown"] = "The ghost girl sinks away and is gone.",
+        ["anim:dogDeath"] = "The dog slumps over, dead, and fades away.",
+        ["show:demon"] = "In the dark, for a split second, a demonic figure.",
+        ["hide:demon"] = "It is gone.",
+        ["show:bathroomDoorHandPrints"] = "Handprints have appeared on the bathroom door.",
+        ["show:endBody"] = "Through the van's back window, a body lies inside.",
+        ["anim:charleySleep"] = "Charley slumps in his armchair, fast asleep.",
+        // Episode 2: the fragments.
+        ["anim:cultAnimAppear"] = "A hooded shadow figure flickers into view, then fades.",
+        ["anim:cultAnimAppear1"] = "A hooded shadow figure flickers into view, then fades.",
+        ["anim:cultAnimAppear2"] = "A hooded shadow figure flickers into view, then fades.",
+        ["anim:cultAnimAppear3"] = "A hooded shadow figure flickers into view, then fades.",
+        ["anim:phantomUp"] = "A translucent, flickering figure of a man rises up in front of Sal.",
+        ["anim:phantomOut"] = "The figure breaks apart and vanishes with a scream.",
+        ["anim:bathGhostUp"] = "A ghostly figure rises out of the bathtub.",
+        ["anim:bathGhostDown"] = "The ghost sinks back down and is gone.",
+        ["show:b_mirrorRedEyes"] = "In the mirror, a pair of glowing red eyes.",
+        ["anim:cultAnimGone"] = "The shadow fades away.",
+        ["anim:sandersonGhostUp"] = "The ghost of Mrs. Sanderson rises up, pale and translucent.",
+        ["anim:sandersonGhostDown"] = "Mrs. Sanderson's ghost sinks away.",
+        ["anim:lukeHanged"] = "The ghost of a man hangs from the noose, slowly swaying.",
+        ["anim:lukeDown"] = "He drops from the noose and stands, head hanging.",
+        ["anim:lukeDemon"] = "His face splits into something demonic, and he lunges at Sal with a shriek.",
+        ["anim:stacyUp"] = "The ghost of a woman rises into view.",
+        ["anim:stacyDown"] = "She fades away.",
+        ["anim:hugAnim"] = "The ghosts hold each other in a long embrace.",
+        ["anim:hugGone"] = "They fade from view together.",
+    };
+
+    public static string Visual(string key) => Visuals.TryGetValue(key, out var d) ? d : null;
 }

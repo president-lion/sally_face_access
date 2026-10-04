@@ -53,7 +53,10 @@ internal static class InventoryHandler
             if (it != null && !_now.ContainsKey(it.id)) _now[it.id] = TextClean.Clean(it.GetLabel(lang));
         }
 
-        if (_baseline)
+        // More than two items changing at once is the game resetting the inventory (each
+        // episode starts by emptying it), not the player picking things up: stay quiet.
+        var changes = _now.Keys.Count(k => !_carried.ContainsKey(k)) + _carried.Keys.Count(k => !_now.ContainsKey(k));
+        if (_baseline && changes <= 2)
         {
             foreach (var (id, name) in _now)
                 if (!_carried.ContainsKey(id)) Speech.Say(string.Format(Strings.Got, name), interrupt: false);

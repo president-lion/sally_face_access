@@ -26,7 +26,7 @@ internal static class WorldText
 
     // Words in internal object names that are scaffolding, not part of the thing's name.
     private static readonly HashSet<string> ObjectNoise = new(StringComparer.OrdinalIgnoreCase)
-        { "hs", "hotspot", "spot", "trigger", "on", "off", "up" };
+        { "hs", "hotspot", "spot", "trigger", "on", "off", "up", "down", "idle" };
 
     /// <summary>
     /// The spoken name of an interactive object. The game's label is a noun ("living room",
@@ -57,6 +57,7 @@ internal static class WorldText
         var words = w.Split(' ').Where(x => !ObjectNoise.Contains(x) && !x.All(char.IsDigit)).ToList();
         // A leading verb names the action, not the object ("push drawer", "pick up key").
         while (words.Count > 1 && Verbs.Contains(words[0])) words.RemoveAt(0);
+        while (words.Count > 1 && Verbs.Contains(words[^1])) words.RemoveAt(words.Count - 1); // "lisaTalkHS"
         // A lone letter is a sign on the thing itself ("door D"), so it reads as a capital.
         return string.Join(" ", words.Select(x => x.Length == 1 ? x.ToUpperInvariant() : x));
     }
@@ -67,6 +68,13 @@ internal static class WorldText
     private static readonly Regex HallwayScene = new(@"^(\d\d_)?((\d|os)_)?F([1-5])$", RegexOptions.Compiled);
     private static readonly Regex DoorLike = new(@"^$|door|knock|open|^\d{3}$|^(knock|open) \d{3}$",
         RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+    /// <summary>The floor number of an Addison Apartments hallway scene ("02_F3" -> 3), or 0.</summary>
+    public static int HallwayFloor(string scene)
+    {
+        var m = HallwayScene.Match(scene ?? "");
+        return m.Success ? m.Groups[4].Value[0] - '0' : 0;
+    }
 
     /// <summary>"apartment 403" for a door in a hallway scene, from the floor and the door's position.</summary>
     public static string HallwayDoor(string scene, string objectName, float x)
