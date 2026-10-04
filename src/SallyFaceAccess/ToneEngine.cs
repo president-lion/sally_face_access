@@ -11,7 +11,7 @@ namespace SallyFaceAccess;
 /// </summary>
 internal static class ToneEngine
 {
-    public enum Cue { Tick, Thud, Chirp, Trap, Beacon, Hum }
+    public enum Cue { Tick, Thud, Chirp, Trap, Beacon, Hum, Step }
 
     private const int Rate = 44100;
     private const int OneShotVoices = 10;
@@ -110,6 +110,8 @@ internal static class ToneEngine
         Cue.Beacon => Tone("beacon", 0.22f, t => Sine(880, t) + 0.3f * Sine(1760, t), Decay(14)),
         // Seamless loop (whole cycles): an enemy.
         Cue.Hum => Tone("hum", 1f, t => 0.6f * Triangle(150, t) + 0.25f * Sine(300, t) * (0.7f + 0.3f * Sine(3, t)), _ => 1f),
+        // Soft, dull white-noise pluck: a footstep where the game plays none.
+        Cue.Step => SoftNoise("step", 0.08f, decay: 55f, smoothing: 0.18f),
         _ => Tone("silence", 0.01f, _ => 0f, _ => 0f),
     };
 
@@ -117,6 +119,31 @@ internal static class ToneEngine
     private static float Square(float hz, float t) => Sine(hz, t) >= 0 ? 1f : -1f;
     private static float Triangle(float hz, float t) => 2f * MathF.Abs(2f * (t * hz - MathF.Floor(t * hz + 0.5f))) - 1f;
     private static Func<float, float> Decay(float k) => t => MathF.Exp(-k * t);
+
+    /// <summary>White noise through a one-pole low-pass (smaller smoothing = duller), with an exponential fade.</summary>
+    private static AudioClip SoftNoise(string name, float seconds, float decay, float smoothing)
+    {
+        var rng = new System.Random(7);
+        var n = (int)(seconds * Rate);
+        var data = new Il2CppStructArray<float>(n);
+        var y = 0f;
+        for (var i = 0; i < n; i++)
+        {
+            var t = (float)i / Rate;
+            y += smoothing * ((float)(rng.NextDouble() * 2 - 1) - y);
+            var attack = Math.Min(1f, i / (Rate * 0.003f));
+            data[i] = 1.6f * y * MathF.Exp(-decay * t) * attack;
+        }
+        return Clip(name, data);
+    }
+
+    private static AudioClip Clip(string name, Il2CppStructArray<float> data)
+    {
+        var clip = AudioClip.Create($"SallyFaceAccess.{name}", data.Length, 1, Rate, false);
+        clip.SetData(data, 0);
+        clip.hideFlags = HideFlags.DontUnloadUnusedAsset;
+        return clip;
+    }
 
     private static AudioClip Tone(string name, float seconds, Func<float, float> wave, Func<float, float> envelope)
     {
@@ -128,9 +155,6 @@ internal static class ToneEngine
             var attack = Math.Min(1f, i / (Rate * 0.002f)); // 2 ms fade-in: no click
             data[i] = 0.5f * wave(t) * envelope(t) * attack;
         }
-        var clip = AudioClip.Create($"SallyFaceAccess.{name}", n, 1, Rate, false);
-        clip.SetData(data, 0);
-        clip.hideFlags = HideFlags.DontUnloadUnusedAsset;
-        return clip;
+        return Clip(name, data);
     }
 }

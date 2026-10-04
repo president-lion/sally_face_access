@@ -58,6 +58,8 @@ public sealed class Mod : MelonMod
         catch (Exception ex) { Log.Once("Detector", ex); }
         try { SelfTest.Tick(); }
         catch (Exception ex) { Log.Once("SelfTest", ex); }
+        try { Footsteps.Tick(); }
+        catch (Exception ex) { Log.Once("Footsteps", ex); }
         try { TopDownAudio.Tick(); }
         catch (Exception ex) { Log.Once("TopDownAudio", ex); }
 
@@ -92,7 +94,7 @@ public sealed class Mod : MelonMod
     public override void OnSceneWasLoaded(int buildIndex, string sceneName)
     {
         Log.Debug("Scene", $"loaded {buildIndex} {sceneName}");
-        try { InventoryHandler.OnSceneLoaded(); GoalHandler.OnSceneLoaded(); Detector.OnSceneLoaded(); CutsceneHandler.OnSceneLoaded(sceneName); TourMode.OnSceneLoaded(sceneName); ItemHints.OnSceneLoaded(sceneName); WorldHandler.OnSceneLoaded(sceneName); TopDownAudio.OnSceneLoaded(sceneName); SelfTest.OnSceneLoaded(sceneName); }
+        try { InventoryHandler.OnSceneLoaded(); GoalHandler.OnSceneLoaded(); Detector.OnSceneLoaded(); CutsceneHandler.OnSceneLoaded(sceneName); TourMode.OnSceneLoaded(sceneName); ItemHints.OnSceneLoaded(sceneName); WorldHandler.OnSceneLoaded(sceneName); TopDownAudio.OnSceneLoaded(sceneName); Footsteps.OnSceneLoaded(); SelfTest.OnSceneLoaded(sceneName); }
         catch (Exception ex) { Log.Once("SceneLoaded", ex); }
     }
 
