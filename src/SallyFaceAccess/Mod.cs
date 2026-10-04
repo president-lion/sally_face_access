@@ -40,6 +40,9 @@ public sealed class Mod : MelonMod
         try { MenuHandler.Tick(); }
         catch (Exception ex) { Log.Once("MenuHandler", ex); }
 
+        try { DialogueHandler.Tick(); }
+        catch (Exception ex) { Log.Once("DialogueHandler", ex); }
+
         // Write the text dump once per session as soon as AC's managers exist, if there
         // is not one already. F11 rewrites it on demand.
         if (!_dumpedThisSession && TextDump.Ready)

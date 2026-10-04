@@ -12,6 +12,7 @@
     <Compile Include="..\..\src\SallyFaceAccess\TextClean.cs" Link="Linked\TextClean.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\RepeatFilter.cs" Link="Linked\RepeatFilter.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\SelectionAnnouncer.cs" Link="Linked\SelectionAnnouncer.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\DialogueFormat.cs" Link="Linked\DialogueFormat.cs" />
   </ItemGroup>
 
   <ItemGroup>
