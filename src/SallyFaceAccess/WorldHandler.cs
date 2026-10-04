@@ -200,7 +200,12 @@ internal static class WorldHandler
     internal static string NavMeshName() => KickStarter.sceneSettings?.navMesh?.gameObject.name ?? "<none>";
 
     /// <summary>The name as spoken in this room - numbered if it shares its name with another.</summary>
-    private static string DisplayName(Hotspot h) => _names.TryGetValue(h.Pointer, out var n) ? n : Name(h);
+    private static string DisplayName(Hotspot h)
+    {
+        var name = _names.TryGetValue(h.Pointer, out var n) ? n : Name(h);
+        var hint = ItemHints.For(h);
+        return hint == null ? name : $"{name}, {hint}";
+    }
 
     internal static string Name(Hotspot h) =>
         WorldText.HotspotName(WorldTables.Hotspot(_scene, h.gameObject.name, X(h)), h.gameObject.name, h.GetName(Options.GetLanguage()));

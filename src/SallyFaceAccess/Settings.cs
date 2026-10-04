@@ -13,6 +13,7 @@ internal static class Settings
     private static MelonPreferences_Entry<float> _stepSize;
     private static MelonPreferences_Entry<bool> _captureCutscenes;
     private static MelonPreferences_Entry<bool> _tour;
+    private static MelonPreferences_Entry<string> _hints;
     private static MelonPreferences_Entry<string> _tourOnly;
 
     public static string Backend => _backend?.Value ?? "auto";
@@ -20,6 +21,7 @@ internal static class Settings
     public static bool RunInBackground => _runInBackground?.Value ?? false;
     public static bool SpeakerNames => _speakerNames?.Value ?? true;
     public static bool Tour => _tour?.Value ?? false;
+    public static string Hints => (_hints?.Value ?? "subtle").Trim().ToLowerInvariant();
     public static string TourOnly => _tourOnly?.Value ?? "";
     public static bool CaptureCutscenes => _captureCutscenes?.Value ?? false;
     public static float StepSize => Math.Max(0.01f, _stepSize?.Value ?? 1f);
@@ -35,6 +37,8 @@ internal static class Settings
         var cat = MelonPreferences.CreateCategory("SallyFaceAccess", "Sally Face Access");
         _backend = cat.CreateEntry("Backend", "auto", "Speech backend",
             "Prism backend name (nvda, jaws, sapi, onecore, ...) or auto");
+        _hints = cat.CreateEntry("Hints", "subtle", "Item hints",
+            "off, subtle (an object says when something you carry is worth trying on it) or full (names the item)");
         _speakerNames = cat.CreateEntry("SpeakerNames", true, "Speak speaker names",
             "Say who is talking before each line of dialogue");
         _stepSize = cat.CreateEntry("StepSize", 1f, "Step size",

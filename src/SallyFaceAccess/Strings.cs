@@ -30,6 +30,9 @@ internal static class Strings
     public const string Goal = "goal: {0}";
     public const string NewGoal = "new goal: {0}";
     public const string NoGoal = "no goal yet";
+    public const string HintSubtle = "something new to try here";
+    public const string HintFull = "try the {0} here";
+    public const string And = " and ";
     public const string TourDone = "tour complete";
     public const string NoDescription = "no description for this place yet";
     public const string Left = "left";

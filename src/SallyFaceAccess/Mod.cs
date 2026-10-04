@@ -49,6 +49,9 @@ public sealed class Mod : MelonMod
         try { WorldHandler.Tick(); }
         catch (Exception ex) { Log.Once("WorldHandler", ex); }
 
+        try { ItemHints.Tick(); }
+        catch (Exception ex) { Log.Once("ItemHints", ex); }
+
         try { GoalHandler.Tick(); }
         catch (Exception ex) { Log.Once("GoalHandler", ex); }
 
@@ -83,7 +86,7 @@ public sealed class Mod : MelonMod
     public override void OnSceneWasLoaded(int buildIndex, string sceneName)
     {
         Log.Debug("Scene", $"loaded {buildIndex} {sceneName}");
-        try { InventoryHandler.OnSceneLoaded(); GoalHandler.OnSceneLoaded(); CutsceneHandler.OnSceneLoaded(sceneName); TourMode.OnSceneLoaded(sceneName); WorldHandler.OnSceneLoaded(sceneName); }
+        try { InventoryHandler.OnSceneLoaded(); GoalHandler.OnSceneLoaded(); CutsceneHandler.OnSceneLoaded(sceneName); TourMode.OnSceneLoaded(sceneName); ItemHints.OnSceneLoaded(sceneName); WorldHandler.OnSceneLoaded(sceneName); }
         catch (Exception ex) { Log.Once("SceneLoaded", ex); }
     }
 
