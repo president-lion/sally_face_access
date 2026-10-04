@@ -35,6 +35,27 @@ internal static partial class WorldTables
             Hotspots["F2/door 204 - locked"] = "apartment 204";
             Hotspots["F2/door 204 - open"] = "apartment 204";
 
+            // House of the Wretched, the game on Sal's Gear Boy. Three objects have blank names.
+            Hotspots["gearBoyGame/@33"] = "tree";
+            Hotspots["gearBoyGame/@61"] = "chair";
+            Hotspots["gearBoyGame/@79"] = "bookshelf";
+            Hotspots["gearBoyGame/door"] = "house door";
+            Hotspots["gearBoyGame/studyDoor"] = "door to her room";
+            Hotspots["gearBoyGame/toLR"] = "door to living room";
+            Hotspots["gearBoyGame/bathDoor"] = "door to bathroom";
+            Hotspots["gearBoyGame/bedDoor"] = "door to bedroom";
+            Areas["gearBoyGame"] = "House of the Wretched";
+            Rooms["gearBoyGame/graveCam"] = "the graveyard";
+            Rooms["gearBoyGame/graveCam (1)"] = "the graveyard, hidden corner";
+            Rooms["gearBoyGame/courtCam"] = "the courtyard";
+            Rooms["gearBoyGame/houseCam"] = "the house";
+            Rooms["gearBoyGame/studyCam"] = "his study";
+            Rooms["gearBoyGame/roomCam"] = "her room";
+            Rooms["gearBoyGame/hallCam"] = "apartment hallway";
+            Rooms["gearBoyGame/lrCam"] = "living room";
+            Rooms["gearBoyGame/bathCam"] = "bathroom";
+            Rooms["gearBoyGame/bedCam"] = "bedroom";
+
         // ---- Areas
             // Episode 1: the dream Sal tells Dr. Enon about, then the apartment.
             Areas["lvl00"] = "dream, hospital room";

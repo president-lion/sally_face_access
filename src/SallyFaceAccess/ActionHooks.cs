@@ -25,7 +25,7 @@ internal static class ActionHooks
         if (_recent.Count > 256) _recent.Clear();
 
         var text = Descriptions.Visual(key);
-        if (text != null) Speech.Say(text, interrupt: false);
+        if (text != null) { if (text.Length > 0) Speech.Say(text, interrupt: false); } // "" = known, deliberately silent
         else if (Settings.DebugLog) Log.Append("visuals.log", $"{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name} {key}");
     }
 

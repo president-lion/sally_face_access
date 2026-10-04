@@ -32,10 +32,11 @@ internal static class MenuHandler
             if (m == null || !m.IsOn()) continue;
             _scratch.Add(m.id);
             if (!_open.Contains(m.id)) OnOpened(m, lang);
+            else CheckState(m, lang);
             if (m.selected_element != null) focused = m;
         }
         foreach (var id in _open)
-            if (!_scratch.Contains(id)) Log.Debug("Menu", $"closed {id}");
+            if (!_scratch.Contains(id)) { Log.Debug("Menu", $"closed {id}"); _states.Remove(id); }
         _open.Clear();
         _open.UnionWith(_scratch);
 
@@ -45,9 +46,10 @@ internal static class MenuHandler
 
     // Menus whose labels are not worth reading on open: the title screen's version number,
     // the episode cards (their buttons read the labels), and the goal and inventory hint
-    // overlays that open alongside the inventory (the goal has its own announcement and F5).
+    // overlays that open alongside the inventory (the goal has its own announcement and F5),
+    // and the Super Gear Boy's button prompt (the Detector says what it does).
     private static readonly HashSet<string> NoIntro = new()
-        { "Start Screen 2", "Episode Select 2", "Goal", "Invenotry Icon" };
+        { "Start Screen 2", "Episode Select 2", "Goal", "Invenotry Icon", "Super Gear Boy", "R" };
 
     private static void OnOpened(Menu m, int lang)
     {
@@ -57,9 +59,12 @@ internal static class MenuHandler
         if (m.appearType is AppearType.WhenSpeechPlays or AppearType.DuringConversation
             or AppearType.OnHotspot) return;
 
+        var state = State(m, lang);
+        if (state != null) _states[m.id] = state;
         var intro = m.title switch
         {
             "Inventory" => InventoryHandler.Summary(lang),
+            _ when state != null => state,
             _ when NoIntro.Contains(m.title) => "",
             _ => IntroText(m, lang),
         };
@@ -69,6 +74,33 @@ internal static class MenuHandler
         // The selection usually lands in the same frame or just after; queue it behind
         // the intro instead of letting it cut the question off.
         _queueSelectionUntil = UnityEngine.Time.unscaledTime + 1f;
+    }
+
+    private static readonly Dictionary<int, string> _states = new();
+
+    /// <summary>Speaks a menu's current choice when it changes (the stereo station, the game book page).</summary>
+    private static void CheckState(Menu m, int lang)
+    {
+        var state = State(m, lang);
+        if (state == null || (_states.TryGetValue(m.id, out var old) && old == state)) return;
+        _states[m.id] = state;
+        Log.Debug("Menu", $"state {m.title} -> '{state}'");
+        Speech.Say(state);
+    }
+
+    private static string State(Menu m, int lang)
+    {
+        if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book")) return null;
+        var visible = new Dictionary<string, string>();
+        var els = m.visibleElements;
+        for (var i = 0; els != null && i < els.Count; i++)
+        {
+            var el = els[i];
+            if (el == null || string.IsNullOrEmpty(el.title)) continue;
+            var label = el.TryCast<MenuLabel>();
+            visible[el.title] = label != null ? TextClean.Clean(label.GetLabel(0, lang)) : "";
+        }
+        return MenuStates.State(m.title, visible);
     }
 
     /// <summary>

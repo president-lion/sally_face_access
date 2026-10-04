@@ -39,6 +39,13 @@ internal static class Labels
         ["Controls - Start 2/Button"] = Strings.Back,
         ["Controls - Start 3/Button"] = Strings.Back,
 
+        ["Stereo/Left Arrow"] = Strings.PreviousStation,
+        ["Stereo/Right Arrow"] = Strings.NextStation,
+        ["Stereo 2/Left Arrow"] = Strings.PreviousStation,
+        ["Stereo 2/Right Arrow"] = Strings.NextStation,
+        ["Stereo OS/Left Arrow"] = Strings.PreviousStation,
+        ["Stereo OS/Right Arrow"] = Strings.NextStation,
+
         ["Achievements Nav/close button"] = Strings.Close,
         ["Achievements Nav/close button (MM)"] = Strings.Close,
         ["Achievements Nav/r 1"] = Strings.NextPage,

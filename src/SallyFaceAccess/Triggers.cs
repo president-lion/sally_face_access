@@ -36,6 +36,8 @@ internal static class Triggers
             if (t == null || !t.gameObject.activeInHierarchy || !t.IsOn() || !t.detectsPlayer) continue;
             var name = NameOf(t);
             if (name == null) continue;
+            // Finding hot spots is the search itself; with hints off only the glow gives them away.
+            if (name == Strings.HotSpot && Settings.Hints == "off") continue;
             var c = t.GetComponent<Collider2D>()?.bounds.center ?? t.GetComponent<Collider>()?.bounds.center ?? t.transform.position;
             list.Add(new Entry { Trigger = t, X = c.x, Y = c.y, Name = name });
         }
@@ -55,6 +57,14 @@ internal static class Triggers
             {
                 var a = actions[i];
                 if (a == null || !a.isEnabled) continue;
+                // Super Gear Boy zones: "hot spot" for the one that makes the screen glow,
+                // nothing for the ones around it that only stop the glow.
+                var check = a.TryCast<ActionVarCheck>();
+                if (check != null && check.location == VariableLocation.Global && check.variableID == DetectorLogic.VariableId)
+                {
+                    if (check.intValue == DetectorLogic.Held) name = Strings.HotSpot;
+                    break;
+                }
                 var scene = a.TryCast<ActionScene>();
                 if (scene != null && !string.IsNullOrEmpty(scene.sceneName))
                 {

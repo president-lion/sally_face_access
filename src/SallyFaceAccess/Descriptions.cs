@@ -99,7 +99,8 @@ internal static partial class Descriptions
         ["anim:bathGhostUp"] = "A ghostly figure rises out of the bathtub.",
         ["anim:bathGhostDown"] = "The ghost sinks back down and is gone.",
         ["show:b_mirrorRedEyes"] = "In the mirror, a pair of glowing red eyes.",
-        ["anim:cultAnimGone"] = "The shadow fades away.",
+        // Played on every room load to reset the hidden seal, and the appear lines already say it fades.
+        ["anim:cultAnimGone"] = "",
         ["anim:sandersonGhostUp"] = "The ghost of Mrs. Sanderson rises up, pale and translucent.",
         ["anim:sandersonGhostDown"] = "Mrs. Sanderson's ghost sinks away.",
         ["anim:lukeHanged"] = "The ghost of a man hangs from the noose, slowly swaying.",

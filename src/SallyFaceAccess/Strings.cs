@@ -49,4 +49,15 @@ internal static class Strings
     public const string BasementRoom = "basement room {0}";
     public const string FloorRoom = "floor {0} room {1}";
     public const string Apartment = "apartment {0}";
+    public const string Static = "static";
+    public const string ItemOfCount = "{0}, {1} of {2}";
+    public const string PreviousStation = "previous station";
+    public const string NextStation = "next station";
+
+    // The Super Gear Boy detector.
+    public const string DetectorUp = "Gear Boy up";
+    public const string DetectorDown = "Gear Boy down";
+    public const string DetectorGlow = "Gear Boy glowing, press R";
+    public const string DetectorFade = "glow fades";
+    public const string HotSpot = "supernatural hot spot";
 }
