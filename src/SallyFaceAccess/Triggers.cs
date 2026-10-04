@@ -65,6 +65,12 @@ internal static class Triggers
                     if (check.intValue == DetectorLogic.Held) name = Strings.HotSpot;
                     break;
                 }
+                // Handheld games: traps and enemies have their own sounds, not scan entries;
+                // the dark maze's room-to-room zones are passages.
+                var run = a.TryCast<ActionRunActionList>();
+                var target = run?.actionList?.gameObject.name;
+                if (TopDownLogic.IsTrapList(target) || TopDownLogic.IsEnemyList(target)) break;
+                if (target != null && System.Text.RegularExpressions.Regex.IsMatch(target, @"^5_to[A-Z]{1,2}$")) { name = Strings.Passage; break; }
                 var scene = a.TryCast<ActionScene>();
                 if (scene != null && !string.IsNullOrEmpty(scene.sceneName))
                 {

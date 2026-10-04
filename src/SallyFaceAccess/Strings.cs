@@ -60,4 +60,17 @@ internal static class Strings
     public const string DetectorGlow = "Gear Boy glowing, press R";
     public const string DetectorFade = "glow fades";
     public const string HotSpot = "supernatural hot spot";
+
+    // Top-down handheld games.
+    public const string Up = "up";
+    public const string Down = "down";
+    public const string Open = "open";
+    public const string Walls = "up {0}, down {1}, left {2}, right {3}";
+    public const string HitSpikes = "spikes! back to the start";
+    public const string HitElectric = "shocked! back to the start";
+    public const string HitCultist = "caught! back to the start";
+    public const string TimesUp = "time's up, back to the start";
+    public const string Passage = "passage";
+    public const string AudioOn = "positional audio on";
+    public const string AudioOff = "positional audio off";
 }

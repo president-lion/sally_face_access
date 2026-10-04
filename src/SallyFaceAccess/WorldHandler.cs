@@ -29,7 +29,7 @@ internal static class WorldHandler
     private sealed class ScanItem
     {
         public IntPtr Ptr;
-        public float X;
+        public float X, Y;
         public Hotspot Hotspot;   // null for a trigger
         public string Label;      // the trigger's name
     }
@@ -74,7 +74,7 @@ internal static class WorldHandler
         }
 
         CheckActive();
-        CheckEdge();
+        if (!TopDownAudio.IsScene(_scene)) CheckEdge(); // top-down games thud instead
         DebugSnapshots();
 
         if (Input.GetKeyDown(KeyCode.PageDown)) Scan(+1);
@@ -111,10 +111,11 @@ internal static class WorldHandler
         _names.Clear();
         var (minX, maxX) = RoomRange();
         var py = KickStarter.player.transform.position.y;
+        var (minY, maxY) = TopDownAudio.IsScene(_scene) ? RoomRangeY() : (py - LevelHeight, py + LevelHeight);
         foreach (var h in UnityEngine.Object.FindObjectsOfType<Hotspot>())
         {
             if (h == null || !h.gameObject.activeInHierarchy || !h.IsOn()) continue;
-            if (Math.Abs(Y(h) - py) > LevelHeight) continue;
+            if (Y(h) < minY || Y(h) > maxY) continue;
             var x = X(h);
             if (x < minX || x > maxX) continue;
             if (Name(h).Length > 0) _hotspots.Add(h);
@@ -130,10 +131,10 @@ internal static class WorldHandler
         }
 
         _scan.Clear();
-        foreach (var h in _hotspots) _scan.Add(new ScanItem { Ptr = h.Pointer, X = X(h), Hotspot = h });
+        foreach (var h in _hotspots) _scan.Add(new ScanItem { Ptr = h.Pointer, X = X(h), Y = Y(h), Hotspot = h });
         foreach (var t in Triggers.Collect())
-            if (Math.Abs(t.Y - py) <= LevelHeight && t.X >= minX && t.X <= maxX)
-                _scan.Add(new ScanItem { Ptr = t.Trigger.Pointer, X = t.X, Label = t.Name });
+            if (t.Y >= minY && t.Y <= maxY && t.X >= minX && t.X <= maxX)
+                _scan.Add(new ScanItem { Ptr = t.Trigger.Pointer, X = t.X, Y = t.Y, Label = t.Name });
         _scan.Sort((a, b) => a.X.CompareTo(b.X));
 
         // Keep the scan position on the same thing when the list changes around it.
@@ -162,6 +163,28 @@ internal static class WorldHandler
         return (float.MinValue, float.MaxValue);
     }
 
+    /// <summary>The y range the current camera can show, for top-down games whose rooms are stacked closely.</summary>
+    private static (float, float) RoomRangeY()
+    {
+        var cam2d = KickStarter.mainCamera?.attachedCamera?.TryCast<GameCamera2D>();
+        var unityCam = KickStarter.CameraMain;
+        var half = unityCam != null && unityCam.orthographic ? unityCam.orthographicSize : 1.8f;
+        if (cam2d == null) return (float.MinValue, float.MaxValue);
+        var cy = cam2d.transform.position.y;
+        if (cam2d.lockVertical) return (cy - half, cy + half);
+        if (cam2d.limitVertical)
+        {
+            var lo = cam2d.constrainVertical.x - half;
+            var hi = cam2d.constrainVertical.y + half;
+            if (cy >= lo && cy <= hi) return (lo, hi);
+        }
+        return (cy - half * 1.5f, cy + half * 1.5f);
+    }
+
+    /// <summary>Where the item last picked in the scan is, for the top-down beacon; null when none.</summary>
+    internal static (float X, float Y)? ScanTarget =>
+        _scanIndex >= 0 && _scanIndex < _scan.Count ? (_scan[_scanIndex].X, _scan[_scanIndex].Y) : null;
+
     private static void CheckActive()
     {
         var h = KickStarter.playerInteraction?.GetActiveHotspot();
@@ -184,8 +207,10 @@ internal static class WorldHandler
         var item = _scan[_scanIndex];
         if (item.Label == null && item.Hotspot == null) return; // object destroyed since the last refresh
         var name = item.Hotspot != null ? DisplayName(item.Hotspot) : item.Label;
-        var dx = item.X - KickStarter.player.transform.position.x;
-        Speech.Say($"{name}, {WorldText.Direction(dx, Settings.StepSize)}");
+        var pos = KickStarter.player.transform.position;
+        var dx = item.X - pos.x;
+        var where = TopDownAudio.IsScene(_scene) ? TopDownLogic.Direction(dx, item.Y - pos.y) : WorldText.Direction(dx, Settings.StepSize);
+        Speech.Say($"{name}, {where}");
     }
 
     private static int NearestIndex()

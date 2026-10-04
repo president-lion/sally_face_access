@@ -11,12 +11,12 @@ namespace SallyFaceAccess;
 /// </summary>
 internal static class SaveGuard
 {
-    public static bool Blocking => Settings.Tour;
+    public static bool Blocking => Settings.Tour || Settings.SelfTest;
 
     private static bool Block(string what)
     {
         if (!Blocking) return true;
-        Log.Info("SaveGuard", $"blocked {what} (tour running)");
+        Log.Info("SaveGuard", $"blocked {what} (development tool running)");
         return false; // skip the original
     }
 
