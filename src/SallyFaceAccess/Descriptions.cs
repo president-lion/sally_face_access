@@ -52,6 +52,11 @@ internal static partial class Descriptions
               "Grey doors to 501 and 502 on the left, the elevator, 503 and 504 on the right.",
     };
 
+    // "scene/camera" -> what a close-up shows, spoken whenever the view cuts to that camera.
+    private static readonly Dictionary<string, string> Shots = new();
+
+    public static string Shot(string scene, string camera) => Shots.TryGetValue($"{scene}/{camera}", out var d) ? d : null;
+
     public static string Cutscene(string scene, string list) =>
         Cutscenes.TryGetValue($"{scene}/{list}", out var d) ? d : null;
 

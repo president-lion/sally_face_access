@@ -5,7 +5,8 @@ namespace SallyFaceAccess;
 
 /// <summary>
 /// Describes visual events that carry no text. A cutscene is an AC ActionList; when one
-/// with a description in <see cref="Descriptions"/> starts, the description is spoken.
+/// with a description in <see cref="Descriptions"/> starts, the description is spoken; likewise
+/// when the view cuts to a described close-up camera.
 ///
 /// Development aid (CaptureCutscenes setting): while the game is in a cutscene, saves a
 /// screenshot every 1.5 s to UserData\SallyFaceAccess\cutscenes\scene\, with a log tying
@@ -19,12 +20,14 @@ internal static class CutsceneHandler
     private static float _nextShot;
     private static int _shot;
     private static string _scene = "";
+    private static string _camera;
 
     public static void OnSceneLoaded(string scene)
     {
         _scene = scene;
         _running.Clear();
         _shot = 0;
+        _camera = null;
     }
 
     public static void Tick()
@@ -49,6 +52,15 @@ internal static class CutsceneHandler
         }
         _running.Clear();
         _running.UnionWith(_now);
+
+        // Close-ups: whenever the view cuts to a described camera, say what it shows.
+        var cam = KickStarter.mainCamera?.attachedCamera?.gameObject.name;
+        if (cam != null && cam != _camera)
+        {
+            _camera = cam;
+            var shot = Descriptions.Shot(_scene, cam);
+            if (shot != null) Speech.Say(shot, interrupt: false);
+        }
 
         if (Settings.CaptureCutscenes) Capture();
     }
