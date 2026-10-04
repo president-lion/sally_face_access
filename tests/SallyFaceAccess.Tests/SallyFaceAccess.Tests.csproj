@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="..\..\src\SallyFaceAccess\TextClean.cs" Link="Linked\TextClean.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\RepeatFilter.cs" Link="Linked\RepeatFilter.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\SelectionAnnouncer.cs" Link="Linked\SelectionAnnouncer.cs" />
   </ItemGroup>
 
   <ItemGroup>

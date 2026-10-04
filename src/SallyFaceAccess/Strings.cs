@@ -11,4 +11,5 @@ internal static class Strings
     public const string DebugSpeechOff = "Unhandled text speech off";
     public const string DumpWritten = "Text dump written";
     public const string UiDumpWritten = "Screen dump written";
+    public const string Percent = "{0} percent";
 }

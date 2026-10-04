@@ -25,7 +25,7 @@ internal static class UiDump
             sb.AppendLine($"EventSystem selected: {(sel != null ? PathOf(sel.transform) : "<none>")}");
 
             sb.AppendLine().AppendLine("== Open AC menus");
-            var menus = KickStarter.menuManager?.menus;
+            var menus = KickStarter.playerMenus != null ? PlayerMenus.GetMenus(true) : null;
             for (var i = 0; menus != null && i < menus.Count; i++)
             {
                 var m = menus[i];
