@@ -14,6 +14,7 @@ internal static class MenuHandler
     private static readonly HashSet<int> _open = new();
     private static readonly HashSet<int> _scratch = new();
     private static readonly SelectionAnnouncer _announcer = new();
+    private static float _queueSelectionUntil;
 
     public static void Tick()
     {
@@ -45,6 +46,36 @@ internal static class MenuHandler
     private static void OnOpened(Menu m, int lang)
     {
         Log.Debug("Menu", $"opened {m.id} '{m.title}' appear={m.appearType}");
+
+        // Subtitle, conversation and hotspot menus carry text the other handlers speak.
+        if (m.appearType is AppearType.WhenSpeechPlays or AppearType.DuringConversation
+            or AppearType.OnHotspot) return;
+
+        var intro = IntroText(m, lang);
+        if (intro.Length == 0) return;
+        Log.Debug("Menu", $"intro {m.title} -> '{intro}'");
+        Speech.Say(intro);
+        // The selection usually lands in the same frame or just after; queue it behind
+        // the intro instead of letting it cut the question off.
+        _queueSelectionUntil = UnityEngine.Time.unscaledTime + 1f;
+    }
+
+    /// <summary>
+    /// The text labels a menu shows when it opens - its title, or the question of a
+    /// Yes/No prompt - in element order.
+    /// </summary>
+    private static string IntroText(Menu m, int lang)
+    {
+        var parts = new List<string>();
+        var els = m.visibleElements;
+        for (var i = 0; els != null && i < els.Count; i++)
+        {
+            var label = els[i]?.TryCast<MenuLabel>();
+            if (label == null) continue;
+            var text = TextClean.Clean(label.GetLabel(0, lang));
+            if (text.Length > 0 && !parts.Contains(text)) parts.Add(text);
+        }
+        return string.Join(". ", parts);
     }
 
     private static void CheckSelection(Menu m, int lang)
@@ -57,7 +88,9 @@ internal static class MenuHandler
         if (say == null) return;
 
         Log.Debug("Menu", $"select {m.title}/{el.title} [{el.GetIl2CppType().Name}] slot {slot} -> '{say}'");
-        Speech.Say(say);
+        var queue = UnityEngine.Time.unscaledTime < _queueSelectionUntil;
+        _queueSelectionUntil = 0;
+        Speech.Say(say, interrupt: !queue);
     }
 
     /// <summary>The element's spoken name for a slot, falling back to its design-time title.</summary>
