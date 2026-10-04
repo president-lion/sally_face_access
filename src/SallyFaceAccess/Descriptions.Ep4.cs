@@ -107,6 +107,53 @@ internal static partial class Descriptions
         Shots["04_treeHouseDark/cultCam1"] = "A vision: the cult's inner sanctum bathed in purple light. Hooded figures with glowing " +
             "eyes stand in a ring. At their centre, a figure in a horned goat mask, a green gem blazing on his chest.";
         Shots["04_treeHouseDark/cultCam3"] = "A tall crystal shard carved with rings, rising through the dark.";
+        // ---- The building in two versions, and the rifts
+        Visuals["anim:pillarHole"] = "A huge stone pillar carved with a circle of symbols has burst up through the floor, black ooze " +
+                                     "dripping down its sides.";
+        Visuals["anim:pillarHoleOS"] = "A huge stone pillar carved with a circle of symbols stands here, black ooze dripping down its sides.";
+        Visuals["anim:pillarBreak"] = "The stone pillar cracks apart and crumbles.";
+        Visuals["anim:pillarBreakFinal"] = "The last pillar shatters.";
+        Visuals["anim:rift_On"] = "A rift tears open in the air, crackling with white lightning.";
+        Visuals["anim:rift_Off"] = "The rift dims.";
+        Visuals["anim:rift_Gone"] = "The rift seals shut and vanishes.";
+        Visuals["anim:larryOS_fadeIN"] = "Larry's ghost fades into view.";
+        Visuals["anim:larryOS_fadeOUT"] = "Larry's ghost fades away.";
+        Visuals["anim:rabbitLit"] = "A rabbit-like creature lights up in the gloom.";
+        Visuals["anim:rabbitKilled"] = "The creature is struck down.";
+        Visuals["anim:lightningStrike"] = "Lightning strikes.";
+        Visuals["anim:404_vhsBlast"] = "The tape bursts apart in a flash.";
+        Areas["04_2_F4"] = "The fourth floor hallway, doors 401 to 404, the door of 403 splintered. Halfway along, a huge stone " +
+                           "pillar carved with a circle of symbols has burst up through the floor, black ooze dripping from it.";
+        Areas["04_os_F4"] = "The fourth floor hallway: the doors grey and peeling, the doorway of 404 a black void, and the huge " +
+                            "carved stone pillar dripping black ooze in the middle.";
+        Areas["04_os_402/NavCam 1"] = "Apartment 402: grey armchairs and side tables, cracked frames on the walls. A towering shadow " +
+                                      "creature with glowing white eyes and tangled tendrils looms in the room, and white lightning " +
+                                      "crackles from a rift on the floor.";
+        Areas["04_os_402/bathroomCam"] = "The bathroom, rotting, blood streaked down the sink and tub.";
+        Areas["04_os_roof"] = "The roof, in black rain: crumbling stone ledges, and a tall carved crystal monolith.";
+        Areas["04_2_roof"] = "The roof of Addison Apartments.";
+        // ---- The Endless One, the murders, the execution
+        Areas["04_2_103"] = "Apartment 103, Mr. Addison's: dark, black ooze and tangled black tendrils spreading over the walls, a " +
+                            "heap of black sludge full of bones in the middle of the room.";
+        Cutscenes["04_2_103/onSceneStart101"] = "Mr. Addison stands at the end of the room, but wrong: his body hangs limp like a " +
+                                                "puppet, green slime oozing over it.";
+        Shots["04_2_103/cam2"] = "His true form rises behind him: a colossal mass of green slime, human hands and arms sticking out " +
+                                 "of it, a small pale head at its tip.";
+        Areas["04_2_battle"] = "A purple void between walls of green flesh. Sal floats in it, guitar in hand, his hair blazing like " +
+                               "blue fire. In the flesh wall, a giant eye opens, its pupil a glowing circle of symbols.";
+        Shots["04_2_battle/gameCamWhite"] = "Endless white. Far off, a small figure: Terrence Addison, as he was.";
+        Visuals["anim:terrenceKnife"] = "Terrence holds out a knife to Sal.";
+        Visuals["anim:terrenceFade"] = "Terrence fades into the white.";
+        Cutscenes["04_3_end/onSceneStart"] = "The entrance hall of Addison Apartments at night, the Addison Tea sign on the floor, " +
+                                             "black tendrils at the edges of everything.";
+        Shots["04_3_end/NavCam 1 (1)"] = "Todd slumps against the wall by the front door, pale, eyes red-rimmed, blood soaking his " +
+                                         "shirt from a wound in his side.";
+        Cutscenes["04_END/disablePlayerUpDown"] = "Ash races down a road on her motorcycle under a red sky.";
+        Shots["04_END/hallCam1"] = "Two guards lead Sal, in his orange jumpsuit, down a long grey corridor.";
+        Shots["04_END/chairCam"] = "Sal is strapped into an electric chair, a metal cap on his head.";
+        Shots["04_END/window1Cam"] = "Ash pounds on the viewing window with one fist, a paper pressed to the glass in her other hand.";
+        Shots["04_END/exoCam"] = "The executioner checks his watch, hand on the lever.";
+        Shots["04_END/window2Cam"] = "Ash's face against the glass, crying, as the chair behind it goes still.";
         Areas["04_Fbr2/NavCam 1"] = "The hidden apartment behind the basement shelf, abandoned. A hatch in the floor at the far end.";
     }
 }

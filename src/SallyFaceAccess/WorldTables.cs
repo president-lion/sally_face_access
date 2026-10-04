@@ -42,6 +42,9 @@ internal static partial class WorldTables
         : Hotspots.TryGetValue($"{scene}/@{Math.Round(x):0}", out n) ? n
         : WorldText.HallwayDoor(scene, objectName, x);
 
-    public static string Area(string scene) =>
-        Areas.TryGetValue(scene, out var n) ? n : WorldText.SceneName(scene);
+    public static string Area(string scene)
+    {
+        var n = Areas.TryGetValue(scene, out var a) ? a : WorldText.SceneName(scene);
+        return scene.StartsWith("04_os_") ? $"{n}, the other side" : n;
+    }
 }

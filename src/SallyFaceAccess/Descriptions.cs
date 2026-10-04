@@ -35,7 +35,21 @@ internal static partial class Descriptions
     public static string Area(string scene, string camera) =>
         Areas.TryGetValue($"{scene}/{camera}", out var d) ? d
         : Areas.TryGetValue(scene, out d) ? d
-        : Hallways.TryGetValue(WorldText.HallwayFloor(scene), out d) ? d : null;
+        : Hallways.TryGetValue(WorldText.HallwayFloor(scene), out d) ? Version(scene, d)
+        : Version(scene, null);
+
+    // Episode 4's two versions of Addison Apartments: every room exists in both, so each
+    // version is described once and prefixed to whatever the room itself has.
+    private const string NowVersion = "Addison Apartments, clean and new-looking, security cameras watching from the ceilings. ";
+    private const string OtherSide = "The other side: a grey, colourless mirror of the building, walls cracked and peeling, " +
+                                     "the edges of the room swallowed in darkness. ";
+
+    private static string Version(string scene, string described)
+    {
+        if (scene.StartsWith("04_os_")) return OtherSide + (described ?? "");
+        if (scene.StartsWith("04_2_") && described != null) return NowVersion + described;
+        return described;
+    }
 
     // Every episode's version of a hallway looks the same unless it has its own entry.
     private static readonly Dictionary<int, string> Hallways = new()
