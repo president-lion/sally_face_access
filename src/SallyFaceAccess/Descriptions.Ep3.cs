@@ -96,6 +96,13 @@ internal static partial class Descriptions
         Areas["03_402/dadsRoomCam"] = "Dad's room: the bed, and dad's desk with his computer, its screen on. A photo of mom stands " +
                                       "on the desk.";
         Areas["03_501"] = "Apartment 501: dark, with stained wallpaper. Old newspaper pages are pinned to the wall.";
+        // The three papers on the wall, left to right: newspaper 3, 2, 1. Spoken before Sal's comment.
+        Cutscenes["03_501/newspaper 3: Use"] = "A yellowed page held up by two pins, its masthead reading Yesterday's News, " +
+                                               "with a scribbly drawing of a blob-like figure and a smaller picture near the bottom.";
+        Cutscenes["03_501/newspaper 2: Use"] = "A grey front page pinned at both corners, its masthead reading News Tomorrow. " +
+                                               "A photo shows two faces side by side, and the bottom of the page is torn away in a jagged rip.";
+        Cutscenes["03_501/newspaper 1: Use"] = "A narrow clipping hung on a single nail, its top corner curling over. " +
+                                               "The headline begins Today, above a small photo of a round, smiling face.";
         Areas["03_502"] = "Apartment 502: dark and empty but for the old broken birdcage on the floor.";
         Areas["03_504/NavCam 1"] = "Apartment 504: dark and filthy. A Ouija board lies on the floor.";
         Areas["03_504/bathroomCam"] = "The mouldy bathroom. A necklace hangs from the towel rail.";
