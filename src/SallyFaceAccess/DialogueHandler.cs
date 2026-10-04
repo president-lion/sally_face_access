@@ -9,11 +9,21 @@ namespace SallyFaceAccess;
 ///
 /// A new foreground line interrupts: it means the previous one finished or was skipped.
 /// Background chatter queues so it does not cut off what the player is listening to.
+///
+/// During a cutscene the arrow keys repeat the current line until it is advanced, and
+/// advancing a line (Enter) plays a short E-flat major chord once the line has gone.
 /// </summary>
 internal static class DialogueHandler
 {
     private static readonly HashSet<IntPtr> _spoken = new();
     private static readonly HashSet<IntPtr> _alive = new();
+
+    // The foreground line on screen now, for the arrow-key repeat.
+    private static IntPtr _current;
+    private static string _currentText;
+    // The line Enter was pressed on, waiting to see it go.
+    private static IntPtr _advancing;
+    private static float _advancingSince;
 
     public static void Tick()
     {
@@ -32,6 +42,7 @@ internal static class DialogueHandler
             _spoken.Add(key);
 
             var line = DialogueFormat.Line(sp.GetSpeaker(lang), sp.FullText, Settings.SpeakerNames);
+            if (!sp.isBackground) { _current = key; _currentText = line; }
             Log.Debug("Dialogue", $"line {sp.LineID} bg={sp.isBackground} -> '{line}'");
             // What the scene shows just before this line, if it has been described.
             var shown = Descriptions.Line(sp.LineID);
@@ -44,5 +55,37 @@ internal static class DialogueHandler
         // Forget lines that have ended, so the set does not grow and a reused pointer
         // is treated as a new line.
         _spoken.IntersectWith(_alive);
+
+        if (_current != IntPtr.Zero && !_alive.Contains(_current)) { _current = IntPtr.Zero; _currentText = null; }
+        RepeatAndAdvance();
+    }
+
+    private static void RepeatAndAdvance()
+    {
+        var now = UnityEngine.Time.unscaledTime;
+
+        // The line Enter was pressed on has gone: it advanced.
+        if (_advancing != IntPtr.Zero)
+        {
+            if (!_alive.Contains(_advancing))
+            {
+                _advancing = IntPtr.Zero;
+                ToneEngine.Play(ToneEngine.Cue.Advance, new TopDownLogic.Placement(0f, 1f, 1f), 0.45f);
+            }
+            else if (now - _advancingSince > 0.6f) _advancing = IntPtr.Zero; // Enter did not skip this one
+        }
+
+        if (_current == IntPtr.Zero) return;
+        if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Return) || UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.KeypadEnter))
+        {
+            _advancing = _current;
+            _advancingSince = now;
+        }
+
+        // Arrow keys move the player in normal play, so they only repeat during cutscenes.
+        if (KickStarter.stateHandler?.gameState == GameState.Normal) return;
+        if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.UpArrow) || UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.DownArrow)
+            || UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.LeftArrow) || UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.RightArrow))
+            Speech.Say(_currentText);
     }
 }

@@ -11,7 +11,7 @@ namespace SallyFaceAccess;
 /// </summary>
 internal static class ToneEngine
 {
-    public enum Cue { Tick, Thud, Chirp, Trap, Beacon, Hum, Step }
+    public enum Cue { Tick, Thud, Chirp, Trap, Beacon, Hum, Step, Advance }
 
     private const int Rate = 44100;
     private const int OneShotVoices = 10;
@@ -112,6 +112,8 @@ internal static class ToneEngine
         Cue.Hum => Tone("hum", 1f, t => 0.6f * Triangle(150, t) + 0.25f * Sine(300, t) * (0.7f + 0.3f * Sine(3, t)), _ => 1f),
         // Soft, dull white-noise pluck: a footstep where the game plays none.
         Cue.Step => SoftNoise("step", 0.08f, decay: 55f, smoothing: 0.18f),
+        // E-flat major chord (E-flat, G, B-flat): a dialogue line advanced.
+        Cue.Advance => Tone("advance", 0.45f, t => (Sine(311.13f, t) + Sine(392.00f, t) + Sine(466.16f, t)) / 2.2f, Decay(7)),
         _ => Tone("silence", 0.01f, _ => 0f, _ => 0f),
     };
 
