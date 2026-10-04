@@ -86,7 +86,14 @@ internal static partial class Descriptions
             Cutscenes["lvl00/turnOnLights"] = "The lights flicker on.";
             Cutscenes["lvl02/dogSpeakTo"] = "The camera closes in on Sal and the dog. The dog stares up at Sal with glowing yellow eyes.";
             Cutscenes["lvl02/graveClimb"] = "An open grave lies before a headstone that reads: Diane Fisher, beloved mother and wife.";
-            Cutscenes["lvl04/momHS: Use"] = "A morgue: a wall of metal body drawers, and a body under a sheet on a gurney.";
+            // The dream door's keypad: the broken picture replaces the whole one.
+            Visuals["show:passcodeSmall2"] = "The keypad bursts apart: its face is smashed open, sparking wires and a green circuit board " +
+                                             "spilling out, and the pipe beside it splits, spitting sparks.";
+            Visuals["show:passcode_pipes2"] = "";
+            // Dad's last line in the dream: he is removed and a faint outline of him shown, with a white flash.
+            Visuals["show:dreamDadDead"] = "A white flash, and Dad is gone. Where he stood, only a faint, pale outline of him lingers, " +
+                                           "head bowed.";
+            Cutscenes["lvl04/momHS: Use"] ="A morgue: a wall of metal body drawers, and a body under a sheet on a gurney.";
             Cutscenes["F5/eyeHole-Look"] = "Sal leans in close to the hole in the wall. Darkness inside.";
             Cutscenes["F2r4/charleyIntro"] = "Charley, a huge, sweaty man in a stained vest, sits slumped in a battered green armchair.";
             Cutscenes["F2r4/look: Look at"] = "While Sal looks over the ponies, the view closes in on Charley's face, staring, wide-eyed, unblinking.";

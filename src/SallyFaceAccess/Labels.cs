@@ -46,6 +46,21 @@ internal static class Labels
         ["Stereo OS/Left Arrow"] = Strings.PreviousStation,
         ["Stereo OS/Right Arrow"] = Strings.NextStation,
 
+        // The treehouse chest (Episode 2) and the school lockers (Episode 3): picture buttons.
+        ["chestMenu/1"] = "magazines",
+        ["chestMenu/2"] = "leather jacket",
+        ["chestMenu/3"] = "small box",
+        ["chestMenu/X"] = Strings.Close,
+        ["Larry's Locker/sal"] = "Sal's painting",
+        ["Larry's Locker/ash"] = "Ash's drawing",
+        ["Larry's Locker/art"] = "art supplies",
+        ["Ash's Locker/dudes"] = "stuffed dolls",
+        ["Ash's Locker/art"] = "art supplies",
+        ["Ash's Locker/sal"] = "photo of Sal",
+        ["Todd's Locker/stuff"] = "invention supplies",
+        ["Todd's Locker/potato"] = "potato light",
+        ["locker message/Button"] = Strings.Continue,
+
         ["Achievements Nav/close button"] = Strings.Close,
         ["Achievements Nav/close button (MM)"] = Strings.Close,
         ["Achievements Nav/r 1"] = Strings.NextPage,

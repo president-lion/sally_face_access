@@ -32,11 +32,11 @@ internal static class MenuHandler
             if (m == null || !m.IsOn()) continue;
             _scratch.Add(m.id);
             if (!_open.Contains(m.id)) OnOpened(m, lang);
-            else CheckState(m, lang);
+            else { CheckState(m, lang); CheckNewLabels(m, lang); }
             if (m.selected_element != null) focused = m;
         }
         foreach (var id in _open)
-            if (!_scratch.Contains(id)) { Log.Debug("Menu", $"closed {id}"); _states.Remove(id); }
+            if (!_scratch.Contains(id)) { Log.Debug("Menu", $"closed {id}"); _states.Remove(id); _labels.Remove(id); }
         _open.Clear();
         _open.UnionWith(_scratch);
 
@@ -59,6 +59,7 @@ internal static class MenuHandler
         if (m.appearType is AppearType.WhenSpeechPlays or AppearType.DuringConversation
             or AppearType.OnHotspot) return;
 
+        _labels[m.id] = VisibleLabels(m);
         var state = State(m, lang);
         if (state != null) _states[m.id] = state;
         var intro = m.title switch
@@ -77,6 +78,41 @@ internal static class MenuHandler
     }
 
     private static readonly Dictionary<int, string> _states = new();
+    private static readonly Dictionary<int, HashSet<int>> _labels = new();
+
+    private static HashSet<int> VisibleLabels(Menu m)
+    {
+        var set = new HashSet<int>();
+        var els = m.visibleElements;
+        for (var i = 0; els != null && i < els.Count; i++)
+            if (els[i]?.TryCast<MenuLabel>() != null) set.Add(els[i].ID);
+        return set;
+    }
+
+    /// <summary>
+    /// Text that appears in an open menu after it opened - what Sal says about an item picked
+    /// in the treehouse chest or a locker. Only menus that pause the game (close-ups and
+    /// puzzles), not on-screen overlays whose labels come and go.
+    /// </summary>
+    private static void CheckNewLabels(Menu m, int lang)
+    {
+        if (!m.pauseWhenEnabled || NoIntro.Contains(m.title) || State(m, lang) != null) return;
+        var now = VisibleLabels(m);
+        var before = _labels.TryGetValue(m.id, out var b) ? b : new HashSet<int>();
+        _labels[m.id] = now;
+        var parts = new List<string>();
+        var els = m.visibleElements;
+        for (var i = 0; els != null && i < els.Count; i++)
+        {
+            var label = els[i]?.TryCast<MenuLabel>();
+            if (label == null || before.Contains(label.ID)) continue;
+            var text = TextClean.Clean(label.GetLabel(0, lang));
+            if (text.Length > 0 && !parts.Contains(text)) parts.Add(text);
+        }
+        if (parts.Count == 0) return;
+        Log.Debug("Menu", $"new text in {m.title}: '{string.Join(". ", parts)}'");
+        Speech.Say(string.Join(". ", parts));
+    }
 
     /// <summary>Speaks a menu's current choice when it changes (the stereo station, the game book page).</summary>
     private static void CheckState(Menu m, int lang)

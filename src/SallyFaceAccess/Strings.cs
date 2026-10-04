@@ -14,6 +14,7 @@ internal static class Strings
     public const string Percent = "{0} percent";
     public const string Back = "back";
     public const string Close = "close";
+    public const string Continue = "continue";
     public const string NextPage = "next page";
     public const string PreviousPage = "previous page";
     public const string Empty = "empty";

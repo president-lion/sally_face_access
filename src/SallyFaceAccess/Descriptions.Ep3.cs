@@ -20,6 +20,12 @@ internal static partial class Descriptions
                               "What if I were more than just a doodle? Other doodles stand about: triangle-headed stick men, " +
                               "sad square-headed figures, a scribbled monster with a mouth full of teeth. Ladders drawn in pencil " +
                               "connect the lines. Further down, crumpled paper, a giant pink eraser, and a folded paper fortune teller.";
+        Cutscenes["03_doodles/???: Use"] = "The paper fortune teller fades away, the page shakes, and the Prophet appears in its place.";
+        // The jump scare at the end: camera cuts between Dood and the hole, then the doodVoid animation.
+        Cutscenes["03_doodles/theHole"] = "The view snaps between Dood and the Great Hole ahead: a ragged black tear in the paper, " +
+                                          "torn edges curling. Back and forth, closer each time.";
+        Visuals["anim:doodVoid"] = "Suddenly Dood's round face is scribbled over into a frantic black tangle, arms jerking out stiff, " +
+                                   "just like the triangle-headed doodle's friend.";
 
         // ---- Nockfell High School
         Cutscenes["03_schoolPackertonIntro/End"] = "Nockfell High School: a red brick building with a flagpole out front, " +
