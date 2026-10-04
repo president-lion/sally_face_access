@@ -112,6 +112,8 @@ internal static class MenuHandler
         if (parts.Count == 0) return;
         Log.Debug("Menu", $"new text in {m.title}: '{string.Join(". ", parts)}'");
         Speech.Say(string.Join(". ", parts));
+        // The game moves the selection onto a close button at the same moment; let that wait its turn.
+        _queueSelectionUntil = UnityEngine.Time.unscaledTime + 1f;
     }
 
     /// <summary>Speaks a menu's current choice when it changes (the stereo station, the game book page).</summary>
