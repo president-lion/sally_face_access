@@ -5,7 +5,7 @@ namespace SallyFaceAccess;
 
 /// <summary>
 /// Describes visual events that carry no text. A cutscene is an AC ActionList; when one
-/// listed in <see cref="Descriptions"/> starts, its description is spoken.
+/// with a description in <see cref="Descriptions"/> starts, the description is spoken.
 ///
 /// Development aid (CaptureCutscenes setting): while the game is in a cutscene, saves a
 /// screenshot every 1.5 s to UserData\SallyFaceAccess\cutscenes\scene\, with a log tying
@@ -14,11 +14,6 @@ namespace SallyFaceAccess;
 /// </summary>
 internal static class CutsceneHandler
 {
-    // Key "scene/ActionList name". Mod wording, English for now.
-    private static readonly Dictionary<string, string> Descriptions = new()
-    {
-    };
-
     private static readonly HashSet<string> _running = new();
     private static readonly HashSet<string> _now = new();
     private static float _nextShot;
@@ -49,7 +44,8 @@ internal static class CutsceneHandler
             if (_running.Contains(name)) continue;
 
             Log.Debug("Cutscene", $"start {_scene}/{name}");
-            if (Descriptions.TryGetValue($"{_scene}/{name}", out var text)) Speech.Say(text, interrupt: false);
+            var text = Descriptions.Cutscene(_scene, name);
+            if (text != null) Speech.Say(text, interrupt: false);
         }
         _running.Clear();
         _running.UnionWith(_now);

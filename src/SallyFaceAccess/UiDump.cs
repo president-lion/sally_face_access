@@ -51,8 +51,15 @@ internal static class UiDump
             var active = KickStarter.playerInteraction?.GetActiveHotspot();
             sb.AppendLine($"Active: {(active != null ? active.gameObject.name : "<none>")}");
             sb.AppendLine($"Camera: {WorldHandler.CameraName()}  NavMesh: {WorldHandler.NavMeshName()}");
+            var uc = KickStarter.CameraMain;
+            if (uc != null) sb.AppendLine($"  unity camera ortho={uc.orthographic} size={uc.orthographicSize} aspect={uc.aspect} fov={uc.fieldOfView}");
             foreach (var cam in UnityEngine.Object.FindObjectsOfType<_Camera>())
-                if (cam != null) sb.AppendLine($"  camera '{cam.gameObject.name}' at {cam.transform.position} type={cam.GetIl2CppType().Name}");
+            {
+                if (cam == null) continue;
+                var c2 = cam.TryCast<GameCamera2D>();
+                var limits = c2 == null ? "" : $" lockH={c2.lockHorizontal} limitH={c2.limitHorizontal} constrainH={c2.constrainHorizontal} lockV={c2.lockVertical} limitV={c2.limitVertical} constrainV={c2.constrainVertical}";
+                sb.AppendLine($"  camera '{cam.gameObject.name}' at {cam.transform.position} type={cam.GetIl2CppType().Name}{limits}");
+            }
             foreach (var nm in UnityEngine.Object.FindObjectsOfType<NavigationMesh>())
                 if (nm != null) sb.AppendLine($"  navmesh '{nm.gameObject.name}' active={nm.gameObject.activeInHierarchy}");
             var lang = Options.GetLanguage();

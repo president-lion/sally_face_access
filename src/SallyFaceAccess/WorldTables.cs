@@ -23,6 +23,18 @@ internal static class WorldTables
         ["F4r2"] = "apartment 402",
     };
 
+    // Rooms within an area, keyed "scene/camera name".
+    private static readonly Dictionary<string, string> Rooms = new()
+    {
+        ["F4r2/salsRoomCam"] = "Sal's room",
+        ["F4r2/dadsRoomCam"] = "dad's room",
+        ["F4r2/bathroomCam"] = "bathroom",
+        ["F4r2/NavCam 1"] = "living room",
+    };
+
+    public static string Room(string scene, string camera) =>
+        Rooms.TryGetValue($"{scene}/{camera}", out var n) ? n : null;
+
     public static string Hotspot(string scene, string objectName) =>
         Hotspots.TryGetValue($"{scene}/{objectName}", out var n) ? n : null;
 

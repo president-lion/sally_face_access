@@ -33,7 +33,10 @@ internal static class DialogueHandler
 
             var line = DialogueFormat.Line(sp.GetSpeaker(lang), sp.FullText, Settings.SpeakerNames);
             Log.Debug("Dialogue", $"line {sp.LineID} bg={sp.isBackground} -> '{line}'");
-            Speech.Say(line, interrupt: !sp.isBackground);
+            // What the scene shows just before this line, if it has been described.
+            var shown = Descriptions.Line(sp.LineID);
+            if (shown != null) Speech.Say(shown, interrupt: !sp.isBackground);
+            Speech.Say(line, interrupt: !sp.isBackground && shown == null);
         }
 
         // Forget lines that have ended, so the set does not grow and a reused pointer

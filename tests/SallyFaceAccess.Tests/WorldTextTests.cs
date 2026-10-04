@@ -20,6 +20,7 @@ public class HotspotNameTests
     [InlineData("graveStone", "climb down", "grave stone, climb down")]
     [InlineData("dogHotspot", "Speak", "dog, Speak")]
     [InlineData("pushDrawer", "push", "drawer, push")]
+    [InlineData("doorD", "open", "door D, open")]
     public void NamesFromObjectAndLabel(string objectName, string label, string expected) =>
         Assert.Equal(expected, WorldText.HotspotName(null, objectName, label));
 
@@ -41,6 +42,30 @@ public class HotspotNameTests
     [Fact]
     public void NothingKnownGivesEmpty() =>
         Assert.Equal("", WorldText.HotspotName(null, "", ""));
+}
+
+public class NumberedTests
+{
+    [Fact]
+    public void NumberGoesAfterTheNameBeforeThePrompt() =>
+        Assert.Equal("door 2, open", WorldText.Numbered("door, open", 2));
+
+    [Fact]
+    public void NameWithoutPromptGetsNumberAtEnd() =>
+        Assert.Equal("bags 3", WorldText.Numbered("bags", 3));
+}
+
+public class RoomNameTests
+{
+    [Theory]
+    [InlineData("salsRoomCam", "sals room")]
+    [InlineData("dadsRoomCam", "dads room")]
+    [InlineData("bathroomCam", "bathroom")]
+    [InlineData("NavCam 1", null)]
+    [InlineData("navCam1", null)]
+    [InlineData("GameCamera2D", null)]
+    public void FromCameraName(string camera, string expected) =>
+        Assert.Equal(expected, WorldText.RoomFromCamera(camera));
 }
 
 public class DirectionTests

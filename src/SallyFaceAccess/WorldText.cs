@@ -57,7 +57,27 @@ internal static class WorldText
         var words = w.Split(' ').Where(x => !ObjectNoise.Contains(x) && !x.All(char.IsDigit)).ToList();
         // A leading verb names the action, not the object ("push drawer", "pick up key").
         while (words.Count > 1 && Verbs.Contains(words[0])) words.RemoveAt(0);
-        return string.Join(" ", words);
+        // A lone letter is a sign on the thing itself ("door D"), so it reads as a capital.
+        return string.Join(" ", words.Select(x => x.Length == 1 ? x.ToUpperInvariant() : x));
+    }
+
+    /// <summary>Numbers one of several same-named things: "door, open" + 2 -> "door 2, open".</summary>
+    public static string Numbered(string name, int n)
+    {
+        var i = name.IndexOf(", ", StringComparison.Ordinal);
+        return i < 0 ? $"{name} {n}" : $"{name[..i]} {n}{name[i..]}";
+    }
+
+    /// <summary>
+    /// The room a camera shows, from its name ("salsRoomCam" -> "sals room"), or null for the
+    /// area's main camera ("NavCam 1", "GameCamera2D"), which is just the area itself.
+    /// </summary>
+    public static string RoomFromCamera(string camera)
+    {
+        if (string.IsNullOrWhiteSpace(camera)) return null;
+        var w = Words(camera).Split(' ').Where(x => x != "cam" && x != "camera" && !x.All(char.IsDigit)).ToList();
+        if (w.Count == 0 || w.Contains("nav") || w.Contains("game")) return null;
+        return string.Join(" ", w);
     }
 
     /// <summary>"right, 3 steps", "left, 1 step", or "here" for an x offset from the player.</summary>

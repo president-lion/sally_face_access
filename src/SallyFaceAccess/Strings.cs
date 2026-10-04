@@ -30,6 +30,7 @@ internal static class Strings
     public const string Goal = "goal: {0}";
     public const string NewGoal = "new goal: {0}";
     public const string NoGoal = "no goal yet";
+    public const string NoDescription = "no description for this place yet";
     public const string Left = "left";
     public const string Right = "right";
     public const string OneStep = "1 step";
