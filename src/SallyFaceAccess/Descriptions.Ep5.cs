@@ -1,0 +1,96 @@
+namespace SallyFaceAccess;
+
+/// <summary>Episode 5: Memories and Dreams - Neveroak Cemetery, the house, the temple, the void, the end.</summary>
+internal static partial class Descriptions
+{
+    static partial void Episode5()
+    {
+        // ---- Neveroak Cemetery
+        Areas["05_cemetery"] = "Neveroak Cemetery at night, under a full moon: an iron arch over the gates spelling Neveroak " +
+            "Cemetery, rows of headstones and crosses on dark hills, bare trees against drifting clouds. Among the graves lie " +
+            "the Holmes family, Luke, Stacy and Megan; the Sandersons; Robert Silva; Morrison; Chug and Soda Cohen; Larry " +
+            "Johnson; Lisa Johnson-Fisher and Henry Fisher; and at the far end, Sal Fisher.";
+        Shots["05_cemetery/salCam 1"] = "A headstone: Sal Fisher, 1976 to 2004, son of Henry and Diane Fisher.";
+        Shots["05_cemetery/cutCam"] = "Sal's gloved hand holds a pocket knife over his other open palm.";
+        Shots["05_cemetery/ashAwakenCam"] = "Ash rises from the grave, her hair matted, her arm burned and scarred down to the " +
+                                            "fingers, a pale glow in her eyes.";
+        Visuals["anim:ash_awaken"] = "Ash's eyes snap open.";
+        Visuals["anim:ash_powerUp"] = "Light crackles down Ash's scarred arm.";
+
+        // ---- The house, and its other versions
+        Areas["05_house1"] = "Sal and Todd's house, in daylight: the kitchen with floral wallpaper, the hallway and stairs, the " +
+                             "living room with the TV and the orange couch, a wilting plant on the hall table.";
+        Shots["05_house1/photoCam"] = "A photo, held in Sal's hand: a young man with messy brown hair hugging an old lady with " +
+                                      "curly grey hair, both smiling.";
+        Shots["05_house1/churchCam1"] = "Up the hill past the Phelps Ministry sign, the white church stands against a blue sky.";
+        Areas["05_house1_neilsRoom"] = "Todd's attic room, now Neil's: the solar system poster, the round table heaped with " +
+                                       "papers, filing cabinets, the computer desk, and Neil standing by them.";
+        Areas["05_house1_basement"] = "The basement, grey brick: a water heater, a washer and dryer, wardrobes, an old green " +
+            "couch, boxes, a broken cage under the stairs, and dozens of photos and notes pinned to the wall.";
+        Areas["05_house1_Shed"] = "The shed out back, the workshop. A package sits on the bench.";
+        Areas["05_alt_House"] = "The house again, but flat and wrong, as if drawn without shadows: the kitchen, a metal door with " +
+            "a keypad, a scratched and splintered door, the living room, Sal's room with its masks, and hexagon plates mounted " +
+            "on the walls with green lights above them.";
+        Visuals["anim:black_on"] = "The lights go out.";
+
+        // ---- The treehouse fire, and the void
+        Cutscenes["05_treeHouse/burning"] = "The treehouse catches fire. Flames climb the walls and roar up into the dark.";
+        Areas["05_void"] = "The void: total darkness. Ahead, a house stands alone in the black.";
+        Areas["05_void_House"] = "Inside the house in the void: everything drawn in faint white lines on black, a floor of hexagons. " +
+            "A glowing white door, a staircase leading up into nothing, a black doorway, and a long hall of numbered doors.";
+        Shots["05_void_House/cam_memory1"] = "A memory, scratched in white lines: two tall figures looming over a small child with " +
+                                             "pigtails.";
+        Shots["05_void_House/cam_memory2"] = "A memory: a car at night, headlights glaring, a bearded man at the wheel.";
+        Areas["05_void2"] = "A dark space under a web of black roots, glowing orbs hanging in it like stars. Each holds a memory.";
+        Shots["05_void2/cam_F1"] = "A memory, drawn in white scribbles: Sal and Larry on a couch, watching a film.";
+        Shots["05_void2/cam_F2"] = "A memory: Sal and Todd, Todd with orange hair and glasses.";
+        Shots["05_void2/cam_F3"] = "A memory: two hands reaching out across a table.";
+        Shots["05_void2/endCam"] = "A heap of lifeless bodies, piled together, and a shaft of blue light rising from them.";
+
+        // ---- The cult temple and the caves
+        Areas["05_temple1"] = "The cult temple: long stone halls of arches and pillars, red banners bearing the cult's trident " +
+            "symbol, spiked iron chandeliers and trident torch stands. Barred cells line one hall, someone held inside. Hooded " +
+            "cultists with glowing eyes stand guard in the archways.";
+        Areas["05_temple2"] = "The temple again: arched halls, red banners, chandeliers and tridents. Ash, her scarred arm glowing, " +
+                              "makes her way through.";
+        Areas["05_templeOS"] = "The temple's other side, grey and colourless.";
+        Areas["05_temple2_center"] = "The temple's heart: hooded cultists stand around a dark pit in the floor. Bloody bodies hang " +
+            "upside down on chains over it, blood dripping in. Behind it, on a dais under a carved hexagon door, a figure in a " +
+            "goat skull mask stands over Todd, whose arms are spread wide.";
+        Shots["05_temple2_center/travCam1"] = "Travis, older, blond and red-eyed, in a green cultist's robe, drives a glowing green " +
+                                              "dagger into a shadowy figure in a horned skull mask.";
+        Shots["05_temple2_center/detonateCam"] = "A bloodied thumb presses down on a button marked Detonate.";
+        Areas["05_templeOS_center"] = "The heart of the temple's other side, grey: towering shadow creatures with glowing white " +
+                                      "eyes rise from the pit, black tendrils reaching out.";
+        Shots["05_templeOS_center/laryCUcam"] = "Larry, old now, with a thick black beard, his eyes blank and white, in a red hood.";
+        Areas["05_pyramids"] = "Darkness, and three pyramids outlined in white: one glowing at the top, two below.";
+        Shots["05_pyramids/ashCam"] = "Ash sits on Sal's old bed in the moonlight, stroking a sleeping ginger cat.";
+        Shots["05_pyramids/ashCam (1)"] = "Ash's green eyes, wide.";
+        Areas["05_forest"] = "A misty forest at dusk under a violet sky, drawn in simple flat shapes: bare trees, pines and stumps. " +
+                             "Three stone plates lie in the grass: one with nine moons, full and crescent, one blank, one a grid " +
+                             "of light and dark squares.";
+        Areas["05_caveEnt"] = "A cave mouth.";
+        Areas["05_cave"] = "Inside a sandy cave: walls painted with red stick figures and handprints, a figure with a spiked crown, " +
+            "a mouth of light where the cave opens onto water, a tunnel spiralling back into darkness, and a wall carved with " +
+            "three squares beneath a downward triangle.";
+        Areas["05_lab"] = "Jim's workshop, a red-lit cellar: anatomy charts and diagrams pinned up, a desk with an old computer, " +
+                          "a heavy ornate safe, a nightstand, a rug, and a big wooden door.";
+        Shots["05_lab/safeCam"] = "An ornate metal safe with a numbered dial.";
+        Shots["05_lab/consoleCam"] = "Three wall panels, each with a switch and a slider marked 1, 2, 3.";
+
+        // ---- The final battles and the end
+        Areas["05_32_field"] = "A pixel art arena of grass and stone. Sal, with his guitar, faces creeping black blobs with red " +
+                               "eyes, and green tentacles reach in from the edges.";
+        Areas["05_32_boss"] = "The pixel arena. Enormous arms rise to attack.";
+        Areas["05_endless_2_clay"] = "A world of clay: three empty chairs in a red glow. A huge red clay eye in a burst of green.";
+        Shots["05_endless_2_clay/salCam"] = "Sal made of clay, wide-eyed, half his face orange.";
+        Areas["05_endless_5_Toon"] = "A flat green cartoon world, a giant yellow eye with a purple pupil watching Sal.";
+        Cutscenes["05_END/dialog"] = "Dawn over the ruins of the church: shattered walls and splintered beams on the hilltop, the " +
+                                     "sun rising. Ash, glowing, kneels beside Todd, lying in the rubble.";
+        Shots["05_END/finalBlowCam2"] = "The final blow: Ash's beam of light, a burst of green lightning from Sal in the void, and " +
+                                        "a wave of purple from Larry, all striking together.";
+        Visuals["anim:oldLarry_appear"] = "Larry appears, old and bearded.";
+        Visuals["anim:toddCough"] = "Todd coughs and stirs.";
+        Visuals["anim:ashArmOut"] = "Ash holds out her glowing arm over Todd.";
+    }
+}

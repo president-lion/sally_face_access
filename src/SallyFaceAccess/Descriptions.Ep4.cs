@@ -154,6 +154,8 @@ internal static partial class Descriptions
         Shots["04_END/window1Cam"] = "Ash pounds on the viewing window with one fist, a paper pressed to the glass in her other hand.";
         Shots["04_END/exoCam"] = "The executioner checks his watch, hand on the lever.";
         Shots["04_END/window2Cam"] = "Ash's face against the glass, crying, as the chair behind it goes still.";
+        Visuals["anim:ashCam_snap"] = "Ash raises her camera. A blinding flash.";
+        Areas["04_treeHouseEnd"] = "The treehouse. Ash is here, alone, a stereo playing.";
         Areas["04_Fbr2/NavCam 1"] = "The hidden apartment behind the basement shelf, abandoned. A hatch in the floor at the far end.";
     }
 }
