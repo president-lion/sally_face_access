@@ -43,6 +43,12 @@ internal static class MenuHandler
         else _announcer.Clear();
     }
 
+    // Menus whose labels are not worth reading on open: the title screen's version number,
+    // the episode cards (their buttons read the labels), and the goal and inventory hint
+    // overlays that open alongside the inventory (the goal has its own announcement and F5).
+    private static readonly HashSet<string> NoIntro = new()
+        { "Start Screen 2", "Episode Select 2", "Goal", "Invenotry Icon" };
+
     private static void OnOpened(Menu m, int lang)
     {
         Log.Debug("Menu", $"opened {m.id} '{m.title}' appear={m.appearType}");
@@ -51,7 +57,12 @@ internal static class MenuHandler
         if (m.appearType is AppearType.WhenSpeechPlays or AppearType.DuringConversation
             or AppearType.OnHotspot) return;
 
-        var intro = IntroText(m, lang);
+        var intro = m.title switch
+        {
+            "Inventory" => InventoryHandler.Summary(lang),
+            _ when NoIntro.Contains(m.title) => "",
+            _ => IntroText(m, lang),
+        };
         if (intro.Length == 0) return;
         Log.Debug("Menu", $"intro {m.title} -> '{intro}'");
         Speech.Say(intro);
@@ -82,6 +93,8 @@ internal static class MenuHandler
     {
         var el = m.selected_element;
         var slot = m.selected_slot;
+        // An empty inventory box still reports a selection; the summary already said "empty".
+        if (el.TryCast<MenuInventoryBox>() != null && el.GetNumSlots() == 0) return;
         var label = Label(m, el, slot, lang);
         var value = Value(el, slot);
         var say = _announcer.Next($"{m.id}/{el.ID}/{slot}", label, value);

@@ -13,6 +13,14 @@ internal static class WorldTables
 
     private static readonly Dictionary<string, string> Areas = new()
     {
+        // Episode 1: the dream Sal tells Dr. Enon about, then the apartment.
+        ["lvl00"] = "dream, hospital room",
+        ["lvl01"] = "dream, hospital hallway",
+        ["lvl02"] = "dream, graveyard",
+        ["lvl03"] = "dream, locked door",
+        ["lvl04"] = "dream, mom and dad",
+        ["t01"] = "Dr. Enon's office",
+        ["F4r2"] = "apartment 402",
     };
 
     public static string Hotspot(string scene, string objectName) =>

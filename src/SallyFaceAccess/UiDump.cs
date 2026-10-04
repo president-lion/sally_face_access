@@ -50,13 +50,19 @@ internal static class UiDump
                 sb.AppendLine($"Player '{player.gameObject.name}' at {player.transform.position}");
             var active = KickStarter.playerInteraction?.GetActiveHotspot();
             sb.AppendLine($"Active: {(active != null ? active.gameObject.name : "<none>")}");
+            sb.AppendLine($"Camera: {WorldHandler.CameraName()}  NavMesh: {WorldHandler.NavMeshName()}");
+            foreach (var cam in UnityEngine.Object.FindObjectsOfType<_Camera>())
+                if (cam != null) sb.AppendLine($"  camera '{cam.gameObject.name}' at {cam.transform.position} type={cam.GetIl2CppType().Name}");
+            foreach (var nm in UnityEngine.Object.FindObjectsOfType<NavigationMesh>())
+                if (nm != null) sb.AppendLine($"  navmesh '{nm.gameObject.name}' active={nm.gameObject.activeInHierarchy}");
             var lang = Options.GetLanguage();
             var all = UnityEngine.Object.FindObjectsOfType<Hotspot>().ToList();
             all.Sort((a, b) => WorldHandler.X(a).CompareTo(WorldHandler.X(b)));
             foreach (var h in all)
             {
                 if (h == null) continue;
-                sb.AppendLine($"  x={WorldHandler.X(h):0.00} on={h.IsOn()} active={h.gameObject.activeInHierarchy} " +
+                var p = h.transform.position;
+                sb.AppendLine($"  x={WorldHandler.X(h):0.00} y={p.y:0.00} z={p.z:0.00} on={h.IsOn()} active={h.gameObject.activeInHierarchy} " +
                               $"obj='{h.gameObject.name}' hsName='{h.hotspotName}' label='{h.GetName(lang)}' " +
                               $"-> '{WorldHandler.Name(h)}' path={PathOf(h.transform)}");
             }

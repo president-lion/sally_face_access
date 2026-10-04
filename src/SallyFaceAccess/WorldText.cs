@@ -12,28 +12,52 @@ internal static class WorldText
     private static readonly Regex GenericObject = new(@"^(hotspot|hs|game ?object|object|trigger|interaction|collider|new)\b",
         RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    // Verbs the game shows as placeholders.
-    private static readonly HashSet<string> EmptyVerbs = new() { "???", "...", "?", "" };
+    // Labels the game shows as placeholders.
+    private static readonly HashSet<string> EmptyLabels = new() { "???", "...", ". . .", "?", "" };
+
+    // First words that make a label a prompt ("talk", "climb down") rather than a name.
+    private static readonly HashSet<string> Verbs = new(StringComparer.OrdinalIgnoreCase)
+    {
+        "open", "close", "push", "pull", "talk", "speak", "check", "leave", "climb", "answer", "use",
+        "look", "examine", "inspect", "pick", "take", "grab", "enter", "exit", "read", "knock", "ring",
+        "press", "go", "sit", "sleep", "turn", "switch", "flip", "search", "watch", "play", "listen",
+        "call", "give", "wake", "move", "jump", "crawl", "hide", "unlock", "lock", "drink", "eat",
+    };
+
+    // Words in internal object names that are scaffolding, not part of the thing's name.
+    private static readonly HashSet<string> ObjectNoise = new(StringComparer.OrdinalIgnoreCase)
+        { "hs", "hotspot", "spot", "trigger", "on", "off", "up" };
 
     /// <summary>
-    /// "name, verb" for an interactive object. The name comes from the table, else from the
-    /// object's internal name if that is informative; the verb is the game's prompt.
+    /// The spoken name of an interactive object. The game's label is a noun ("living room",
+    /// "Gear Boy") or a prompt ("talk", "climb down"); a noun label is the name, a prompt is
+    /// kept after a name taken from the table or the internal object name.
     /// </summary>
-    public static string HotspotName(string tableName, string objectName, string verb)
+    public static string HotspotName(string tableName, string objectName, string label)
     {
-        var v = TextClean.Clean(verb);
-        if (EmptyVerbs.Contains(v)) v = "";
+        var l = TextClean.Clean(label);
+        if (EmptyLabels.Contains(l)) l = "";
+        var isPrompt = l.Length > 0 && Verbs.Contains(l.Split(' ')[0]);
 
-        var name = tableName;
-        if (string.IsNullOrEmpty(name))
-        {
-            var readable = Words(objectName);
-            if (readable.Length > 0 && !GenericObject.IsMatch(readable)) name = readable;
-        }
+        if (!string.IsNullOrEmpty(tableName))
+            return isPrompt ? $"{tableName}, {l}" : tableName;
 
-        if (string.IsNullOrEmpty(name)) return v;
-        if (v.Length == 0 || v.Equals(name, StringComparison.OrdinalIgnoreCase)) return name;
-        return $"{name}, {v}";
+        var noun = ObjectNoun(objectName);
+        if (l.Length == 0) return noun;
+        if (!isPrompt) return noun == "door" ? string.Format(Strings.DoorTo, l) : l;
+        if (noun.Length == 0 || l.Contains(noun, StringComparison.OrdinalIgnoreCase)) return l;
+        return $"{noun}, {l}";
+    }
+
+    /// <summary>The thing an internal object name refers to: "pickUpKey01" -> "key", "dadHS" -> "dad".</summary>
+    private static string ObjectNoun(string objectName)
+    {
+        var w = Words(objectName);
+        if (w.Length == 0 || GenericObject.IsMatch(w)) return "";
+        var words = w.Split(' ').Where(x => !ObjectNoise.Contains(x) && !x.All(char.IsDigit)).ToList();
+        // A leading verb names the action, not the object ("push drawer", "pick up key").
+        while (words.Count > 1 && Verbs.Contains(words[0])) words.RemoveAt(0);
+        return string.Join(" ", words);
     }
 
     /// <summary>"right, 3 steps", "left, 1 step", or "here" for an x offset from the player.</summary>

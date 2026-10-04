@@ -18,6 +18,21 @@ internal static class InventoryHandler
     /// <summary>A scene load may be a save being loaded: take a fresh baseline silently.</summary>
     public static void OnSceneLoaded() => _baseline = false;
 
+    /// <summary>What to say as the inventory opens: "Inventory, 2 items" or "Inventory empty".</summary>
+    public static string Summary(int lang)
+    {
+        var n = 0;
+        var items = KickStarter.runtimeInventory?.localItems;
+        for (var i = 0; items != null && i < items.Count; i++)
+            if (items[i] != null) n++;
+        return n switch
+        {
+            0 => Strings.InventoryEmpty,
+            1 => Strings.InventoryOne,
+            _ => string.Format(Strings.InventoryMany, n),
+        };
+    }
+
     public static void Tick()
     {
         var inv = KickStarter.runtimeInventory;

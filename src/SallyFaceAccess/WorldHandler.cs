@@ -21,6 +21,7 @@ internal static class WorldHandler
     private static int _scanIndex = -1;
     private static string _scene = "";
     private static float _autoDumpAt;
+    private static string _lastView = "";
 
     public static void OnSceneLoaded(string scene)
     {
@@ -29,7 +30,7 @@ internal static class WorldHandler
         _active = IntPtr.Zero;
         _scanIndex = -1;
         _nextRefresh = 0;
-        _autoDumpAt = Settings.DebugLog ? Time.unscaledTime + 3f : 0;
+        _lastView = ""; // forces a fresh debug snapshot once the scene's camera is set
         if (!NonPlaces.Contains(scene)) Speech.Say(WorldTables.Area(scene), interrupt: false);
     }
 
@@ -46,11 +47,23 @@ internal static class WorldHandler
 
         CheckActive();
 
-        // Development aid: one screen dump per area visited, for naming objects offline.
+        // Development aid: a screen dump per area, and per camera/walkable area within it,
+        // for naming objects and working out how rooms inside a scene are told apart.
+        if (Settings.DebugLog)
+        {
+            var view = $"{CameraName()}|{NavMeshName()}";
+            if (view != _lastView)
+            {
+                Log.Debug("World", $"view {view}");
+                _lastView = view;
+                _autoDumpAt = Time.unscaledTime + 1.5f;
+            }
+        }
         if (_autoDumpAt > 0 && Time.unscaledTime >= _autoDumpAt)
         {
             _autoDumpAt = 0;
-            UiDump.Write(Path.Combine(Log.Dir, "scenes", _scene + ".txt"));
+            var file = $"{_scene}__{CameraName()}__{NavMeshName()}.txt";
+            UiDump.Write(Path.Combine(Log.Dir, "scenes", string.Join("_", file.Split(Path.GetInvalidFileNameChars()))));
         }
 
         if (Input.GetKeyDown(KeyCode.PageDown)) Scan(+1);
@@ -64,7 +77,7 @@ internal static class WorldHandler
         var current = _scanIndex >= 0 && _scanIndex < _hotspots.Count ? _hotspots[_scanIndex]?.Pointer : null;
         _hotspots.Clear();
         foreach (var h in UnityEngine.Object.FindObjectsOfType<Hotspot>())
-            if (h != null && h.gameObject.activeInHierarchy && h.IsOn()) _hotspots.Add(h);
+            if (h != null && h.gameObject.activeInHierarchy && h.IsOn() && Name(h).Length > 0) _hotspots.Add(h);
         _hotspots.Sort((a, b) => X(a).CompareTo(X(b)));
         // Keep the scan position on the same object when the list changes around it.
         _scanIndex = current == null ? -1 : _hotspots.FindIndex(h => h.Pointer == current);
@@ -80,7 +93,7 @@ internal static class WorldHandler
 
         var name = Name(h);
         Log.Debug("World", $"active {h.gameObject.name} -> '{name}'");
-        Speech.Say(name);
+        if (name.Length > 0) Speech.Say(name);
     }
 
     private static void Scan(int delta)
@@ -103,6 +116,10 @@ internal static class WorldHandler
             if (Math.Abs(X(_hotspots[i]) - px) < Math.Abs(X(_hotspots[best]) - px)) best = i;
         return best;
     }
+
+    internal static string CameraName() => KickStarter.mainCamera?.attachedCamera?.gameObject.name ?? "<none>";
+
+    internal static string NavMeshName() => KickStarter.sceneSettings?.navMesh?.gameObject.name ?? "<none>";
 
     internal static string Name(Hotspot h) =>
         WorldText.HotspotName(WorldTables.Hotspot(_scene, h.gameObject.name), h.gameObject.name, h.GetName(Options.GetLanguage()));

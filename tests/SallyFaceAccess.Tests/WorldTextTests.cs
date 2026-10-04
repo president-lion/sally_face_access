@@ -3,33 +3,44 @@ using Xunit;
 
 public class HotspotNameTests
 {
-    [Fact]
-    public void TableNameComesFirstThenVerb() =>
-        Assert.Equal("Apartment 401 door, open", WorldText.HotspotName("Apartment 401 door", "door401", "open"));
-
-    [Fact]
-    public void InformativeObjectNameIsUsedWhenNoTableName() =>
-        Assert.Equal("light switch, push", WorldText.HotspotName(null, "lightSwitch", "push"));
+    // Real object name / label pairs from Episode 1's opening scenes.
+    [Theory]
+    [InlineData("dadHS", "talk", "dad, talk")]
+    [InlineData("phoneSpot", "answer phone", "answer phone")]
+    [InlineData("groceryBagsHS", "bags", "bags")]
+    [InlineData("gearBoyHS", "Gear Boy", "Gear Boy")]
+    [InlineData("Open Door (2)", "living room", "door to living room")]
+    [InlineData("Open Door", "leave", "door, leave")]
+    [InlineData("openDoor", "open", "door, open")]
+    [InlineData("pickUpKey01", "???", "key")]
+    [InlineData("momHS", "...", "mom")]
+    [InlineData("codeHS", "passcode", "passcode")]
+    [InlineData("sleepyDad", "check", "sleepy dad, check")]
+    [InlineData("lightsOn", "light switch", "light switch")]
+    [InlineData("graveStone", "climb down", "grave stone, climb down")]
+    [InlineData("dogHotspot", "Speak", "dog, Speak")]
+    [InlineData("pushDrawer", "push", "drawer, push")]
+    public void NamesFromObjectAndLabel(string objectName, string label, string expected) =>
+        Assert.Equal(expected, WorldText.HotspotName(null, objectName, label));
 
     [Theory]
     [InlineData("Hotspot")]
     [InlineData("Hotspot (3)")]
-    [InlineData("HS_2")]
     [InlineData("GameObject")]
     public void GenericObjectNamesAreIgnored(string objectName) =>
         Assert.Equal("open", WorldText.HotspotName(null, objectName, "open"));
 
     [Fact]
-    public void VerbIsNotRepeatedWhenItMatchesTheName() =>
-        Assert.Equal("light switch", WorldText.HotspotName(null, "light switch", "Light Switch"));
+    public void TableNameKeepsAVerbPrompt() =>
+        Assert.Equal("Apartment 401 door, open", WorldText.HotspotName("Apartment 401 door", "doorA", "open"));
 
     [Fact]
-    public void QuestionMarkVerbIsDropped() =>
-        Assert.Equal("poster", WorldText.HotspotName("poster", "x", "???"));
+    public void TableNameReplacesANounLabel() =>
+        Assert.Equal("Sal's bed", WorldText.HotspotName("Sal's bed", "bedHS", "bed"));
 
     [Fact]
-    public void NothingKnownGivesTheVerb() =>
-        Assert.Equal("talk", WorldText.HotspotName(null, null, "talk"));
+    public void NothingKnownGivesEmpty() =>
+        Assert.Equal("", WorldText.HotspotName(null, "", ""));
 }
 
 public class DirectionTests

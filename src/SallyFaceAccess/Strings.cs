@@ -23,6 +23,13 @@ internal static class Strings
     public const string Got = "got {0}";
     public const string Removed = "{0} removed";
     public const string Here = "here";
+    public const string DoorTo = "door to {0}";
+    public const string InventoryEmpty = "inventory empty";
+    public const string InventoryOne = "inventory, 1 item";
+    public const string InventoryMany = "inventory, {0} items";
+    public const string Goal = "goal: {0}";
+    public const string NewGoal = "new goal: {0}";
+    public const string NoGoal = "no goal yet";
     public const string Left = "left";
     public const string Right = "right";
     public const string OneStep = "1 step";
