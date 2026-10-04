@@ -41,7 +41,7 @@
   </ItemGroup>
 
   <!-- Deploy: the mod into Mods\, Prism into UserLibs\. -->
-  <Target Name="Deploy" AfterTargets="Build" Condition="Exists('$(GamePath)\MelonLoader')">
+  <Target Name="Deploy" AfterTargets="Build" Condition="Exists('$(GamePath)\MelonLoader') And '$(SkipDeploy)' != 'true'">
     <MakeDir Directories="$(GamePath)\Mods;$(GamePath)\UserLibs" />
     <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GamePath)\Mods" />
     <Copy SourceFiles="..\prism\build-x64\prism.dll" DestinationFolder="$(GamePath)\UserLibs"
