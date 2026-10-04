@@ -3,12 +3,13 @@ using UnityEngine;
 namespace SallyFaceAccess;
 
 /// <summary>
-/// The mod's own keys. F-keys are used because the game binds letters, arrows and Escape.
+/// The mod's own keys. F-keys are used because the game binds letters, arrows and Escape
+/// (and F12, to its demo reset). Room-scan keys live in WorldHandler.
 ///   F3   repeat the last line
 ///   Ctrl stop speech
 ///   F10  write screen.txt (what is on screen now)
 ///   F11  write the text dump
-///   F12  toggle speaking of unhandled text (development aid)
+///   F9   toggle speaking of unhandled text (development aid)
 /// </summary>
 internal static class Hotkeys
 {
@@ -30,7 +31,7 @@ internal static class Hotkeys
             Speech.Say(Strings.DumpWritten);
         }
 
-        if (Input.GetKeyDown(KeyCode.F12))
+        if (Input.GetKeyDown(KeyCode.F9))
         {
             Settings.SpeakUnhandled = !Settings.SpeakUnhandled;
             Speech.Say(Settings.SpeakUnhandled ? Strings.DebugSpeechOn : Strings.DebugSpeechOff);

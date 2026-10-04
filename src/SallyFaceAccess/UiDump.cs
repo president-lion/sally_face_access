@@ -14,7 +14,9 @@ namespace SallyFaceAccess;
 /// </summary>
 internal static class UiDump
 {
-    public static void Write()
+    public static void Write() => Write(Path.Combine(Log.Dir, "screen.txt"));
+
+    public static void Write(string path)
     {
         var sb = new StringBuilder();
         sb.AppendLine($"Scene: {UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}");
@@ -40,6 +42,27 @@ internal static class UiDump
         }
         catch (Exception ex) { sb.AppendLine("AC section failed: " + ex.Message); }
 
+        try
+        {
+            sb.AppendLine().AppendLine("== Hotspots (x order)");
+            var player = KickStarter.player;
+            if (player != null)
+                sb.AppendLine($"Player '{player.gameObject.name}' at {player.transform.position}");
+            var active = KickStarter.playerInteraction?.GetActiveHotspot();
+            sb.AppendLine($"Active: {(active != null ? active.gameObject.name : "<none>")}");
+            var lang = Options.GetLanguage();
+            var all = UnityEngine.Object.FindObjectsOfType<Hotspot>().ToList();
+            all.Sort((a, b) => WorldHandler.X(a).CompareTo(WorldHandler.X(b)));
+            foreach (var h in all)
+            {
+                if (h == null) continue;
+                sb.AppendLine($"  x={WorldHandler.X(h):0.00} on={h.IsOn()} active={h.gameObject.activeInHierarchy} " +
+                              $"obj='{h.gameObject.name}' hsName='{h.hotspotName}' label='{h.GetName(lang)}' " +
+                              $"-> '{WorldHandler.Name(h)}' path={PathOf(h.transform)}");
+            }
+        }
+        catch (Exception ex) { sb.AppendLine("Hotspot section failed: " + ex.Message); }
+
         sb.AppendLine().AppendLine("== Active UI Text");
         foreach (var t in UnityEngine.Object.FindObjectsOfType<Text>())
         {
@@ -47,8 +70,9 @@ internal static class UiDump
             sb.AppendLine($"{PathOf(t.transform)} = \"{t.text.Replace("\n", "\\n")}\"");
         }
 
-        File.WriteAllText(Path.Combine(Log.Dir, "screen.txt"), sb.ToString());
-        Log.Info("UiDump", "written");
+        Directory.CreateDirectory(Path.GetDirectoryName(path));
+        File.WriteAllText(path, sb.ToString());
+        Log.Info("UiDump", "written " + path);
     }
 
     public static string PathOf(Transform t)

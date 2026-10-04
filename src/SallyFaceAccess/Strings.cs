@@ -20,4 +20,18 @@ internal static class Strings
     public const string Position = "{0} of {1}";
     public const string Holding = "holding {0}";
     public const string PutAway = "put away {0}";
+    public const string Got = "got {0}";
+    public const string Removed = "{0} removed";
+    public const string Here = "here";
+    public const string Left = "left";
+    public const string Right = "right";
+    public const string OneStep = "1 step";
+    public const string Steps = "{0} steps";
+    public const string NothingHere = "nothing to interact with here";
+    public const string RoomSummary = "{0}, {1} things";
+    public const string FloorHallway = "floor {0} hallway";
+    public const string Basement = "basement";
+    public const string BasementRoom = "basement room {0}";
+    public const string FloorRoom = "floor {0} room {1}";
+    public const string Apartment = "apartment {0}";
 }

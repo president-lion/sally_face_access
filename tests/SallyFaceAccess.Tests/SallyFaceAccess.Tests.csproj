@@ -15,6 +15,7 @@
     <Compile Include="..\..\src\SallyFaceAccess\DialogueFormat.cs" Link="Linked\DialogueFormat.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\Labels.cs" Link="Linked\Labels.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\Strings.cs" Link="Linked\Strings.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\WorldText.cs" Link="Linked\WorldText.cs" />
   </ItemGroup>
 
   <ItemGroup>

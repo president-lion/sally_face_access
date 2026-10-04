@@ -46,6 +46,9 @@ public sealed class Mod : MelonMod
         try { InventoryHandler.Tick(); }
         catch (Exception ex) { Log.Once("InventoryHandler", ex); }
 
+        try { WorldHandler.Tick(); }
+        catch (Exception ex) { Log.Once("WorldHandler", ex); }
+
         // Write the text dump once per session as soon as AC's managers exist, if there
         // is not one already. F11 rewrites it on demand.
         if (!_dumpedThisSession && TextDump.Ready)
@@ -69,7 +72,11 @@ public sealed class Mod : MelonMod
     }
 
     public override void OnSceneWasLoaded(int buildIndex, string sceneName)
-        => Log.Debug("Scene", $"loaded {buildIndex} {sceneName}");
+    {
+        Log.Debug("Scene", $"loaded {buildIndex} {sceneName}");
+        try { InventoryHandler.OnSceneLoaded(); WorldHandler.OnSceneLoaded(sceneName); }
+        catch (Exception ex) { Log.Once("SceneLoaded", ex); }
+    }
 
     public override void OnDeinitializeMelon() => Speech.Shutdown();
 }
