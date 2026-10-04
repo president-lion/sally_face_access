@@ -123,7 +123,12 @@ internal static partial class Descriptions
             "Then a hospital corridor, a padded cell, and a man with red hair and beard in a straitjacket, sitting slumped. " +
             "He looks up: his eyes are glowing red.";
         Cutscenes["03_mediaBreak/disablePlayerUpDown"] = "Back at the press interview: the reporter, and adult Sal in his orange jumpsuit.";
-        Areas["03_302"] ="Apartment 302, David's: the cluttered room with the red couch and the mannequin bust.";
+        Areas["03_Fbr1/NavCam 1"] = "Larry and Lisa's apartment in spring: the kitchen, where Lisa is, the living room with a vase " +
+                                    "of flowers, family photos and the couch, and the doors to the bathroom, the hallway, Larry's " +
+                                    "room and Lisa's room.";
+        Areas["03_Fbr1/larrysRoomCam"] = "Larry's room: the posters, the stereo, the easel, and the old TV in the corner.";
+        Areas["03_Fb"] = "The basement: the door to Larry's apartment, the vending machine, the elevator, and a tall supply shelf.";
+        Areas["03_302"] = "Apartment 302, David's: the cluttered room with the red couch and the mannequin bust.";
         Areas["03_304"] = "Apartment 304: dim and empty.";
         Areas["03_403"] = "Apartment 403, empty and dim. A letter lies on the floor.";
         Cutscenes["03_schoolCafeteriaIntro/disablePlayerUpDown"] = "The school cafeteria at lunch, noisy with chatter. Lunch ladies " +
