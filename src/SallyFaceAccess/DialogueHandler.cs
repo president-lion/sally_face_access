@@ -37,6 +37,8 @@ internal static class DialogueHandler
             var shown = Descriptions.Line(sp.LineID);
             if (shown != null) Speech.Say(shown, interrupt: !sp.isBackground);
             Speech.Say(line, interrupt: !sp.isBackground && shown == null);
+            var after = Descriptions.AfterLine(sp.LineID);
+            if (after != null) Speech.Say(after, interrupt: false);
         }
 
         // Forget lines that have ended, so the set does not grow and a reused pointer

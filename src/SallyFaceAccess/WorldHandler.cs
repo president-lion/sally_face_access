@@ -203,7 +203,7 @@ internal static class WorldHandler
     private static string DisplayName(Hotspot h) => _names.TryGetValue(h.Pointer, out var n) ? n : Name(h);
 
     internal static string Name(Hotspot h) =>
-        WorldText.HotspotName(WorldTables.Hotspot(_scene, h.gameObject.name), h.gameObject.name, h.GetName(Options.GetLanguage()));
+        WorldText.HotspotName(WorldTables.Hotspot(_scene, h.gameObject.name, X(h)), h.gameObject.name, h.GetName(Options.GetLanguage()));
 
     /// <summary>The object's x: its collider's centre where it has one, else its transform.</summary>
     internal static float X(Hotspot h) => Centre(h).x;

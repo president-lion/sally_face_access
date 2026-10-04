@@ -40,7 +40,7 @@ internal static class WorldText
         var isPrompt = l.Length > 0 && Verbs.Contains(l.Split(' ')[0]);
 
         if (!string.IsNullOrEmpty(tableName))
-            return isPrompt ? $"{tableName}, {l}" : tableName;
+            return l.Length == 0 || tableName.Contains(l, StringComparison.OrdinalIgnoreCase) ? tableName : $"{tableName}, {l}";
 
         var noun = ObjectNoun(objectName);
         if (l.Length == 0) return noun;
@@ -59,6 +59,24 @@ internal static class WorldText
         while (words.Count > 1 && Verbs.Contains(words[0])) words.RemoveAt(0);
         // A lone letter is a sign on the thing itself ("door D"), so it reads as a capital.
         return string.Join(" ", words.Select(x => x.Length == 1 ? x.ToUpperInvariant() : x));
+    }
+
+    // Every hallway of Addison Apartments has the same layout: doors 1 and 2 left of the
+    // elevator, 3 and 4 right of it, at these x positions in every episode's version.
+    private static readonly float[] DoorSlots = { -19.8f, -12.1f, 3.15f, 10.8f };
+    private static readonly Regex HallwayScene = new(@"^(\d\d_)?((\d|os)_)?F([1-5])$", RegexOptions.Compiled);
+    private static readonly Regex DoorLike = new(@"^$|door|knock|open|^\d{3}$|^(knock|open) \d{3}$",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
+    /// <summary>"apartment 403" for a door in a hallway scene, from the floor and the door's position.</summary>
+    public static string HallwayDoor(string scene, string objectName, float x)
+    {
+        var m = HallwayScene.Match(scene ?? "");
+        if (!m.Success || !DoorLike.IsMatch((objectName ?? "").Trim())) return null;
+        for (var i = 0; i < DoorSlots.Length; i++)
+            if (Math.Abs(x - DoorSlots[i]) < 1.2f)
+                return string.Format(Strings.Apartment, $"{m.Groups[4].Value}0{i + 1}");
+        return null;
     }
 
     /// <summary>Numbers one of several same-named things: "door, open" + 2 -> "door 2, open".</summary>

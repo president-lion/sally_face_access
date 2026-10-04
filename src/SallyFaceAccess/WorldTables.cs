@@ -9,6 +9,34 @@ internal static class WorldTables
 {
     private static readonly Dictionary<string, string> Hotspots = new()
     {
+        // Episode 1
+        ["lvl00/lightsOn"] = "light switch",
+        ["F4r2/@3"] = "quarter on the floor",
+        ["F4r2/groceryBagsHS"] = "grocery bags",
+        ["F4r2/sleepyDad"] = "dad, asleep",
+        ["F4/copSpot"] = "police officer",
+        ["F5/@-24"] = "hole in the wall",
+        ["F5r4/hoboHS"] = "ragged man",
+        ["F5r4/chugHs"] = "Chug",
+        ["F5r4/laxativeHS"] = "old laxative",
+        ["F1/exitDoor"] = "building entrance",
+        ["F1/detectiveHS"] = "detective",
+        ["Fb/door"] = "apartment 1B",
+        ["Fb/@13"] = "lost and found box",
+        ["Fbr1/scannerHS"] = "police scanner",
+        ["F4r3/outlineHS"] = "chalk outline",
+        ["F4r3/brokenStuffHS"] = "broken furniture",
+        ["F4r3/statueHS"] = "statue",
+        ["F4r3/blockageHS"] = "blocked doorway",
+        ["End/vanHS"] = "coroner's van",
+        ["End/charleyHS"] = "Charley",
+        ["F2r4/charleyHS"] = "Charley",
+        ["F2r4/Collection 1"] = "pony collection",
+        ["F2r4/Collection 1 (1)"] = "pony collection",
+        ["F3/lisaHS"] = "Lisa",
+        ["F3/chugHS"] = "Chug",
+        ["F2/door 204 - locked"] = "apartment 204",
+        ["F2/door 204 - open"] = "apartment 204",
     };
 
     private static readonly Dictionary<string, string> Areas = new()
@@ -35,8 +63,14 @@ internal static class WorldTables
     public static string Room(string scene, string camera) =>
         Rooms.TryGetValue($"{scene}/{camera}", out var n) ? n : null;
 
-    public static string Hotspot(string scene, string objectName) =>
-        Hotspots.TryGetValue($"{scene}/{objectName}", out var n) ? n : null;
+    /// <summary>
+    /// A hand-written name, keyed "scene/object name", or for objects with no name of their
+    /// own "scene/@x" with x rounded to a whole unit.
+    /// </summary>
+    public static string Hotspot(string scene, string objectName, float x) =>
+        Hotspots.TryGetValue($"{scene}/{objectName}", out var n) ? n
+        : Hotspots.TryGetValue($"{scene}/@{Math.Round(x):0}", out n) ? n
+        : WorldText.HallwayDoor(scene, objectName, x);
 
     public static string Area(string scene) =>
         Areas.TryGetValue(scene, out var n) ? n : WorldText.SceneName(scene);

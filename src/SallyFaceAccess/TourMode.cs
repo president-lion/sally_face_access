@@ -101,7 +101,9 @@ internal static class TourMode
     private static void NextScene()
     {
         var count = SceneManager.sceneCountInBuildSettings;
-        while (_index < count && Skip.Contains(SceneName(_index))) _index++;
+        var only = Settings.TourOnly.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        while (_index < count && (Skip.Contains(SceneName(_index)) || (only.Length > 0 && !only.Contains(SceneName(_index)))))
+            _index++;
         if (_index >= count)
         {
             _step = Step.Done;
@@ -178,15 +180,16 @@ internal static class TourMode
     private static void Aim(_Camera cam, float? x)
     {
         if (cam == null) return;
+        // Switch first: switching snaps the camera back onto its follow target.
+        KickStarter.mainCamera.SetGameCamera(cam, 0f);
         if (x.HasValue)
         {
-            // Stop the camera following anything and place it directly, keeping the height
-            // the scene gives it - following a target adds offsets that frame the shot wrong.
+            // Then stop it following and place it directly, keeping the height the scene
+            // gives it - following a target adds offsets that frame the shot wrong.
             cam.enabled = false;
             var p = cam.transform.position;
             cam.transform.position = new Vector3(x.Value, p.y, p.z);
         }
-        KickStarter.mainCamera.SetGameCamera(cam, 0f);
         KickStarter.mainCamera.SnapToAttached();
         KickStarter.mainCamera.FadeIn(0f);
         // Nothing drawn over the scene: splash, subtitle and prompt menus all off.
@@ -198,6 +201,10 @@ internal static class TourMode
 
     private static void Shoot(string file)
     {
+        var att = KickStarter.mainCamera?.attachedCamera;
+        Log.Debug("Tour", $"shot {file}: attached={att?.gameObject.name} at {att?.transform.position} " +
+                          $"enabled={att?.enabled} main at {KickStarter.mainCamera?.transform.position} " +
+                          $"unity cam at {KickStarter.CameraMain?.transform.position}");
         ScreenCapture.CaptureScreenshot(Path.Combine(SceneDir(), file));
         _nextAt = Time.unscaledTime + 0.3f;
     }

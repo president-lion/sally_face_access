@@ -44,6 +44,35 @@ public class HotspotNameTests
         Assert.Equal("", WorldText.HotspotName(null, "", ""));
 }
 
+public class HallwayDoorTests
+{
+    [Theory]
+    [InlineData("F4", "Knock Door", -19.8f, "apartment 401")]
+    [InlineData("F4", "Open 402", -12.2f, "apartment 402")]
+    [InlineData("F4", "Open 403", 3.1f, "apartment 403")]
+    [InlineData("F5", "open504", 10.9f, "apartment 504")]
+    [InlineData("02_F5", "", -12.1f, "apartment 502")]
+    [InlineData("04_os_F3", "301", -19.8f, "apartment 301")]
+    [InlineData("02_F2", "door 204 - open", 10.7f, "apartment 204")]
+    public void DoorsAreNumberedByFloorAndPosition(string scene, string obj, float x, string expected) =>
+        Assert.Equal(expected, WorldText.HallwayDoor(scene, obj, x));
+
+    [Theory]
+    [InlineData("F3", "chugHS", 4.2f)]        // a character standing by a door
+    [InlineData("F4", "elevator", -4.5f)]
+    [InlineData("F4r2", "Open Door", 12.8f)]  // not a hallway
+    [InlineData("03_F1", "mailboxes", 23.4f)]
+    public void OtherThingsAreNotDoors(string scene, string obj, float x) =>
+        Assert.Null(WorldText.HallwayDoor(scene, obj, x));
+
+    [Theory]
+    [InlineData("apartment 402", "Open 402", "Sal's Place", "apartment 402, Sal's Place")]
+    [InlineData("apartment 401", "Knock Door", "knock", "apartment 401, knock")]
+    [InlineData("apartment 104", "104", "104", "apartment 104")]
+    public void TableNameKeepsALabelThatAddsSomething(string table, string obj, string label, string expected) =>
+        Assert.Equal(expected, WorldText.HotspotName(table, obj, label));
+}
+
 public class NumberedTests
 {
     [Fact]
