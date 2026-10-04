@@ -83,7 +83,7 @@ internal static class MenuHandler
         var el = m.selected_element;
         var slot = m.selected_slot;
         var label = Label(m, el, slot, lang);
-        var value = Value(el);
+        var value = Value(el, slot);
         var say = _announcer.Next($"{m.id}/{el.ID}/{slot}", label, value);
         if (say == null) return;
 
@@ -102,7 +102,8 @@ internal static class MenuHandler
         if (Labels.TryGet(m.title, el.title, out var template))
             return Labels.Expand(template, title => ElementText(m, title, lang));
         var label = TextClean.Clean(el.GetLabel(slot, lang));
-        return string.IsNullOrEmpty(label) ? Labels.Humanize(el.title) : label;
+        if (!string.IsNullOrEmpty(label)) return label;
+        return el.TryCast<MenuInventoryBox>() != null ? Strings.Empty : Labels.Humanize(el.title);
     }
 
     /// <summary>The current text of another element in the same menu, found by its title.</summary>
@@ -116,8 +117,11 @@ internal static class MenuHandler
     }
 
     /// <summary>The element's current setting, for elements whose label does not already carry it.</summary>
-    internal static string Value(MenuElement el)
+    internal static string Value(MenuElement el, int slot)
     {
+        if (el.TryCast<MenuInventoryBox>() != null)
+            return string.Format(Strings.Position, slot + 1, el.GetNumSlots());
+
         var slider = el.TryCast<MenuSlider>();
         if (slider != null)
         {

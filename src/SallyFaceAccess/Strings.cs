@@ -16,4 +16,8 @@ internal static class Strings
     public const string Close = "close";
     public const string NextPage = "next page";
     public const string PreviousPage = "previous page";
+    public const string Empty = "empty";
+    public const string Position = "{0} of {1}";
+    public const string Holding = "holding {0}";
+    public const string PutAway = "put away {0}";
 }

@@ -43,6 +43,9 @@ public sealed class Mod : MelonMod
         try { DialogueHandler.Tick(); }
         catch (Exception ex) { Log.Once("DialogueHandler", ex); }
 
+        try { InventoryHandler.Tick(); }
+        catch (Exception ex) { Log.Once("InventoryHandler", ex); }
+
         // Write the text dump once per session as soon as AC's managers exist, if there
         // is not one already. F11 rewrites it on demand.
         if (!_dumpedThisSession && TextDump.Ready)
