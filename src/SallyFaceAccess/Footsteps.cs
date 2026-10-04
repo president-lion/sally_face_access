@@ -6,8 +6,10 @@ namespace SallyFaceAccess;
 
 /// <summary>
 /// A soft noise footstep while the player walks somewhere the game plays none (the dream
-/// fields, some handheld games). The game's own player footsteps are watched through AC's
-/// FootstepSounds; while they are heard, the mod stays quiet.
+/// fields, some handheld games). The game's own footsteps are detected by listening to the
+/// player's audio sources - every source on the player other than its voice, plus the ones
+/// AC's FootstepSounds play through - since the school's footsteps bypass FootstepSounds'
+/// methods. While any of them plays, the mod stays quiet.
 /// </summary>
 internal static class Footsteps
 {
@@ -15,12 +17,57 @@ internal static class Footsteps
     private static Vector3 _lastPos;
     private static readonly System.Random _rng = new();
 
-    public static void OnSceneLoaded() => _lastGameStep = -100f;
+    private static readonly List<AudioSource> _sources = new();
+    private static IntPtr _sourcesFor;
+    private static float _nextGather;
+    private static string _lastSummary;
+
+    public static void OnSceneLoaded()
+    {
+        _lastGameStep = -100f;
+        _sourcesFor = IntPtr.Zero;
+    }
+
+    /// <summary>The audio sources the player's footsteps could come from.</summary>
+    private static void Gather(Player player)
+    {
+        _sources.Clear();
+        _sourcesFor = player.Pointer;
+        var names = new List<string>();
+        foreach (var a in player.GetComponentsInChildren<AudioSource>(true))
+            if (a != null && a != player.speechAudioSource) { _sources.Add(a); names.Add(a.gameObject.name); }
+        foreach (var f in player.GetComponentsInChildren<FootstepSounds>(true))
+        {
+            var a = f?.soundToPlayFrom?.audioSource;
+            if (a != null && !_sources.Contains(a)) { _sources.Add(a); names.Add("footsteps:" + a.gameObject.name); }
+        }
+        var summary = string.Join(", ", names);
+        if (summary != _lastSummary) Log.Debug("Footsteps", $"listening to {_sources.Count} source(s): {summary}");
+        _lastSummary = summary;
+    }
+
+    private static void Listen()
+    {
+        foreach (var a in _sources)
+            if (a != null && a.isPlaying)
+            {
+                if (Time.unscaledTime - _lastGameStep > 5f) Log.Debug("Footsteps", $"game sound on the player: {a.gameObject.name} '{a.clip?.name}'");
+                _lastGameStep = Time.unscaledTime;
+                return;
+            }
+    }
 
     public static void Tick()
     {
         var player = KickStarter.player;
         if (player == null) return;
+        // Re-gather now and then: footstep sets and players change with the story.
+        if (player.Pointer != _sourcesFor || Time.unscaledTime >= _nextGather)
+        {
+            _nextGather = Time.unscaledTime + 10f;
+            Gather(player);
+        }
+        Listen();
         var pos = player.transform.position;
         var moved = (pos - _lastPos).magnitude / Math.Max(Time.deltaTime, 0.001f);
         _lastPos = pos;
