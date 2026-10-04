@@ -24,6 +24,16 @@ internal static class WorldHandler
     private const float FallbackHalfWidth = 9.6f;
 
     private static readonly List<Hotspot> _hotspots = new();
+
+    // The room scan: objects and meaningful triggers, left to right.
+    private sealed class ScanItem
+    {
+        public IntPtr Ptr;
+        public float X;
+        public Hotspot Hotspot;   // null for a trigger
+        public string Label;      // the trigger's name
+    }
+    private static readonly List<ScanItem> _scan = new();
     private static readonly Dictionary<IntPtr, string> _names = new();
     private static readonly HashSet<string> _described = new();
     private static float _nextRefresh;
@@ -38,7 +48,9 @@ internal static class WorldHandler
     {
         _scene = scene;
         _hotspots.Clear();
+        _scan.Clear();
         _names.Clear();
+        Triggers.OnSceneLoaded();
         _active = IntPtr.Zero;
         _scanIndex = -1;
         _nextRefresh = 0;
@@ -62,12 +74,13 @@ internal static class WorldHandler
         }
 
         CheckActive();
+        CheckEdge();
         DebugSnapshots();
 
         if (Input.GetKeyDown(KeyCode.PageDown)) Scan(+1);
         if (Input.GetKeyDown(KeyCode.PageUp)) Scan(-1);
         if (Input.GetKeyDown(KeyCode.Home)) Scan(0);
-        if (Input.GetKeyDown(KeyCode.F4)) Speech.Say(string.Format(Strings.RoomSummary, RoomName(), _hotspots.Count));
+        if (Input.GetKeyDown(KeyCode.F4)) Speech.Say(string.Format(Strings.RoomSummary, RoomName(), _scan.Count));
         if (Input.GetKeyDown(KeyCode.F6))
             Speech.Say(Descriptions.Area(_scene, CameraName()) ?? Strings.NoDescription);
     }
@@ -93,7 +106,7 @@ internal static class WorldHandler
 
     private static void Refresh()
     {
-        var current = _scanIndex >= 0 && _scanIndex < _hotspots.Count ? _hotspots[_scanIndex]?.Pointer : null;
+        IntPtr? current = _scanIndex >= 0 && _scanIndex < _scan.Count ? _scan[_scanIndex].Ptr : null;
         _hotspots.Clear();
         _names.Clear();
         var (minX, maxX) = RoomRange();
@@ -116,8 +129,15 @@ internal static class WorldHandler
             foreach (var h in group) _names[h.Pointer] = many ? WorldText.Numbered(group.Key, ++n) : group.Key;
         }
 
-        // Keep the scan position on the same object when the list changes around it.
-        _scanIndex = current == null ? -1 : _hotspots.FindIndex(h => h.Pointer == current);
+        _scan.Clear();
+        foreach (var h in _hotspots) _scan.Add(new ScanItem { Ptr = h.Pointer, X = X(h), Hotspot = h });
+        foreach (var t in Triggers.Collect())
+            if (Math.Abs(t.Y - py) <= LevelHeight && t.X >= minX && t.X <= maxX)
+                _scan.Add(new ScanItem { Ptr = t.Trigger.Pointer, X = t.X, Label = t.Name });
+        _scan.Sort((a, b) => a.X.CompareTo(b.X));
+
+        // Keep the scan position on the same thing when the list changes around it.
+        _scanIndex = current == null ? -1 : _scan.FindIndex(i => i.Ptr == current);
     }
 
     /// <summary>
@@ -157,23 +177,46 @@ internal static class WorldHandler
 
     private static void Scan(int delta)
     {
-        if (_hotspots.Count == 0) { Speech.Say(Strings.NothingHere); return; }
-        if (_scanIndex < 0) _scanIndex = NearestIndex(); // first press starts at the nearest object
-        else _scanIndex = Math.Clamp(_scanIndex + delta, 0, _hotspots.Count - 1);
+        if (_scan.Count == 0) { Speech.Say(Strings.NothingHere); return; }
+        if (_scanIndex < 0) _scanIndex = NearestIndex(); // first press starts at the nearest thing
+        else _scanIndex = Math.Clamp(_scanIndex + delta, 0, _scan.Count - 1);
 
-        var h = _hotspots[_scanIndex];
-        if (h == null) return;
-        var dx = X(h) - KickStarter.player.transform.position.x;
-        Speech.Say($"{DisplayName(h)}, {WorldText.Direction(dx, Settings.StepSize)}");
+        var item = _scan[_scanIndex];
+        if (item.Label == null && item.Hotspot == null) return; // object destroyed since the last refresh
+        var name = item.Hotspot != null ? DisplayName(item.Hotspot) : item.Label;
+        var dx = item.X - KickStarter.player.transform.position.x;
+        Speech.Say($"{name}, {WorldText.Direction(dx, Settings.StepSize)}");
     }
 
     private static int NearestIndex()
     {
         var px = KickStarter.player.transform.position.x;
         var best = 0;
-        for (var i = 1; i < _hotspots.Count; i++)
-            if (Math.Abs(X(_hotspots[i]) - px) < Math.Abs(X(_hotspots[best]) - px)) best = i;
+        for (var i = 1; i < _scan.Count; i++)
+            if (Math.Abs(_scan[i].X - px) < Math.Abs(_scan[best].X - px)) best = i;
         return best;
+    }
+
+    private static float _lastX, _stuckSince;
+    private static bool _edgeSaid;
+
+    /// <summary>Says "edge" once when the player keeps walking but no longer moves.</summary>
+    private static void CheckEdge()
+    {
+        var x = KickStarter.player.transform.position.x;
+        var pushing = Math.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f
+                      && KickStarter.stateHandler?.gameState == GameState.Normal;
+        if (!pushing || Math.Abs(x - _lastX) > 0.01f)
+        {
+            _stuckSince = Time.unscaledTime;
+            if (Math.Abs(x - _lastX) > 0.01f) _edgeSaid = false;
+        }
+        else if (!_edgeSaid && Time.unscaledTime - _stuckSince > 0.4f)
+        {
+            _edgeSaid = true;
+            Speech.Say(Strings.Edge);
+        }
+        _lastX = x;
     }
 
     private static void DebugSnapshots()
