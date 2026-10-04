@@ -5,6 +5,9 @@ internal static partial class Descriptions
 {
     static partial void Episode3()
     {
+        Areas["03_clumpy"] = "Clumpy, a game on Larry's TV: a pudgy winged creature with a grin, carrying a spear, flies through " +
+                             "a green cavern over a river of slime, dodging flying bugs.";
+
         // ---- The White Room and the interview
         Areas["03_intro"] = "An endless white emptiness, then a pale, misty space with a tiled floor broken by jagged holes. " +
                             "Lever machines with up and down buttons stand along the way, and far ahead, a lone white door.";

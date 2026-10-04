@@ -5,6 +5,13 @@ internal static partial class Descriptions
 {
     static partial void Episode1()
     {
+        // ---- Gear Boy (the game played on the handheld; full support is stage 4)
+            Areas["gearBoyGame"] = "Sal's Gear Boy handheld fills the view, its green screen showing House of the Wretched: a " +
+                                   "skeletal hand rising from a grave before a haunted house. The game is played on the little " +
+                                   "screen: a graveyard of headstones and a gate, then a house with a fire pit, swing and bench " +
+                                   "outside, and rooms inside.";
+            Areas["elevator"] = "Inside the elevator: a panel of floor buttons, 1 to 5 and B for the basement.";
+
         // ---- Areas
             Areas["lvl00"] = "A hospital room, dark until the light is switched on. A door and a light switch on the left. " +
                         "On the wall, a framed painting of a white dog. A TV, a chest of drawers, and a phone on a small table. " +

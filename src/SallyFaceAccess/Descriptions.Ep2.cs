@@ -5,6 +5,10 @@ internal static partial class Descriptions
 {
     static partial void Episode2()
     {
+        Areas["02_sgb"] = "The Super Gear Boy, Todd's upgraded handheld, fills the view, a red Super label on the case. On its " +
+                          "green screen: In Seeking Providence, two glowing eyes in a tangle of roots. The game is played on the " +
+                          "screen, chapter by chapter.";
+
         // ---- The opening dream
         Areas["dream1"] = "A dream. A golden field under a hazy yellow sky, dotted with bare, twisted trees that grow " +
                           "thicker to the right into a dark wood. Further on, a woman with long blonde hair sits on a " +
