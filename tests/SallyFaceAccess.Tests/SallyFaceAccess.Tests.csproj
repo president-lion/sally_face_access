@@ -13,6 +13,8 @@
     <Compile Include="..\..\src\SallyFaceAccess\RepeatFilter.cs" Link="Linked\RepeatFilter.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\SelectionAnnouncer.cs" Link="Linked\SelectionAnnouncer.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\DialogueFormat.cs" Link="Linked\DialogueFormat.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\Labels.cs" Link="Linked\Labels.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\Strings.cs" Link="Linked\Strings.cs" />
   </ItemGroup>
 
   <ItemGroup>

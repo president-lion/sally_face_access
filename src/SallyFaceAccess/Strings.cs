@@ -12,4 +12,8 @@ internal static class Strings
     public const string DumpWritten = "Text dump written";
     public const string UiDumpWritten = "Screen dump written";
     public const string Percent = "{0} percent";
+    public const string Back = "back";
+    public const string Close = "close";
+    public const string NextPage = "next page";
+    public const string PreviousPage = "previous page";
 }

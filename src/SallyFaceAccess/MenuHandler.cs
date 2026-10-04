@@ -82,7 +82,7 @@ internal static class MenuHandler
     {
         var el = m.selected_element;
         var slot = m.selected_slot;
-        var label = Label(el, slot, lang);
+        var label = Label(m, el, slot, lang);
         var value = Value(el);
         var say = _announcer.Next($"{m.id}/{el.ID}/{slot}", label, value);
         if (say == null) return;
@@ -93,11 +93,26 @@ internal static class MenuHandler
         Speech.Say(say, interrupt: !queue);
     }
 
-    /// <summary>The element's spoken name for a slot, falling back to its design-time title.</summary>
-    internal static string Label(MenuElement el, int slot, int lang)
+    /// <summary>
+    /// The element's spoken name for a slot: the label table first (image buttons have no
+    /// text of their own), then the game's label, then a readable form of the internal name.
+    /// </summary>
+    internal static string Label(Menu m, MenuElement el, int slot, int lang)
     {
+        if (Labels.TryGet(m.title, el.title, out var template))
+            return Labels.Expand(template, title => ElementText(m, title, lang));
         var label = TextClean.Clean(el.GetLabel(slot, lang));
-        return string.IsNullOrEmpty(label) ? el.title : label;
+        return string.IsNullOrEmpty(label) ? Labels.Humanize(el.title) : label;
+    }
+
+    /// <summary>The current text of another element in the same menu, found by its title.</summary>
+    private static string ElementText(Menu m, string title, int lang)
+    {
+        var els = m.elements;
+        for (var i = 0; els != null && i < els.Count; i++)
+            if (els[i] != null && els[i].title == title)
+                return TextClean.Clean(els[i].GetLabel(0, lang));
+        return null;
     }
 
     /// <summary>The element's current setting, for elements whose label does not already carry it.</summary>
