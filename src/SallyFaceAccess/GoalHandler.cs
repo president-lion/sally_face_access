@@ -4,7 +4,7 @@ using UnityEngine;
 namespace SallyFaceAccess;
 
 /// <summary>
-/// The current goal, shown by the game in its "Goal" menu (element "Goal"; "???" when there
+/// The current goal: a global variable the game shows in its "Goal" menu ("???" when there
 /// is none). Announces a new goal when it changes, and F5 reads it on demand.
 /// </summary>
 internal static class GoalHandler
@@ -38,9 +38,17 @@ internal static class GoalHandler
     public static string Current()
     {
         if (KickStarter.playerMenus == null) return "";
-        var el = PlayerMenus.GetElementWithName("Goal", "Goal");
-        if (el == null) return "";
-        var text = TextClean.Clean(el.GetLabel(0, Options.GetLanguage()));
-        return text is "???" or "?" ? "" : text;
+        // The "Goal" label shows a global variable, and only refreshes while its menu is
+        // drawn - so read the variable itself.
+        var label = PlayerMenus.GetElementWithName("Goal", "Goal")?.TryCast<MenuLabel>();
+        if (label == null) return "";
+        var lang = Options.GetLanguage();
+        string text;
+        if (label.labelType == AC_LabelType.GlobalVariable)
+            text = GlobalVariables.GetVariable(label.variableID)?.GetValue(lang);
+        else
+            text = label.GetLabel(0, lang);
+        text = TextClean.Clean(text);
+        return text is "???" or "?" or "0" ? "" : text;
     }
 }
