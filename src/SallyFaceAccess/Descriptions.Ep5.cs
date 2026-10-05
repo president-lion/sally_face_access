@@ -37,11 +37,28 @@ internal static partial class Descriptions
 
         // ---- The treehouse fire, and the void
         Cutscenes["05_treeHouse/burning"] = "The treehouse catches fire. Flames climb the walls and roar up into the dark.";
-        Areas["05_void"] = "The void: total darkness. Ahead, a house stands alone in the black.";
+        Areas["05_void"] = "The void: an endless dark grey space. Overhead, a tangle of black roots spreads like a web, " +
+            "glowing orbs of drifting specks caught in it like stars. Ahead, a house drawn in thin white lines stands " +
+            "alone in the dark, its windows cracked.";
+        Shots["05_void/startCam"] = "Blackness, and in it a red tree inside a circle, its roots spreading below as wide as " +
+                                    "its branches above.";
+        // The opening talk is one long cutscene, so the area is described before its first line too.
+        Lines[6350] = Areas["05_void"];
         Areas["05_void_House"] = "Inside the house in the void: everything drawn in faint white lines on black, a floor of hexagons. " +
             "A glowing white door, a staircase leading up into nothing, a black doorway, and a long hall of numbered doors.";
         Shots["05_void_House/cam_memory1"] = "A memory, scratched in white lines: two tall figures looming over a small child with " +
                                              "pigtails.";
+        Areas["05_void_House/cam_hall"] = "A long dark hall: plain doors outlined in white, each with a number, faint streaks " +
+            "of light rising up the walls from a floor of dark hexagon tiles.";
+        Areas["05_void_House/cam_Room"] = "A dark room. A small door on the left, and in the middle a tall, narrow black slit " +
+            "of a doorway reaching up into the dark, pale light glowing around its edges.";
+        Areas["05_void_House/cam_workshop"] = "A workshop in the dark: a great heap of broken things, toppled buildings, crystals " +
+            "and machine parts. On top of it a figure sits hunched at a little table, working, and from his head a river of " +
+            "glowing blue and violet threads pours up into the blackness. A door far to the right.";
+        Shots["05_void_House/cam_memory3"] = "A memory, scratched in white: a tangled mass hanging from above, strands dripping " +
+                                             "down from it.";
+        Shots["05_void_House/cam_memory4"] = "A memory: a woman with long blonde hair, waving, and a little boy with spiky blue " +
+                                             "hair running to her.";
         Shots["05_void_House/cam_memory2"] = "A memory: a car at night, headlights glaring, a bearded man at the wheel.";
         Areas["05_void2"] = "A dark space under a web of black roots, glowing orbs hanging in it like stars. Each holds a memory.";
         Shots["05_void2/cam_F1"] = "A memory, drawn in white scribbles: Sal and Larry on a couch, watching a film.";
