@@ -113,10 +113,16 @@ internal static partial class Descriptions
                                              "hair running to her.";
         Shots["05_void_House/cam_memory2"] = "A memory: a car at night, headlights glaring, a bearded man at the wheel.";
         Areas["05_void2"] = "A dark space under a web of black roots, glowing orbs hanging in it like stars. Each holds a memory.";
-        Shots["05_void2/cam_F1"] = "A memory, drawn in white scribbles: Sal and Larry on a couch, watching a film.";
-        Shots["05_void2/cam_F2"] = "A memory: Sal and Todd, Todd with orange hair and glasses.";
-        Shots["05_void2/cam_F3"] = "A memory: two hands reaching out across a table.";
-        Shots["05_void2/endCam"] = "A heap of lifeless bodies, piled together, and a shaft of blue light rising from them.";
+        Shots["05_void2/cam_F1"] = "A memory, scribbled in white lines on black: Larry, long-haired, on a couch beside Sal, " +
+                                   "both watching a film, a couple holding each other on the screen.";
+        Shots["05_void2/cam_F2"] = "A memory: Sal, seen from behind, his pigtails and mask strap, facing Todd, whose hair " +
+                                   "is the only colour here, orange, above big round glasses.";
+        Shots["05_void2/cam_F3"] = "A memory: from either side, two pairs of hands reaching toward each other across a table " +
+                                   "scribbled with splashes of paint.";
+        Shots["05_void2/endCam"] = "Under the hanging orbs, a heap of lifeless bodies, the people of Addison Apartments, " +
+                                   "piled on one another. Above them floats Ash's limp body, and rising straight up through " +
+                                   "her, a jagged shard of blue light.";
+        Visuals["05_void2/anim:bolt_burn"] = "The blue shard flares and burns, crackling with light.";
 
         // ---- The cult temple and the caves
         Areas["05_temple1"] = "The cult temple: long stone halls of arches and pillars, red banners bearing the cult's trident " +
