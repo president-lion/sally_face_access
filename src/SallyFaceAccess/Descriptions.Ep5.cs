@@ -9,7 +9,9 @@ internal static partial class Descriptions
         Areas["05_cemetery"] = "Neveroak Cemetery at night, under a full moon: an iron arch over the gates spelling Neveroak " +
             "Cemetery, rows of headstones and crosses on dark hills, bare trees against drifting clouds. Among the graves lie " +
             "the Holmes family, Luke, Stacy and Megan; the Sandersons; Robert Silva; Morrison; Chug and Soda Cohen; Larry " +
-            "Johnson; Lisa Johnson-Fisher and Henry Fisher; and at the far end, Sal Fisher.";
+            "Johnson; Lisa Johnson-Fisher and Henry Fisher; and at the far end, Sal Fisher. At the far left, past the " +
+            "Holmes family, a freshly dug grave: a raw heap of loose dark earth, no headstone yet, a plain cross " +
+            "standing behind it.";
         Shots["05_cemetery/salCam 1"] = "A headstone: Sal Fisher, 1976 to 2004, son of Henry and Diane Fisher.";
         Shots["05_cemetery/cutCam"] = "Sal's gloved hand holds a pocket knife over his other open palm.";
         Shots["05_cemetery/ashAwakenCam"] = "Ash rises from the grave, her hair matted, her arm burned and scarred down to the " +

@@ -61,6 +61,11 @@ public class MenuStatesTests
     }
 
     [Fact]
+    public void Hex_close_up_describes_the_hexagon_shown() =>
+        Assert.Equal("a black hexagon with five green dots",
+            MenuStates.State("HexCU", Visible(("close", ""), ("black", ""))));
+
+    [Fact]
     public void Bird_cage_names_what_each_compass_slot_holds()
     {
         // Slot pictures are "tooth <letter> <slot>", slots numbered S=1 W=2 N=3 E=4 centre=5.

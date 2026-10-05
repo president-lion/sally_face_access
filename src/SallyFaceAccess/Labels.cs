@@ -98,6 +98,17 @@ internal static class Labels
         ["bird cage/tooth s"] = "tooth S",
         ["bird cage/tooth w"] = "tooth W",
 
+        // Episode 5's hexagons: the close-up, and the keypad their colours unlock.
+        ["HexCU/close"] = Strings.Close,
+        ["HexPad/O"] = "enter",
+        ["HexPad/X"] = Strings.Close,
+        ["HexPad/black"] = "black hexagon",
+        ["HexPad/blue"] = "blue hexagon",
+        ["HexPad/white"] = "white hexagon",
+        ["HexPad/purple"] = "purple hexagon",
+        ["HexPad/green"] = "green hexagon",
+        ["HexPad/red"] = "red hexagon",
+
         ["Achievements Nav/close button"] = Strings.Close,
         ["Achievements Nav/close button (MM)"] = Strings.Close,
         ["Achievements Nav/r 1"] = Strings.NextPage,

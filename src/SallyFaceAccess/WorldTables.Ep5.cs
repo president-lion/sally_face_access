@@ -44,7 +44,7 @@ internal static partial class WorldTables
         Rooms["05_alt_House/bathCam"] = "bathroom";
 
         // ---- Hotspots
-        Hotspots["05_cemetery/@-34"] = "freshly dug grave";
+        Hotspots["05_cemetery/@-34"] = "black hexagon, on a freshly dug grave";
         Hotspots["05_cemetery/SAL"] = "Sal Fisher's grave";
         Hotspots["05_house1/photoHS"] = "photo";
         Hotspots["05_house1/letter"] = "letter";

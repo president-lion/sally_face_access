@@ -280,8 +280,46 @@ internal static class WorldHandler
     internal static string Name(Hotspot h)
     {
         var name = WorldText.HotspotName(WorldTables.Hotspot(_scene, h.gameObject.name, X(h)), h.gameObject.name, h.GetName(Options.GetLanguage()));
+        if (name.Length > 0) return name;
+        // Episode 5's hidden hexagons have neither a name nor a named script; one per scene, by colour.
+        if (HexColours.TryGetValue(_scene, out var colour) && OpensMenu(h, "HexCU")) return string.Format(Strings.Hexagon, colour);
         // Objects the game left nameless are still usable: name them from the script they run.
-        return name.Length > 0 ? name : WorldText.NameFromScript(ScriptName(h));
+        return WorldText.NameFromScript(ScriptName(h));
+    }
+
+    // Which hexagon each scene holds (from hexCU_open).
+    private static readonly Dictionary<string, string> HexColours = new()
+    {
+        ["05_cemetery"] = "black", ["05_house1"] = "blue", ["05_temple1"] = "white",
+        ["05_alt_House"] = "purple", ["05_forest"] = "green", ["05_caveEnt"] = "red",
+    };
+
+    private static readonly Dictionary<IntPtr, bool> _opensMenu = new();
+
+    /// <summary>Whether using or looking at the object turns on the named menu.</summary>
+    private static bool OpensMenu(Hotspot h, string menu)
+    {
+        if (_opensMenu.TryGetValue(h.Pointer, out var known)) return known;
+        var found = false;
+        try
+        {
+            var buttons = new List<Il2CppAC.Button>();
+            for (var i = 0; h.useButtons != null && i < h.useButtons.Count; i++) buttons.Add(h.useButtons[i]);
+            buttons.Add(h.useButton);
+            buttons.Add(h.lookButton);
+            foreach (var b in buttons)
+            {
+                var actions = b?.interaction != null ? b.interaction.actions : b?.assetFile?.actions;
+                for (var i = 0; !found && actions != null && i < actions.Count; i++)
+                {
+                    var m = actions[i]?.TryCast<ActionMenuState>();
+                    found = m != null && m.changeType == ActionMenuState.MenuChangeType.TurnOnMenu && m.menuToChange == menu;
+                }
+            }
+        }
+        catch (Exception ex) { Log.Once("WorldHandler.OpensMenu", ex); }
+        if (_opensMenu.Count > 512) _opensMenu.Clear();
+        return _opensMenu[h.Pointer] = found;
     }
 
     /// <summary>The name of the first script an object runs when used (or looked at).</summary>

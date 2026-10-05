@@ -89,4 +89,5 @@ internal static class Strings
     public const string GateAlreadyOpen = "the gate is already open";
     public const string Dial = "dial {0}: {1}";
     public const string Tooth = "tooth {0}";
+    public const string Hexagon = "{0} hexagon";
 }

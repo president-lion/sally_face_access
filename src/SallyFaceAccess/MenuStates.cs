@@ -29,6 +29,17 @@ internal static class MenuStates
     private static readonly string[] LockSymbols =
         { "dot", "line", "peak", "flag", "double N", "zigzag", "hourglass", "forked diamond", "boxed diamond" };
 
+    // Episode 5's hexagon tiles, from their art (hex_black ... hex_white): the colour and the dots on it.
+    internal static readonly (string Colour, string Text)[] Hexagons =
+    {
+        ("black", "a black hexagon with five green dots"),
+        ("blue", "a blue hexagon with one white dot"),
+        ("white", "a white hexagon with three blue dots"),
+        ("purple", "a purple hexagon with two black dots"),
+        ("green", "a green hexagon with four red dots"),
+        ("red", "a red hexagon with six purple dots"),
+    };
+
     // The bird cage's compass slots, by the number in their pictures' names, read clockwise from north.
     private static readonly (int Slot, string Name)[] CompassSlots =
         { (3, "north"), (4, "east"), (1, "south"), (2, "west"), (5, "centre") };
@@ -79,6 +90,12 @@ internal static class MenuStates
                     slots.Add($"{name}: {(tooth == null ? Strings.Empty : string.Format(Strings.Tooth, tooth.ToUpperInvariant()))}");
                 }
                 return string.Join(". ", slots);
+
+            // The hexagons hidden through Episode 5: a close-up of the one just found.
+            case "HexCU":
+                foreach (var (colour, text) in Hexagons)
+                    if (visible.ContainsKey(colour)) return text;
+                return null;
 
             // Sal's cell phone (Episode 4): the sender and message change in place as texts arrive.
             case "Cell Phone":
