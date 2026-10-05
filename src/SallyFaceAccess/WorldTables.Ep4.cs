@@ -7,6 +7,7 @@ internal static partial class WorldTables
     {
         // ---- Areas
         Areas["04_intro"] = "a nightmare";
+        Hotspots["04_intro/door"] = "dark stone archway"; // labelled "exit?" by the game
         Areas["04_darkPlace"] = "the Dark Place";
         Areas["04_tv"] = "the television";
         Areas["04_house"] = "Sal and Todd's house";

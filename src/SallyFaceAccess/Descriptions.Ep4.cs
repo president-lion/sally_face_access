@@ -9,6 +9,12 @@ internal static partial class Descriptions
         Cutscenes["04_intro/disablePlayerUpDown"] = "Night. A small figure with a guitar stands in the lit doorway of Addison " +
             "Apartments. Flashes of a nightmare, all in red scratches: a corridor, a face, bloodied hands. Then Sal's house, " +
             "dark and tilted, furniture floating in the air, and an alarm clock reading 3:33.";
+        // The nightmare's walkable room, from the tour screenshots.
+        Areas["04_intro/houseCam"] = "A nightmare mash-up of memories in a dim, reddish light. Sal's bedroom: red posters of staring " +
+            "eyes, Twine Parks and Edward Shovelhands, a dresser with pill bottles and cups scattered across the floor around it, the " +
+            "green bed, a TV hanging upside down from the ceiling. To the left, a dark stone archway, and beyond it Mrs. Packerton's " +
+            "iron furnace with black bags beneath it and a blood-spattered freezer.";
+        Shots["04_intro/alarmClock"] = "An alarm clock in the dark, its green display glowing 3:33 AM.";
         Areas["04_darkPlace"] = "The Dark Place: a black void drawn in white chalk lines. A long row of numbered doors, door 5 " +
             "boarded shut, then 4, 1, 3, 2, 2, 1, and a door 6 beside a goat-headed demon with a serpent's tail, Beelzebub. " +
             "Further in: a pair of huge eyes watching from the dark, strange runes scratched on the walls, a cluster of " +

@@ -154,6 +154,13 @@ internal static partial class Descriptions
             "devourers of god. Huge mounds of human bones and skulls are heaped against the walls, blood running down from a " +
             "window above them.";
         Shots["03_cult_Center/ashCam1"] = "On top of a mound of bones and skulls lies Ash, limp and unconscious.";
+        // The hospital segment and the jump scare after "I know what's wrong with Todd."
+        Shots["03_mediaEnd/hospitalCam2"] = "Footage from the hospital: Todd, red-haired and bearded, in a straitjacket, sits curled " +
+                                            "in the corner of a padded white cell, eyes closed.";
+        Shots["03_mediaEnd/hospitalCam2-2"] = "The view creeps in on Todd, slumped motionless in the corner of the padded cell.";
+        Shots["03_mediaEnd/hospitalCam3"] = "Suddenly, an extreme close-up: Todd's eyes snap open, glowing red and bloodshot, staring " +
+                                            "straight out.";
+        Shots["03_mediaEnd/hospitalCam1-2"] = "The view pulls slowly back down an empty, brightly lit hospital corridor, past closed doors.";
         Cutscenes["03_mediaEnd/endingCutScene"] = "The interview again. Then: Sal's cuffed hands hold a copy of the Nockfell News, " +
             "headlined The Sally Face Killer, Trial Today for Mass Murder, Including Entire Family, with a photo of Ash and the " +
             "words: the prosecutor will call Ashley Campbell to testify. Sal crumples the paper and tears it apart. " +
