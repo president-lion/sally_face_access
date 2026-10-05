@@ -41,6 +41,10 @@ internal static class Triggers
         ["04_2_F3/guitarIN"] = "barrier spell",
         ["04_2_F4/guitarIN"] = "barrier spell",
         ["04_2_roof/guitarIN"] = "barrier spell",
+        ["05_forest/exitHex"] = "",       // walking out of these steps back from the hex dials
+        ["05_forest/exitHex (1)"] = "",
+        ["05_forest/exitHex (2)"] = "",
+        ["05_forest/exitHex (3)"] = "",
         ["04_2_403/Trigger2D"] = "",      // only plays a stinger as Sal sees Mr. Sanderson; described instead
         ["05_temple1/Trigger W"] = "cultist, don't touch",  // each cultist's capture box, moving with him
         ["04_201/safeTrig"] = "",         // only flags "standing at the safe"; the safe is its own hotspot

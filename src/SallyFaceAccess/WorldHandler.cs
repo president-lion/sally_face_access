@@ -57,6 +57,7 @@ internal static class WorldHandler
         _camera = null;
         _lastView = ""; // forces a fresh debug snapshot once the scene's camera is set
         if (!NonPlaces.Contains(scene)) Speech.Say(WorldTables.Area(scene), interrupt: false);
+        if (Is3D) Speech.Say(Strings.ThreeDArea, interrupt: false);
     }
 
     public static void Tick()
@@ -80,6 +81,7 @@ internal static class WorldHandler
         if (Input.GetKeyDown(KeyCode.PageDown)) Scan(+1);
         if (Input.GetKeyDown(KeyCode.PageUp)) Scan(-1);
         if (Input.GetKeyDown(KeyCode.Home)) Scan(0);
+        if (Input.GetKeyDown(KeyCode.End) && Is3D) UseScanned();
         if (Input.GetKeyDown(KeyCode.F4)) Speech.Say(string.Format(Strings.RoomSummary, RoomName(), _scan.Count));
         if (Input.GetKeyDown(KeyCode.F6))
             Speech.Say(Descriptions.Area(_scene, CameraName()) ?? Strings.NoDescription);
@@ -213,6 +215,25 @@ internal static class WorldHandler
         var where = TopDownAudio.IsScene(_scene) ? TopDownLogic.Direction(dx, item.Y - pos.y)
             : WorldText.Direction(dx, item.Z - pos.z, Settings.StepSize);
         Speech.Say($"{name}, {where}");
+    }
+
+    // The 3D areas, where the game expects things to be clicked from a distance with the mouse.
+    private static bool Is3D => _scene is "05_forest" or "05_endless_4_3D";
+
+    /// <summary>End, in a 3D area: use (or look at) the object last picked in the scan, as a click would.</summary>
+    private static void UseScanned()
+    {
+        if (KickStarter.stateHandler?.gameState != GameState.Normal) return;
+        if (_scanIndex < 0 || _scanIndex >= _scan.Count || _scan[_scanIndex].Hotspot == null)
+        {
+            Speech.Say(Strings.ScanFirst);
+            return;
+        }
+        var h = _scan[_scanIndex].Hotspot;
+        if (h == null || !h.IsOn()) return;
+        Log.Info("World", $"using {h.gameObject.name} from the scan");
+        if (h.GetFirstUseButton() != null) h.RunUseInteraction();
+        else h.RunExamineInteraction();
     }
 
     private static int NearestIndex()
