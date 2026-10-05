@@ -20,6 +20,18 @@ internal static class Arena
     private static Transform[] _enemies = new Transform[4];
     private static float _nextGather;
     private static int _lastKills = -1;
+    private static readonly float[] _mutedUntil = new float[4];
+    private const float DeathSilence = 1.2f; // the death animation, then the respawn at its corner
+
+    /// <summary>A blob's death animation started: its hum stops now, not when it reappears.</summary>
+    public static void Killed(Il2CppAC.Char c)
+    {
+        if (!_active || c == null) return;
+        var i = Array.IndexOf(Enemies, c.gameObject.name);
+        if (i < 0) return;
+        _mutedUntil[i] = Time.unscaledTime + DeathSilence;
+        ToneEngine.Loop(i, ToneEngine.Cue.Hum, default);
+    }
 
     public static void OnSceneLoaded(string scene)
     {
@@ -28,6 +40,7 @@ internal static class Arena
         _enemies = new Transform[4];
         _nextGather = 0;
         _lastKills = -1;
+        Array.Clear(_mutedUntil);
     }
 
     public static void Tick()
@@ -47,7 +60,11 @@ internal static class Arena
         for (var i = 0; i < _enemies.Length; i++)
         {
             var e = _enemies[i];
-            if (talking || e == null || !e.gameObject.activeInHierarchy) { ToneEngine.Loop(i, ToneEngine.Cue.Hum, default); continue; }
+            if (talking || e == null || !e.gameObject.activeInHierarchy || Time.unscaledTime < _mutedUntil[i])
+            {
+                ToneEngine.Loop(i, ToneEngine.Cue.Hum, default);
+                continue;
+            }
             var d = e.position - p;
             ToneEngine.Loop(i, ToneEngine.Cue.Hum, TopDownLogic.Place(d.x, d.y, Range), 0.8f);
         }

@@ -42,7 +42,11 @@ internal static class ActionHooks
     {
         private static void Prefix(ActionCharAnim __instance)
         {
-            try { Seen(__instance, "anim:" + __instance.clip2D); }
+            try
+            {
+                if (__instance.clip2D == "glob_death") Arena.Killed(__instance.animChar);
+                Seen(__instance, "anim:" + __instance.clip2D);
+            }
             catch (Exception ex) { Log.Once("ActionHooks.CharAnim", ex); }
         }
     }
