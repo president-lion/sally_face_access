@@ -47,6 +47,9 @@ internal static class MenuStates
     private static readonly string[] Corners = { "", "top", "bottom left", "bottom right" };
     private static readonly string[] PyramidNames = { "", "north pyramid", "west pyramid", "east pyramid" };
 
+    /// <summary>A pyramid picked before it has been found: only "place" shows, and does nothing.</summary>
+    public static string PyramidNotFound(int pyramid) => string.Format(Strings.PyramidNotFound, PyramidNames[pyramid]);
+
     /// <summary>The pyramid puzzle's state: "north pyramid: top, bottom right" or a bare name.</summary>
     public static string PyramidEntry(int pyramid, int code)
     {

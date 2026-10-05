@@ -160,7 +160,10 @@ internal static class MenuHandler
     {
         var which = GlobalVariables.GetVariable(10)?.IntegerValue ?? 0;
         var code = GlobalVariables.GetVariable(17)?.IntegerValue ?? 0;
-        return MenuStates.PyramidEntry(which, code);
+        // Variables 60-62 (north, west, east): 0 not found yet, 1 found, 2 solved. The corners only
+        // appear for a pyramid that has been found.
+        var found = which is >= 1 and <= 3 ? GlobalVariables.GetVariable(59 + which)?.IntegerValue ?? 0 : 1;
+        return found == 0 ? MenuStates.PyramidNotFound(which) : MenuStates.PyramidEntry(which, code);
     }
 
     /// <summary>

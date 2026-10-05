@@ -75,6 +75,10 @@ public class MenuStatesTests
         Assert.Equal("top row: moon, sun. middle row: sun, moon. bottom row: moon, sun", MenuStates.State("3D Code2", v));
     }
 
+    [Fact]
+    public void Pyramid_not_found() =>
+        Assert.Equal("east pyramid: not found yet, so it has no corners to press", MenuStates.PyramidNotFound(3));
+
     [Theory]
     [InlineData(0, 0, "choose a pyramid")]
     [InlineData(1, 0, "north pyramid, nothing entered")]

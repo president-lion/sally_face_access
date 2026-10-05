@@ -53,6 +53,9 @@ internal static partial class Descriptions
         MenuPages["3D Grids"] = "Two pictures. On the left, a 3 by 3 grid of moons and suns. Top row: moon, moon, sun. " +
             "Middle row: sun, sun, moon. Bottom row: moon, sun, moon. On the right, a grid two wide and three tall of light " +
             "and dark squares. Top row: light, light. Middle row: dark, light. Bottom row: dark, dark.";
+        // Solving a tile terminal (G1/G2_solved): the view cuts to the middle terminal as part of it rises.
+        Visuals["05_forest/anim:terminal_up"] = "The tiles lock into place. With a deep hum, a hexagon block rises up out of " +
+                                                "the ground at the middle terminal.";
         MenuPages["3D Code1"] = "A terminal with a 3 by 3 grid of tiles, each black or white. Pressing a tile flips it.";
         MenuPages["3D Code2"] = "A terminal with a grid of tiles two wide and three tall, each a sun or a moon. Pressing a " +
             "tile flips it.";

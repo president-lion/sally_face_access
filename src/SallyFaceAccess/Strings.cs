@@ -92,6 +92,7 @@ internal static class Strings
     public const string Hexagon = "{0} hexagon";
     public const string NothingEntered = "nothing entered";
     public const string ChoosePyramid = "choose a pyramid";
+    public const string PyramidNotFound = "{0}: not found yet, so it has no corners to press";
     public const string ThreeDArea = "a 3D area: up and down arrows walk away from and toward the camera. Press End to use the object you last scanned";
     public const string ScanFirst = "scan to an object first, then press End";
     public const string Upright = "upright";
