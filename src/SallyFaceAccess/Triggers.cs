@@ -35,6 +35,9 @@ internal static class Triggers
         ["04_darkPlace/herTrigger"] = "her",
         ["04_house/tvOff"] = "",          // turns the TV off when you walk away from it
         ["04_house/tvOff (1)"] = "",
+        ["04_201/safeTrig"] = "",         // only flags "standing at the safe"; the safe is its own hotspot
+        ["04_201/safeTrigOut"] = "",
+        ["04_201/safeTrigOut (1)"] = "",
         ["03_cult_L2/switch1"] = "floor switch 1",
         ["03_cult_L2/switch2"] = "floor switch 2",
         ["03_cult_L2/switch3"] = "floor switch 3",
