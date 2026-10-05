@@ -99,6 +99,16 @@ internal static partial class Descriptions
         foreach (var c in new[] { "c1", "c2", "c5", "c6" })
             Cutscenes[$"05_temple2_center/{c}_killed"] = "Sal's power blasts him; the cultist drops dead.";
 
+        // The center chambers' shadows: Larry's two crawl at him from either side; Ash's shadow arm
+        // follows her, quivers, slams down, then lies open for three seconds (shadowFollow).
+        Visuals["anim:shadowDeath"] = "The shadow bursts apart.";
+        Visuals["anim:shadowDeath_L"] = "The shadow bursts apart.";
+        Visuals["anim:shadowArm_up"] = "The shadow arm rises again and comes after you.";
+        Visuals["anim:shadowArm_wiggle"] = "!It quivers, about to strike! Move!";
+        Visuals["anim:shadowArm_Attack"] = "!It slams down!";
+        Visuals["anim:shadowArm_IdleDown"] = "!It's down! Strike it now!";
+        Visuals["anim:shadowArm_blink"] = "!Hit!";
+
         // ---- The treehouse fire, and the void
         Cutscenes["05_treeHouse/burning"] = "The treehouse catches fire. Flames climb the walls and roar up into the dark.";
         Areas["05_void"] = "The void: an endless dark grey space. Overhead, a tangle of black roots spreads like a web, " +

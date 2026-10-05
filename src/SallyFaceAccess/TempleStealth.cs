@@ -233,8 +233,10 @@ internal static class TempleStealth
         }
     }
 
-    // Every cultist is an AC character "Cultist E", "Cultist N1"...; his sprite child is not counted again.
-    private static bool IsCultist(string name) => name.StartsWith("Cultist ");
+    // Every cultist is an AC character "Cultist E", "Cultist N1"...; his sprite child is not counted
+    // again. The center chambers' shadows ("Shadow", "Shadow 2") and the shadow arm hum the same way.
+    private static bool IsCultist(string name) =>
+        name.StartsWith("Cultist ") || name == "Shadow" || name.StartsWith("Shadow ") || name == "shadowArm";
 
     private static void Timer()
     {

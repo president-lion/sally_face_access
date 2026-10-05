@@ -31,8 +31,10 @@ internal static class ActionHooks
         // A scene's own entry ("05_alt_House/anim:tv_on") wins over the one for every scene.
         var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         var text = Descriptions.Visual($"{scene}/{key}") ?? Descriptions.Visual(key);
-        if (text != null) { if (text.Length > 0) Speech.Say(text, interrupt: false); } // "" = known, deliberately silent
-        else if (Settings.DebugLog) Log.Append("visuals.log", $"{scene} {key}");
+        // "" = known, deliberately silent; a leading "!" marks a warning that cuts in at once.
+        if (text != null && text.StartsWith("!")) Speech.Say(text[1..], interrupt: true);
+        else if (text != null) { if (text.Length > 0) Speech.Say(text, interrupt: false); }
+        if (text == null && Settings.DebugLog) Log.Append("visuals.log", $"{scene} {key}");
     }
 
     [HarmonyPatch(typeof(ActionCharAnim), nameof(ActionCharAnim.Run))]
