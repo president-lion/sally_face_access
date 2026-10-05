@@ -167,6 +167,42 @@ internal static partial class Descriptions
                                       "crackles from a rift on the floor.";
         Areas["04_os_402/bathroomCam"] = "The bathroom, rotting, blood streaked down the sink and tub.";
         Areas["04_os_roof"] = "The roof, in black rain: crumbling stone ledges, and a tall carved crystal monolith.";
+        // ---- The other side's apartments, as Larry sees them: grey and crumbling, the tenants' true shapes inside.
+        Areas["04_os_201/NavCam 1"] = "Apartment 201 on the other side: grey, cracked plaster walls, a boxy grey sofa, " +
+                                      "empty and silent.";
+        Areas["04_os_202/NavCam 1"] = "Apartment 202 on the other side, Todd's home. A grey kitchen, black ooze dribbling from the " +
+                                      "sink. The door to Todd's room is webbed shut with thick black strands. In the living room, " +
+                                      "Todd's parents: a single hunched mass of shadow draped over the sofa, two pale faces with " +
+                                      "glowing white eyes sunk into it, black tendrils hanging from the ceiling into its back.";
+        Areas["04_os_204/NavCam 1"] = "Apartment 204 on the other side: bare cracked walls, and a dark ritual circle scrawled on " +
+                                      "the floor.";
+        Areas["04_os_301"] = "Apartment 301 on the other side: cracked walls under a peeling IGG banner, a stereo and speakers, a " +
+                             "cabinet, an overflowing bin. In the corner, the children who live here: a towering knot of black " +
+                             "ooze with three small glowing faces caught in it, tendrils rising from it into the ceiling.";
+        Areas["04_os_302"] = "Apartment 302 on the other side: a sofa, a crate, shelves on the wall, a tiny picture of a grey " +
+                             "cloud. Sara sits on the sofa, her pale body split by black veins of ooze, long black fingers " +
+                             "hanging from her hands. By the door, Dave: a dripping column of black sludge with two glowing " +
+                             "eyes, strands of it stretching up to the ceiling.";
+        Areas["04_os_303"] = "Apartment 303 on the other side: a worn sofa and a toy chest, toys scattered across the floor. " +
+                             "Faint, see-through echoes of a heavy man in a cap slumped on the sofa and a little girl " +
+                             "sitting on the floor. By the toy chest, a little dark pony toy with white eyes and a crooked " +
+                             "grin.";
+        Areas["04_os_401"] = "Apartment 401 on the other side, Robert's: cracked walls covered in horror and band posters, a " +
+                             "skull, a monster. A stereo crackles with white lightning, CDs scattered around it. On a " +
+                             "mattress in the corner sits Robert's shadow form, hunched and black, one pale eye glowing in " +
+                             "a gaunt face, black branches growing up out of him into the ceiling.";
+        Areas["04_os_403"] = "Apartment 403 on the other side: bare, black and grey, a grey door hanging open.";
+        Shots["04_os_403/ghostCam"] = "Mr. Sanderson's ghost stands against the wall, head bowed, wild red hair matted with " +
+                                      "blood, his lilac sweater soaked red down the front.";
+        Areas["04_os_404"] = "Apartment 404 on the other side: nothing but blackness, specks drifting in it like dust. On the " +
+                             "floor in a scatter of debris, a broken video player.";
+        Areas["04_os_501"] = "Apartment 501 on the other side: bare cracked walls. In the corner, on a bed of scattered " +
+                             "newspapers, the homeless man sits hugging his knees, long hair over his face, barefoot.";
+        Areas["04_os_504/NavCam 1"] = "Apartment 504 on the other side: grey, cracked and empty.";
+        Areas["04_os_504/bathroomCam"] = "The bathroom: grimy tiles, a cracked mirror, black ooze hanging from the sink.";
+        Areas["04_os_504_2/NavCam 1"] = "A dark room on the other side: a crate against the cracked wall, a ruined board of " +
+                                        "tiles beside it.";
+        Shots["04_os_504_2/holeCam1"] = "A jagged hole broken through the wall, pitch black inside.";
         Areas["04_2_roof"] = "The roof of Addison Apartments.";
         // ---- The Endless One, the murders, the execution
         Areas["04_2_103"] = "Apartment 103, Mr. Addison's: dark, black ooze and tangled black tendrils spreading over the walls, a " +
