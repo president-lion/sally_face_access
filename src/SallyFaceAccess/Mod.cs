@@ -78,6 +78,8 @@ public sealed class Mod : MelonMod
             _dumpedThisSession = true;
             try { if (!File.Exists(Path.Combine(TextDump.DumpDir, "lines.json"))) TextDump.WriteAll(); }
             catch (Exception ex) { Log.Once("Dump.auto", ex); }
+            try { if (!File.Exists(AssetDump.File)) AssetDump.Write(); }
+            catch (Exception ex) { Log.Once("AssetDump.auto", ex); }
         }
     }
 

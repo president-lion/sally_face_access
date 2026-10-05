@@ -28,6 +28,7 @@ internal static class Hotkeys
         if (Input.GetKeyDown(KeyCode.F11) && TextDump.Ready)
         {
             TextDump.WriteAll();
+            AssetDump.Write();
             Speech.Say(Strings.DumpWritten);
         }
 

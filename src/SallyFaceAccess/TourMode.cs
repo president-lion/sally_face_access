@@ -335,7 +335,7 @@ internal static class TourMode
         File.WriteAllText(Path.Combine(SceneDir(), "scene.txt"), sb.ToString());
     }
 
-    private static void AppendActions(StringBuilder sb, Il2CppSystem.Collections.Generic.List<Il2CppAC.Action> actions)
+    internal static void AppendActions(StringBuilder sb, Il2CppSystem.Collections.Generic.List<Il2CppAC.Action> actions)
     {
         for (var i = 0; actions != null && i < actions.Count; i++)
         {
@@ -344,7 +344,11 @@ internal static class TourMode
             sb.Append($"   {i}. {a.GetIl2CppType().Name}");
             if (!a.isEnabled) sb.Append(" [disabled]");
             if (!string.IsNullOrEmpty(a.comment)) sb.Append($" // {a.comment}");
-            sb.Append(' ').AppendLine(Fields(a));
+            sb.Append(' ').Append(Fields(a));
+            // Where it goes next (checks have their own true/false results among the fields).
+            if (a.endAction == ResultAction.Stop) sb.Append(" ->stop");
+            else if (a.endAction == ResultAction.Skip) sb.Append($" ->{a.skipAction}");
+            sb.AppendLine();
         }
     }
 
