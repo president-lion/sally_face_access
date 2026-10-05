@@ -11,8 +11,7 @@ namespace SallyFaceAccess;
 /// Background chatter queues so it does not cut off what the player is listening to.
 ///
 /// During a cutscene the arrow keys repeat the current line until it is advanced, and every
-/// foreground line plays a short E-flat major chord when it goes (advanced or finished), so
-/// the player hears each step of a conversation.
+/// new foreground line plays a short E-flat major chord as it appears.
 /// </summary>
 internal static class DialogueHandler
 {
@@ -22,8 +21,6 @@ internal static class DialogueHandler
     // The foreground line on screen now, for the arrow-key repeat.
     private static IntPtr _current;
     private static string _currentText;
-    // Foreground lines on screen, to hear each one go.
-    private static readonly HashSet<IntPtr> _foreground = new();
 
     public static void Tick()
     {
@@ -42,7 +39,12 @@ internal static class DialogueHandler
             _spoken.Add(key);
 
             var line = DialogueFormat.Line(sp.GetSpeaker(lang), sp.FullText, Settings.SpeakerNames);
-            if (!sp.isBackground) { _current = key; _currentText = line; _foreground.Add(key); }
+            if (!sp.isBackground)
+            {
+                _current = key;
+                _currentText = line;
+                ToneEngine.Play(ToneEngine.Cue.Advance, new TopDownLogic.Placement(0f, 1f, 1f), 0.45f);
+            }
             Log.Debug("Dialogue", $"line {sp.LineID} bg={sp.isBackground} -> '{line}'");
             // What the scene shows just before this line, if it has been described.
             var shown = Descriptions.Line(sp.LineID);
@@ -57,10 +59,6 @@ internal static class DialogueHandler
         _spoken.IntersectWith(_alive);
 
         if (_current != IntPtr.Zero && !_alive.Contains(_current)) { _current = IntPtr.Zero; _currentText = null; }
-
-        // A foreground line has gone: the conversation moved on.
-        var ended = _foreground.RemoveWhere(k => !_alive.Contains(k));
-        if (ended > 0) ToneEngine.Play(ToneEngine.Cue.Advance, new TopDownLogic.Placement(0f, 1f, 1f), 0.45f);
 
         RepeatAndAdvance();
     }
