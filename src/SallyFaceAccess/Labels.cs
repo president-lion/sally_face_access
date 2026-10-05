@@ -68,6 +68,10 @@ internal static class Labels
         ["Packerton's Clock/button 4"] = "digit 4, {4}",
         ["Packerton's Clock/close"] = Strings.Close,
 
+        // The newspaper the journalist shows Sal (Episode 3 ending).
+        ["Newspaper/Button"] = Strings.Close,
+        ["Newspaper/Button1"] = Strings.Continue,
+
         // Door 4's lock in the Dark Place: one button turns each dial.
         ["Dark Place Lock/Button 1"] = "turn dial 1",
         ["Dark Place Lock/Button 2"] = "turn dial 2",
