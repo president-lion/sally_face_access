@@ -150,6 +150,7 @@ internal static class WorldHandler
     /// </summary>
     private static (float, float) RoomRange()
     {
+        if (WorldTables.Bounds(_scene, CameraName()) is { } b) return (b.Min, b.Max);
         var cam2d = KickStarter.mainCamera?.attachedCamera?.TryCast<GameCamera2D>();
         if (cam2d == null) return (float.MinValue, float.MaxValue);
         var unityCam = KickStarter.CameraMain;

@@ -47,6 +47,14 @@ internal static partial class WorldTables
         Hotspots["05_alt_House/gear 1 hs"] = "right hex dial";
         Hotspots["05_alt_House/gear 2 hs"] = "middle hex dial, turns the right one too";
         Hotspots["05_alt_House/gear 3 hs"] = "left hex dial, turns the middle one too";
+        // The cave's two halls share one scene with free-following cameras; the tunnels between
+        // them sit at about x -14 (first hall's left end) and -45 (back hall's right end).
+        Rooms["05_cave/gameCam1"] = "the first hall";
+        Rooms["05_cave/gameCam2"] = "the back hall";
+        RoomBounds["05_cave/gameCam1"] = (-30f, 100f);
+        RoomBounds["05_cave/gameCam2"] = (-160f, -30f);
+        Hotspots["05_cave/tunnel1"] = "tunnel to the back hall";
+        Hotspots["05_cave/tunnel1 (1)"] = "tunnel to the first hall";
         Hotspots["05_cave/turn (2)"] = "left hex dial, turns the middle one too";
         Hotspots["05_cave/turn (1)"] = "middle hex dial, turns the right one too";
         Hotspots["05_cave/turn"] = "right hex dial, turns the left one too";

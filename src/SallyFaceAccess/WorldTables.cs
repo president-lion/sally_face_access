@@ -30,6 +30,12 @@ internal static partial class WorldTables
     // Rooms within an area, keyed "scene/camera name".
     private static readonly Dictionary<string, string> Rooms = new();
 
+    // Room edges (x range) for areas whose cameras follow freely and so give none: "scene/camera".
+    private static readonly Dictionary<string, (float Min, float Max)> RoomBounds = new();
+
+    public static (float Min, float Max)? Bounds(string scene, string camera) =>
+        RoomBounds.TryGetValue($"{scene}/{camera}", out var b) ? b : null;
+
     public static string Room(string scene, string camera) =>
         Rooms.TryGetValue($"{scene}/{camera}", out var n) ? n : null;
 
