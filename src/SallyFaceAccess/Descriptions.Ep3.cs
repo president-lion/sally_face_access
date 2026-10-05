@@ -74,6 +74,14 @@ internal static partial class Descriptions
         Areas["03_201/br2_Cam"] = "Bedroom 2: blood-spattered chest freezers, a blood-stained workbench, saws, cleavers, knives and " +
             "pliers hanging on the wall, an iron furnace with a grate and black bags piled beneath it, melted candles, jars, and " +
             "a wall covered in MISSING posters, scribbled notes and a symbol.";
+        // Bedroom 2's wall ("examine wall"), from the full-size art. The chart is Morse code for the digits.
+        Cutscenes["03_201/examinePosters"] = "A wall covered in pinned papers. On the left, a chart of the numbers 1 to 0, each followed " +
+            "by dots and dashes, Morse code: 1, dot dash dash dash dash. 2, dot dot dash dash dash. 3, dot dot dot dash dash. " +
+            "4, dot dot dot dot dash. 5, five dots. 6, dash dot dot dot dot. 7, dash dash dot dot dot. 8, dash dash dash dot dot. " +
+            "9, dash dash dash dash dot. 0, five dashes. Around it, missing person posters, Please Help, with photos of " +
+            "residents: a smiling woman with dark blue hair, a green-skinned man, a man with a spiky blond quiff, a woman with " +
+            "green hair over one eye, a dark-haired man, a woman with big curly hair. Between them, pentagram sketches, scraps " +
+            "covered in strange runes, and little notes full of tally marks.";
         Shots["03_201/goatHeadCam"] = "Inside the fridge: a severed goat's head with curling horns and a staring yellow eye, a " +
                                       "green tag in its ear reading 1047, lying in blood. Pentagrams are drawn on the fridge's inner walls.";
         Shots["03_201/freezerCam (1)"] = "Inside the freezer: human remains. Severed faces, hands and organs, heaped and soaked in blood.";
