@@ -78,4 +78,8 @@ internal static class Strings
     // Puzzles read from game variables.
     public const string SealState = "seal: right lever ring {0}, left lever ring {1}, of 4. Line both up at 1";
     public const string SealSolved = "seal lined up";
+    public const string SwitchesDown = "switches down: {0}";
+    public const string SwitchesNone = "no switches down";
+    public const string SwitchesAll = "all switches down";
+    public const string FloorSwitch = "floor switch {0}";
 }

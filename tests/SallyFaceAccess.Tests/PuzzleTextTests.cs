@@ -9,4 +9,14 @@ public class PuzzleTextTests
 
     [Fact]
     public void Seal_solved() => Assert.Equal("seal lined up", PuzzleText.Seal(1, 1));
+
+    [Fact]
+    public void Switches_down() =>
+        Assert.Equal("switches down: 1, 3, 5", PuzzleText.Switches(new[] { true, false, true, false, true }));
+
+    [Fact]
+    public void Switches_none() => Assert.Equal("no switches down", PuzzleText.Switches(new bool[5]));
+
+    [Fact]
+    public void Switches_all() => Assert.Equal("all switches down", PuzzleText.Switches(new[] { true, true, true, true, true }));
 }

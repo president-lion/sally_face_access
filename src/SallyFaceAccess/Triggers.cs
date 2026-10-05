@@ -29,6 +29,16 @@ internal static class Triggers
         ["03_cult_Main/switchStep"] = "floor switch",
         ["03_cult_Main/doorFalls"] = "gate",
         ["03_cult_Main/doorFalls (1)"] = "gate",
+        ["03_cult_L2/switch1"] = "floor switch 1",
+        ["03_cult_L2/switch2"] = "floor switch 2",
+        ["03_cult_L2/switch3"] = "floor switch 3",
+        ["03_cult_L2/switch4"] = "floor switch 4",
+        ["03_cult_L2/switch5"] = "floor switch 5",
+        ["03_cult_S2/switch1"] = "floor switch 1",
+        ["03_cult_S2/switch2"] = "floor switch 2",
+        ["03_cult_S2/switch3"] = "floor switch 3",
+        ["03_cult_S2/switch4"] = "floor switch 4",
+        ["03_cult_S2/switch5"] = "floor switch 5",
     };
 
     private static readonly Dictionary<IntPtr, string> _names = new();

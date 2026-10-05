@@ -24,6 +24,8 @@ public class HotspotNameTests
     [InlineData("lisaTalkHS", "talk", "lisa, talk")]
     [InlineData("LarryIdle1", "talk", "larry, talk")]
     [InlineData("ladder1-Down (1)", "climb up", "ladder, climb up")]
+    [InlineData("doorHS", "door", "door")]
+    [InlineData("door2_HS", "door", "door")]
     public void NamesFromObjectAndLabel(string objectName, string label, string expected) =>
         Assert.Equal(expected, WorldText.HotspotName(null, objectName, label));
 

@@ -44,7 +44,7 @@ internal static class WorldText
 
         var noun = ObjectNoun(objectName);
         if (l.Length == 0) return noun;
-        if (!isPrompt) return noun == "door" ? string.Format(Strings.DoorTo, l) : l;
+        if (!isPrompt) return noun == "door" && !l.Equals("door", StringComparison.OrdinalIgnoreCase) ? string.Format(Strings.DoorTo, l) : l;
         if (noun.Length == 0 || l.Contains(noun, StringComparison.OrdinalIgnoreCase)) return l;
         return $"{noun}, {l}";
     }
