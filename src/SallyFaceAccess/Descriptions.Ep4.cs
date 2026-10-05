@@ -259,7 +259,13 @@ internal static partial class Descriptions
         Shots["04_3_end/NavCam 1 (1)"] = "Todd slumps against the wall by the front door, pale, eyes red-rimmed, blood soaking his " +
                                          "shirt from a wound in his side.";
         Cutscenes["04_END/disablePlayerUpDown"] = "Ash races down a road on her motorcycle under a red sky.";
-        Shots["04_END/hallCam1"] = "Two guards lead Sal, in his orange jumpsuit, down a long grey corridor.";
+        // Flashes between stretches of Ash's ride: each cuts to one corridor shot and pans straight on to the
+        // next, so the camera change alone would miss the first; they are described by the flash itself.
+        Cutscenes["04_END/flash1"] = "Flash: a long prison corridor under flickering ceiling lights. Sal, in an orange jumpsuit, " +
+                                     "hands cuffed behind his back and ankles chained, is marched away between two guards.";
+        Cutscenes["04_END/flash2"] = "Flash: further down the corridor now, Sal and the guards nearly at the door at its end.";
+        Visuals["show:executioner (2)"] = "The executioner steps up to the lever.";
+        Visuals["anim:chairON"] = "He pulls it. The chair jolts, current crackling through Sal's body.";
         Shots["04_END/chairCam"] = "Sal is strapped into an electric chair, a metal cap on his head.";
         Shots["04_END/window1Cam"] = "Ash pounds on the viewing window with one fist, a paper pressed to the glass in her other hand.";
         Shots["04_END/exoCam"] = "The executioner checks his watch, hand on the lever.";
