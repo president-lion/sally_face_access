@@ -21,6 +21,7 @@
     <Compile Include="..\..\src\SallyFaceAccess\DetectorLogic.cs" Link="Linked\DetectorLogic.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\TopDownLogic.cs" Link="Linked\TopDownLogic.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\FootstepLogic.cs" Link="Linked\FootstepLogic.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\PuzzleText.cs" Link="Linked\PuzzleText.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -74,4 +74,8 @@ internal static class Strings
     public const string Passage = "passage";
     public const string AudioOn = "positional audio on";
     public const string AudioOff = "positional audio off";
+
+    // Puzzles read from game variables.
+    public const string SealState = "seal: right lever ring {0}, left lever ring {1}, of 4. Line both up at 1";
+    public const string SealSolved = "seal lined up";
 }

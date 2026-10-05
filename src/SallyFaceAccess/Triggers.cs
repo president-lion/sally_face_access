@@ -21,7 +21,15 @@ internal static class Triggers
     // Actions that are scaffolding, not events.
     private static readonly HashSet<string> Silent = new()
         { "ActionCamera", "ActionTeleport", "ActionInstantiate", "ActionPlayerLock", "ActionHotspotEnable", "ActionVarSet",
-          "ActionVarCheck", "ActionComment", "ActionPause", "ActionCharFaceDirection" };
+          "ActionVarCheck", "ActionComment", "ActionPause", "ActionCharFaceDirection", "ActionCharRender" };
+
+    // Triggers whose purpose is known, by scene/name.
+    private static readonly Dictionary<string, string> Known = new()
+    {
+        ["03_cult_Main/switchStep"] = "floor switch",
+        ["03_cult_Main/doorFalls"] = "gate",
+        ["03_cult_Main/doorFalls (1)"] = "gate",
+    };
 
     private static readonly Dictionary<IntPtr, string> _names = new();
 
@@ -49,6 +57,11 @@ internal static class Triggers
     {
         if (_names.TryGetValue(t.Pointer, out var cached)) return cached;
         string name = null;
+        if (Known.TryGetValue($"{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}/{t.gameObject.name}", out var known))
+        {
+            _names[t.Pointer] = known;
+            return known;
+        }
         try
         {
             var actions = t.source == ActionListSource.AssetFile && t.assetFile != null ? t.assetFile.actions : t.actions;

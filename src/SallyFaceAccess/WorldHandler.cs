@@ -271,6 +271,8 @@ internal static class WorldHandler
     private static string DisplayName(Hotspot h)
     {
         var name = _names.TryGetValue(h.Pointer, out var n) ? n : Name(h);
+        var state = Puzzles.For(h);
+        if (state != null) name = $"{name}, {state}";
         var hint = ItemHints.For(h);
         return hint == null ? name : $"{name}, {hint}";
     }
