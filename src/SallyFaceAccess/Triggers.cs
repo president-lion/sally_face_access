@@ -14,7 +14,7 @@ internal static class Triggers
     public sealed class Entry
     {
         public AC_Trigger Trigger;
-        public float X, Y;
+        public float X, Y, Z;
         public string Name;
     }
 
@@ -76,7 +76,7 @@ internal static class Triggers
             // A spot whose own condition says it is spent (a barrier already broken) is not one any more.
             if (name is Strings.DeadstoneSpot or Strings.PonySpot && !Armed(t)) continue;
             var c = t.GetComponent<Collider2D>()?.bounds.center ?? t.GetComponent<Collider>()?.bounds.center ?? t.transform.position;
-            list.Add(new Entry { Trigger = t, X = c.x, Y = c.y, Name = name });
+            list.Add(new Entry { Trigger = t, X = c.x, Y = c.y, Z = c.z, Name = name });
         }
         return list;
     }

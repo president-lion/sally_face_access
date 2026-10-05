@@ -29,7 +29,7 @@ internal static class WorldHandler
     private sealed class ScanItem
     {
         public IntPtr Ptr;
-        public float X, Y;
+        public float X, Y, Z;     // Z is depth, used in the few 3D areas
         public Hotspot Hotspot;   // null for a trigger
         public string Label;      // the trigger's name
     }
@@ -132,10 +132,10 @@ internal static class WorldHandler
         }
 
         _scan.Clear();
-        foreach (var h in _hotspots) _scan.Add(new ScanItem { Ptr = h.Pointer, X = X(h), Y = Y(h), Hotspot = h });
+        foreach (var h in _hotspots) _scan.Add(new ScanItem { Ptr = h.Pointer, X = X(h), Y = Y(h), Z = Centre(h).z, Hotspot = h });
         foreach (var t in Triggers.Collect())
             if (t.Y >= minY && t.Y <= maxY && t.X >= minX && t.X <= maxX)
-                _scan.Add(new ScanItem { Ptr = t.Trigger.Pointer, X = t.X, Y = t.Y, Label = t.Name });
+                _scan.Add(new ScanItem { Ptr = t.Trigger.Pointer, X = t.X, Y = t.Y, Z = t.Z, Label = t.Name });
         _scan.Sort((a, b) => a.X.CompareTo(b.X));
 
         // Keep the scan position on the same thing when the list changes around it.
@@ -210,7 +210,8 @@ internal static class WorldHandler
         var name = item.Hotspot != null ? DisplayName(item.Hotspot) : item.Label;
         var pos = KickStarter.player.transform.position;
         var dx = item.X - pos.x;
-        var where = TopDownAudio.IsScene(_scene) ? TopDownLogic.Direction(dx, item.Y - pos.y) : WorldText.Direction(dx, Settings.StepSize);
+        var where = TopDownAudio.IsScene(_scene) ? TopDownLogic.Direction(dx, item.Y - pos.y)
+            : WorldText.Direction(dx, item.Z - pos.z, Settings.StepSize);
         Speech.Say($"{name}, {where}");
     }
 

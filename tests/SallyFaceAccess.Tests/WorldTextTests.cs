@@ -128,6 +128,19 @@ public class DirectionTests
 
     [Fact]
     public void StepSizeScales() => Assert.Equal("right, 2 steps", WorldText.Direction(4f, 2f));
+
+    // 3D areas: depth away from the camera is up, toward it down.
+    [Fact]
+    public void DepthAdded() => Assert.Equal("left, 3 steps, down, 14 steps", WorldText.Direction(-3f, -14f, 1f));
+
+    [Fact]
+    public void DepthOnly() => Assert.Equal("up, 2 steps", WorldText.Direction(0.2f, 2.1f, 1f));
+
+    [Fact]
+    public void NoDepthIsFlat() => Assert.Equal("right, 1 step", WorldText.Direction(1f, 0.3f, 1f));
+
+    [Fact]
+    public void BothCloseIsHere() => Assert.Equal("here", WorldText.Direction(0.2f, 0.3f, 1f));
 }
 
 public class SceneNameTests

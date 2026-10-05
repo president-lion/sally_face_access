@@ -116,6 +116,20 @@ internal static class WorldText
         return $"{side}, {(n == 1 ? Strings.OneStep : string.Format(Strings.Steps, n))}";
     }
 
+    /// <summary>
+    /// In a 3D area: left/right as usual, plus "up" (away from the camera) or "down" (toward it)
+    /// when the depth differs by half a step or more.
+    /// </summary>
+    public static string Direction(float dx, float dz, float stepSize)
+    {
+        var side = Direction(dx, stepSize);
+        var steps = Math.Abs(dz) / stepSize;
+        if (steps < 0.5f) return side;
+        var n = Math.Max(1, (int)Math.Round(steps));
+        var depth = $"{(dz > 0 ? Strings.Up : Strings.Down)}, {(n == 1 ? Strings.OneStep : string.Format(Strings.Steps, n))}";
+        return side == Strings.Here ? depth : $"{side}, {depth}";
+    }
+
     private static readonly Regex EpisodePrefix = new(@"^(\d\d_)?((os|2|3)_)?", RegexOptions.Compiled);
 
     /// <summary>A readable area name generated from a scene name.</summary>
