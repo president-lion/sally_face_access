@@ -16,6 +16,8 @@ internal static partial class Descriptions
     private static readonly Dictionary<string, string> Cutscenes = new();
     private static readonly Dictionary<int, string> Lines = new();
     private static readonly Dictionary<int, string> AfterLines = new();
+    // What a menu text's picture shows that the text itself doesn't (notes, close-ups), by line ID.
+    private static readonly Dictionary<int, string> MenuPictures = new();
 
     static Descriptions()
     {
@@ -75,6 +77,8 @@ internal static partial class Descriptions
         Cutscenes.TryGetValue($"{scene}/{list}", out var d) ? d : null;
 
     public static string Line(int lineID) => Lines.TryGetValue(lineID, out var d) ? d : null;
+
+    public static string MenuPicture(int lineID) => MenuPictures.TryGetValue(lineID, out var d) ? d : null;
 
     public static string AfterLine(int lineID) => AfterLines.TryGetValue(lineID, out var d) ? d : null;
 

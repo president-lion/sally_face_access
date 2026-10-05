@@ -108,7 +108,7 @@ internal static class MenuHandler
         {
             var label = els[i]?.TryCast<MenuLabel>();
             if (label == null || before.Contains(label.ID)) continue;
-            var text = TextClean.Clean(label.GetLabel(0, lang));
+            var text = LabelText(label, lang);
             if (text.Length > 0 && !parts.Contains(text)) parts.Add(text);
         }
         if (parts.Count == 0) return;
@@ -155,7 +155,7 @@ internal static class MenuHandler
         {
             var label = els[i]?.TryCast<MenuLabel>();
             if (label == null) continue;
-            var text = TextClean.Clean(label.GetLabel(0, lang));
+            var text = LabelText(label, lang);
             if (text.Length > 0 && !parts.Contains(text)) parts.Add(text);
         }
         return string.Join(". ", parts);
@@ -207,6 +207,14 @@ internal static class MenuHandler
         if (b.buttonClickType == AC_ButtonClickType.RunActionList && !string.IsNullOrEmpty(list))
             return Labels.Humanize(System.Text.RegularExpressions.Regex.Replace(list, "(?<=[a-z])(?=[A-Z])", " ")).ToLowerInvariant();
         return null;
+    }
+
+    /// <summary>A label's text, plus what its picture shows when the text leaves it out.</summary>
+    private static string LabelText(MenuLabel label, int lang)
+    {
+        var text = TextClean.Clean(label.GetLabel(0, lang));
+        var picture = Descriptions.MenuPicture(label.lineID);
+        return picture == null || text.Length == 0 ? text : $"{text} {picture}";
     }
 
     /// <summary>The current text of another element in the same menu, found by its title.</summary>

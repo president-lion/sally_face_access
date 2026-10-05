@@ -32,6 +32,8 @@ internal static partial class Descriptions
                          "black and white zigzag floor.";
 
         // ---- Sal and Todd's house
+        // Todd's note (Item Close Up, line 5787): the code is only in the picture. From the shed keypad's check.
+        MenuPictures[5787] = "The note reads: the new shed code is 4 0 3 5 3 6 4.";
         Areas["04_house"] = "Sal and Todd's house, years later: a kitchen with floral wallpaper, wooden cabinets, a stove, a " +
             "microwave and a fridge, and a round table with blue chairs. Then a hallway: stairs up, a plant on a small table, " +
             "doors to the basement and the bathroom, and a living room with a big TV, a game console and an orange couch.";
