@@ -230,6 +230,30 @@ internal static partial class Descriptions
         Shots["04_2_battle/gameCamBlack"] = "The Black Room: nothing but darkness, and Rosenberg's voice.";
         Visuals["anim:terrenceKnife"] = "Terrence holds out a knife to Sal.";
         Visuals["anim:terrenceFade"] = "Terrence fades into the white.";
+        // ---- The murders: Sal goes door to door with the knife. Everyone is grey-faced and hollow-eyed.
+        const string stab = "The screen floods red, black scratches tearing across it. The knife drives down, " +
+                            "slick with blood.";
+        foreach (var s in new[] { "04_3_F1", "04_3_202", "04_3_301", "04_3_302", "04_3_303", "04_3_401", "04_3_402" })
+            Shots[$"{s}/stabCam"] = stab;
+        Areas["04_3_F1"] = "The first floor hallway, a security camera's red light blinking near the ceiling. Outside her open " +
+                           "door, 101, Mrs. Gibson lies curled on the carpet: her skin sickly green and blotched, arms " +
+                           "wrapped around herself.";
+        Shots["04_3_F1/endCam"] = "Close on Mrs. Gibson, curled on the floor, looking up at Sal.";
+        Areas["04_3_202"] = "Apartment 202, Todd's home: bright flowered paintings, a hookah on a side table. Janis sits on the " +
+                            "sofa, pale and dazed, her eyes red. Ray lies across her lap, staring blankly at nothing.";
+        Areas["04_3_301"] = "Apartment 301 under the IGG banner. Sal's friends wait together, quiet and staring: one in a " +
+                            "wheelchair, purple hoodie and beanie; one standing in a long brown coat and green scarf; one " +
+                            "on a wooden chair in a red hoodie, a little green book in her hands.";
+        Areas["04_3_302"] = "Apartment 302: a corkboard of newspaper clippings, a wedding photo on the shelf. David stands in " +
+                            "the middle of the room, skeletal, in a vest and underpants, hand on his stomach. On the red sofa " +
+                            "behind him, a mannequin's torso: Sara.";
+        Shots["04_3_303/introCam"] = "Apartment 303: Chug sits on the sofa, green hair under his cap, staring. Little Soda " +
+                                     "sits on the floor at his feet among scattered toys, wide-eyed.";
+        Areas["04_3_401"] = "Apartment 401, Robert's: posters everywhere, the boombox and CDs on the floor. Robert sits hunched " +
+                            "on his mattress, red mohawk drooping, staring at the floor.";
+        Areas["04_3_402"] = "Home, 402. Sal's dad and Lisa sit close together on the brown sofa, his arm around her, both " +
+                            "tired and red-eyed. On the wall above them, their wedding photo, and a family picture: Sal, " +
+                            "Dad, Lisa and Larry, smiling.";
         Cutscenes["04_3_end/onSceneStart"] = "The entrance hall of Addison Apartments at night, the Addison Tea sign on the floor, " +
                                              "black tendrils at the edges of everything.";
         Shots["04_3_end/NavCam 1 (1)"] = "Todd slumps against the wall by the front door, pale, eyes red-rimmed, blood soaking his " +
