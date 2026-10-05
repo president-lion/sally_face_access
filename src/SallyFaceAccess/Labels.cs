@@ -71,6 +71,9 @@ internal static class Labels
         // Sal's cell phone: the buttons' words are labels beside them, changing with the conversation.
         ["Cell Phone/Button 1"] = "{Reply}",
         ["Cell Phone/Button 2"] = "{Exit}",
+        // Touch-screen twins of the same buttons, which the game also shows near the end.
+        ["Cell Phone/Button 1 (Touch)"] = "{Reply}",
+        ["Cell Phone/Button 2 (Touch)"] = "{Exit}",
 
         // The newspaper the journalist shows Sal (Episode 3 ending).
         ["Newspaper/Button"] = Strings.Close,
