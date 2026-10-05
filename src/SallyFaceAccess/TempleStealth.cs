@@ -31,6 +31,10 @@ internal static class TempleStealth
 
     public static bool Active => _active;
 
+    // The C-4 jars: West 33, East 34, Inner West 35, Inner East 36 (the last, in Inner East).
+    private const int FirstJarVar = 33, LastJarVar = 36, C4Item = 56;
+    private static bool _offered;
+
     public static void OnSceneLoaded(string scene)
     {
         if (_active) ToneEngine.StopLoops();
@@ -40,6 +44,7 @@ internal static class TempleStealth
         _nextGather = 0;
         _nextDoors = 0;
         _timerStart = -1f;
+        _offered = false;
     }
 
     /// <summary>A doorway a patrol can shut: "hs_W-N", not the locked doors.</summary>
@@ -56,6 +61,37 @@ internal static class TempleStealth
         if (Time.unscaledTime >= _nextDoors) { _nextDoors = Time.unscaledTime + 0.25f; Doors(p); }
         Hum(p);
         Timer();
+    }
+
+    private static bool IsTemple1 => UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "05_temple1";
+
+    private static bool AllPlaced => (GlobalVariables.GetVariable(LastJarVar)?.IntegerValue ?? 0) == 1;
+
+    private static void OfferSkip()
+    {
+        if (_offered || !IsTemple1 || KickStarter.runtimeVariables == null) return;
+        _offered = true;
+        if (!AllPlaced) Speech.Say(Strings.SkipAvailable, interrupt: false);
+    }
+
+    /// <summary>
+    /// Delete: every jar counts as planted, the C-4 leaves the inventory, and the game's own
+    /// dungeon doorway script (IE-D) runs - it checks the last jar, then plays the ending.
+    /// </summary>
+    private static void Skip()
+    {
+        if (KickStarter.stateHandler?.gameState != GameState.Normal || AllPlaced) return;
+        ActionList toDungeon = null;
+        foreach (var l in UnityEngine.Object.FindObjectsOfType<ActionList>())
+            if (l != null && l.gameObject.name == "IE-D") { toDungeon = l; break; }
+        if (toDungeon == null) { Log.Warn("TempleStealth", "no IE-D list to finish the temple"); return; }
+        foreach (var l in UnityEngine.Object.FindObjectsOfType<ActionList>())
+            if (l != null && (l.gameObject.name == "autoKillTimer" || l.gameObject.name.StartsWith("cultistsAfterJar"))) l.Kill();
+        for (var v = FirstJarVar; v <= LastJarVar; v++) GlobalVariables.GetVariable(v)?.SetValue(1);
+        try { KickStarter.runtimeInventory.Remove(C4Item, 0, true); } catch (Exception ex) { Log.Once("TempleStealth.C4", ex); }
+        Log.Info("TempleStealth", "skipped the C-4 stealth section");
+        Speech.Say(Strings.PuzzleSkipped);
+        toDungeon.Interact();
     }
 
     private static void Doors(Vector3 p)
