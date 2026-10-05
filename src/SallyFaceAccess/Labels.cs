@@ -82,6 +82,18 @@ internal static class Labels
         ["Dark Place Lock/Button 3"] = "turn dial 3",
         ["Dark Place Lock/Close"] = Strings.Close,
 
+        // The bird cage compass (Episode 4): pick a tooth from the tray, then the slot to put it in.
+        ["bird cage/N"] = "north slot",
+        ["bird cage/E"] = "east slot",
+        ["bird cage/S"] = "south slot",
+        ["bird cage/W"] = "west slot",
+        ["bird cage/X"] = "centre slot",
+        ["bird cage/tooth n"] = "tooth N",
+        ["bird cage/tooth e"] = "tooth E",
+        ["bird cage/tooth x"] = "tooth X, burned",
+        ["bird cage/tooth s"] = "tooth S",
+        ["bird cage/tooth w"] = "tooth W",
+
         ["Achievements Nav/close button"] = Strings.Close,
         ["Achievements Nav/close button (MM)"] = Strings.Close,
         ["Achievements Nav/r 1"] = Strings.NextPage,

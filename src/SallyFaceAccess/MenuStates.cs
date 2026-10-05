@@ -29,6 +29,11 @@ internal static class MenuStates
     private static readonly string[] LockSymbols =
         { "dot", "line", "peak", "flag", "double N", "zigzag", "hourglass", "forked diamond", "boxed diamond" };
 
+    // The bird cage's compass slots, by the number in their pictures' names, read clockwise from north.
+    private static readonly (int Slot, string Name)[] CompassSlots =
+        { (3, "north"), (4, "east"), (1, "south"), (2, "west"), (5, "centre") };
+    private static readonly string[] ToothLetters = { "n", "e", "x", "s", "w" };
+
     /// <summary>
     /// The menu's current choice, or null for menus without one.
     /// <paramref name="visible"/> maps each visible element's title to its text ("" for pictures).
@@ -62,6 +67,18 @@ internal static class MenuStates
                     for (var k = 0; k < LockSymbols.Length; k++)
                         if (visible.ContainsKey($"{d}-{k}")) { dials.Add(string.Format(Strings.Dial, d, LockSymbols[k])); break; }
                 return dials.Count == 0 ? null : string.Join(". ", dials);
+
+            // The bird cage compass (Episode 4): five slots, each showing the tooth put in it as a
+            // picture "tooth <letter> <slot>".
+            case "bird cage":
+                if (!visible.ContainsKey("compass")) return null;
+                var slots = new List<string>();
+                foreach (var (slot, name) in CompassSlots)
+                {
+                    var tooth = ToothLetters.FirstOrDefault(t => visible.ContainsKey($"tooth {t} {slot}"));
+                    slots.Add($"{name}: {(tooth == null ? Strings.Empty : string.Format(Strings.Tooth, tooth.ToUpperInvariant()))}");
+                }
+                return string.Join(". ", slots);
 
             // Sal's cell phone (Episode 4): the sender and message change in place as texts arrive.
             case "Cell Phone":

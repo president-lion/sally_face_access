@@ -61,6 +61,15 @@ public class MenuStatesTests
     }
 
     [Fact]
+    public void Bird_cage_names_what_each_compass_slot_holds()
+    {
+        // Slot pictures are "tooth <letter> <slot>", slots numbered S=1 W=2 N=3 E=4 centre=5.
+        var v = Visible(("compass", ""), ("tooth s 3", ""), ("tooth x 5", ""), ("tooth n icon", ""));
+        Assert.Equal("north: tooth S. east: empty. south: empty. west: empty. centre: tooth X",
+            MenuStates.State("bird cage", v));
+    }
+
+    [Fact]
     public void Cell_phone_reads_sender_and_message()
     {
         var v = Visible(("inbox name", "Larry"), ("Text", "r u awake?"), ("Reply", "Reply"), ("Exit", "Exit"));

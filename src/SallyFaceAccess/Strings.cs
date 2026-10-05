@@ -86,4 +86,5 @@ internal static class Strings
     public const string PuzzleSkipped = "puzzle skipped";
     public const string GateAlreadyOpen = "the gate is already open";
     public const string Dial = "dial {0}: {1}";
+    public const string Tooth = "tooth {0}";
 }
