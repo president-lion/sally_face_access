@@ -1,6 +1,19 @@
 using SallyFaceAccess;
 using Xunit;
 
+public class NameFromScriptTests
+{
+    [Theory]
+    [InlineData("tv: Use", "tv")]
+    [InlineData("enterLarsRoom", "enter lars room")]
+    [InlineData("leaveSal: Use", "leave sal")]
+    [InlineData("door1", "door 1")]
+    [InlineData("talk: Larry", "Larry")]
+    [InlineData("coffeee", "coffeee")]
+    [InlineData("", "")]
+    public void Names(string script, string expected) => Assert.Equal(expected, WorldText.NameFromScript(script));
+}
+
 public class HotspotNameTests
 {
     // Real object name / label pairs from Episode 1's opening scenes.

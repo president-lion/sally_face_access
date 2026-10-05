@@ -138,6 +138,21 @@ internal static class WorldText
     }
 
     /// <summary>Splits camelCase, underscores and digits into lower-case words.</summary>
+    /// <summary>
+    /// A name for an object the game left unnamed, from the script it runs: "tv: Use" -> "tv",
+    /// "enterLarsRoom" -> "enter lars room", "talk: Larry" -> "Larry".
+    /// </summary>
+    public static string NameFromScript(string script)
+    {
+        if (string.IsNullOrWhiteSpace(script)) return "";
+        var parts = script.Split(':', 2);
+        var left = parts[0].Trim();
+        var right = parts.Length > 1 ? parts[1].Trim() : "";
+        // "talk: Larry": the verb comes first, the thing after the colon.
+        if (right.Length > 0 && Verbs.Contains(Words(left)) && !Verbs.Contains(Words(right).Split(' ')[0])) return right;
+        return Words(left);
+    }
+
     private static string Words(string name)
     {
         if (string.IsNullOrWhiteSpace(name)) return "";

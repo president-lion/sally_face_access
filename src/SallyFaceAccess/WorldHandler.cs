@@ -277,8 +277,36 @@ internal static class WorldHandler
         return hint == null ? name : $"{name}, {hint}";
     }
 
-    internal static string Name(Hotspot h) =>
-        WorldText.HotspotName(WorldTables.Hotspot(_scene, h.gameObject.name, X(h)), h.gameObject.name, h.GetName(Options.GetLanguage()));
+    internal static string Name(Hotspot h)
+    {
+        var name = WorldText.HotspotName(WorldTables.Hotspot(_scene, h.gameObject.name, X(h)), h.gameObject.name, h.GetName(Options.GetLanguage()));
+        // Objects the game left nameless are still usable: name them from the script they run.
+        return name.Length > 0 ? name : WorldText.NameFromScript(ScriptName(h));
+    }
+
+    /// <summary>The name of the first script an object runs when used (or looked at).</summary>
+    private static string ScriptName(Hotspot h)
+    {
+        try
+        {
+            var buttons = h.useButtons;
+            for (var i = 0; buttons != null && i < buttons.Count; i++)
+            {
+                var n = ButtonScript(buttons[i]);
+                if (n != null) return n;
+            }
+            return ButtonScript(h.useButton) ?? ButtonScript(h.lookButton) ?? "";
+        }
+        catch { return ""; }
+    }
+
+    private static string ButtonScript(Il2CppAC.Button b)
+    {
+        if (b == null || b.isDisabled) return null;
+        if (b.interaction != null) return b.interaction.gameObject.name;
+        if (b.assetFile != null) return b.assetFile.name;
+        return null;
+    }
 
     /// <summary>The object's x: its collider's centre where it has one, else its transform.</summary>
     internal static float X(Hotspot h) => Centre(h).x;
