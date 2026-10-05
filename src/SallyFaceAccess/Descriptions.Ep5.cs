@@ -36,6 +36,8 @@ internal static partial class Descriptions
             "on the walls with green lights above them.";
         Visuals["anim:black_on"] = "The lights go out.";
 
+        MenuPages["Toon Code"] = "The keypad on Todd's door: a grey screen that shows what you type, and across the top " +
+                                 "of its frame, three plus signs.";
         MenuPages["Toon Photo"] = "A framed photo, drawn like a cartoon: the four friends together. Larry on the left, " +
             "long dark hair, in his SF shirt, throwing the horns with one hand, his other arm around little Sal, who grins " +
             "in his mask and blue pigtails. Ash beside them in her purple top, one arm around Sal too, and Todd on the " +

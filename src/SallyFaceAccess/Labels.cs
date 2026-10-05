@@ -109,6 +109,8 @@ internal static class Labels
         ["HexPad/green"] = "green hexagon",
         ["HexPad/red"] = "red hexagon",
 
+        ["Toon Code/E"] = "enter",
+
         ["Achievements Nav/close button"] = Strings.Close,
         ["Achievements Nav/close button (MM)"] = Strings.Close,
         ["Achievements Nav/r 1"] = Strings.NextPage,

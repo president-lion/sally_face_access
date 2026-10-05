@@ -67,7 +67,7 @@ internal static class MenuHandler
             "Inventory" => InventoryHandler.Summary(lang),
             // The newspaper the journalist shows Sal: its article label is hidden at first.
             "Newspaper" => ElementText(m, "Text", lang) ?? "",
-            _ when state != null => state,
+            _ when state != null => Descriptions.MenuPage(m.title) is { } shown ? $"{shown} {state}" : state,
             // Picture-only menus (a photo close-up) are described by their title.
             _ when Descriptions.MenuPage(m.title) is { } page => page,
             _ when NoIntro.Contains(m.title) => "",
@@ -76,9 +76,9 @@ internal static class MenuHandler
         if (intro.Length == 0) return;
         Log.Debug("Menu", $"intro {m.title} -> '{intro}'");
         Speech.Say(intro);
-        // The selection usually lands in the same frame or just after; queue it behind
-        // the intro instead of letting it cut the question off.
-        _queueSelectionUntil = UnityEngine.Time.unscaledTime + 1f;
+        // The selection usually lands in the same frame or just after (later in a menu that
+        // fades in); queue it behind the intro instead of letting it cut the intro off.
+        _queueSelectionUntil = UnityEngine.Time.unscaledTime + Math.Max(1f, intro.Length * 0.06f);
     }
 
     private static readonly Dictionary<int, string> _states = new();
@@ -135,6 +135,8 @@ internal static class MenuHandler
     {
         // The hex keypad keeps what was entered only in a variable, as digits.
         if (m.title == "HexPad") return MenuStates.HexPadEntry(GlobalVariables.GetVariable(17)?.IntegerValue ?? 0);
+        // Todd's door keypad in the cartoon house: the digits typed so far, also kept in variable 17.
+        if (m.title == "Toon Code") return MenuStates.DigitsEntry(GlobalVariables.GetVariable(17)?.IntegerValue ?? 0);
         if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book" or "Packerton's Clock" or "Dark Place Lock" or "Cell Phone" or "bird cage" or "HexCU")) return null;
         var visible = new Dictionary<string, string>();
         var els = m.visibleElements;

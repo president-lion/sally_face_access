@@ -68,6 +68,12 @@ public class MenuStatesTests
     public void Hex_pad_reads_the_colours_entered(int code, string expected) =>
         Assert.Equal(expected, MenuStates.HexPadEntry(code));
 
+    [Theory]
+    [InlineData(0, "nothing entered")]
+    [InlineData(502, "entered: 5 0 2")]
+    public void Number_pad_reads_the_digits_entered(int code, string expected) =>
+        Assert.Equal(expected, MenuStates.DigitsEntry(code));
+
     [Fact]
     public void Hex_close_up_describes_the_hexagon_shown() =>
         Assert.Equal("a black hexagon with five green dots",

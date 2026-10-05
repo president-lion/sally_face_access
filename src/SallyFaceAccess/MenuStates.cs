@@ -44,6 +44,10 @@ internal static class MenuStates
     // (haxPad_black ... haxPad_white: black 1, blue 2, purple 3, green 4, red 5, white 6).
     private static readonly string[] PadColours = { "", "black", "blue", "purple", "green", "red", "white" };
 
+    /// <summary>A number keypad's entry so far: 502 -> "entered: 5 0 2".</summary>
+    public static string DigitsEntry(int code) =>
+        code <= 0 ? Strings.NothingEntered : string.Format(Strings.Entered, string.Join(" ", code.ToString().ToCharArray()));
+
     /// <summary>The colours entered on the hex keypad so far: 612 -> "entered: white, black, blue".</summary>
     public static string HexPadEntry(int code)
     {
