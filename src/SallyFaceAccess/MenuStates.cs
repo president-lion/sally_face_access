@@ -63,6 +63,11 @@ internal static class MenuStates
                         if (visible.ContainsKey($"{d}-{k}")) { dials.Add(string.Format(Strings.Dial, d, LockSymbols[k])); break; }
                 return dials.Count == 0 ? null : string.Join(". ", dials);
 
+            // Sal's cell phone (Episode 4): the sender and message change in place as texts arrive.
+            case "Cell Phone":
+                if (!visible.TryGetValue("Text", out var msg) || msg.Length == 0) return null;
+                return visible.TryGetValue("inbox name", out var from) && from.Length > 0 ? $"{from}: {msg}" : msg;
+
             case "Game Book":
                 for (var i = 0; i < Spreads.Length; i++)
                 {

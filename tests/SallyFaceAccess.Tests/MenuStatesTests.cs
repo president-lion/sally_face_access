@@ -61,6 +61,13 @@ public class MenuStatesTests
     }
 
     [Fact]
+    public void Cell_phone_reads_sender_and_message()
+    {
+        var v = Visible(("inbox name", "Larry"), ("Text", "r u awake?"), ("Reply", "Reply"), ("Exit", "Exit"));
+        Assert.Equal("Larry: r u awake?", MenuStates.State("Cell Phone", v));
+    }
+
+    [Fact]
     public void Other_menus_have_no_state()
     {
         Assert.Null(MenuStates.State("Pause", Visible(("Resume", "Resume"))));

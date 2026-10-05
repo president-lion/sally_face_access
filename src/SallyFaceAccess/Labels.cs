@@ -68,6 +68,10 @@ internal static class Labels
         ["Packerton's Clock/button 4"] = "digit 4, {4}",
         ["Packerton's Clock/close"] = Strings.Close,
 
+        // Sal's cell phone: the buttons' words are labels beside them, changing with the conversation.
+        ["Cell Phone/Button 1"] = "{Reply}",
+        ["Cell Phone/Button 2"] = "{Exit}",
+
         // The newspaper the journalist shows Sal (Episode 3 ending).
         ["Newspaper/Button"] = Strings.Close,
         ["Newspaper/Button1"] = Strings.Continue,

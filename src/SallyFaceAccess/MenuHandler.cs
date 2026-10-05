@@ -80,6 +80,7 @@ internal static class MenuHandler
     }
 
     private static readonly Dictionary<int, string> _states = new();
+    private static readonly HashSet<IntPtr> _loggedButtons = new();
     private static readonly Dictionary<int, HashSet<int>> _labels = new();
 
     private static HashSet<int> VisibleLabels(Menu m)
@@ -130,7 +131,7 @@ internal static class MenuHandler
 
     private static string State(Menu m, int lang)
     {
-        if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book" or "Packerton's Clock" or "Dark Place Lock")) return null;
+        if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book" or "Packerton's Clock" or "Dark Place Lock" or "Cell Phone")) return null;
         var visible = new Dictionary<string, string>();
         var els = m.visibleElements;
         for (var i = 0; els != null && i < els.Count; i++)
@@ -202,7 +203,7 @@ internal static class MenuHandler
         var b = el.TryCast<MenuButton>();
         if (b == null || !Labels.IsPlaceholder(el.title)) return null;
         var list = b.actionList != null ? b.actionList.name : null;
-        Log.Debug("Menu", $"unnamed button {el.title}: click={b.buttonClickType} list={list}");
+        if (_loggedButtons.Add(el.Pointer)) Log.Debug("Menu", $"unnamed button {el.title}: click={b.buttonClickType} list={list}");
         if (b.buttonClickType == AC_ButtonClickType.TurnOffMenu) return Strings.Close;
         if (b.buttonClickType == AC_ButtonClickType.RunActionList && !string.IsNullOrEmpty(list))
             return Labels.Humanize(System.Text.RegularExpressions.Regex.Replace(list, "(?<=[a-z])(?=[A-Z])", " ")).ToLowerInvariant();
