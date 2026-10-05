@@ -72,10 +72,59 @@ internal static class Triggers
             if (name == null) continue;
             // Finding hot spots is the search itself; with hints off only the glow gives them away.
             if ((name is Strings.HotSpot or Strings.DeadstoneSpot or Strings.PonySpot) && Settings.Hints == "off") continue;
+            // A spot whose own condition says it is spent (a barrier already broken) is not one any more.
+            if (name is Strings.DeadstoneSpot or Strings.PonySpot && !Armed(t)) continue;
             var c = t.GetComponent<Collider2D>()?.bounds.center ?? t.GetComponent<Collider>()?.bounds.center ?? t.transform.position;
             list.Add(new Entry { Trigger = t, X = c.x, Y = c.y, Name = name });
         }
         return list;
+    }
+
+    /// <summary>
+    /// Whether a zone would do anything if entered now: the checks at the head of its script
+    /// (a global variable compared with a number, or an object that must be absent) all pass.
+    /// </summary>
+    private static bool Armed(AC_Trigger t)
+    {
+        try
+        {
+            // The other side's hallways: each spot is for blasting the floor's symbol, and some zones
+            // stay on after it is gone; with no symbol left there is nothing to do there.
+            var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            if (System.Text.RegularExpressions.Regex.IsMatch(scene, @"^04_os_F[1-4]$") && UnityEngine.GameObject.Find("symbol") == null)
+                return false;
+
+            var actions = t.source == ActionListSource.AssetFile && t.assetFile != null ? t.assetFile.actions : t.actions;
+            for (var i = 0; actions != null && i < actions.Count; i++)
+            {
+                var a = actions[i];
+                if (a == null || !a.isEnabled) continue;
+                var v = a.TryCast<ActionVarCheck>();
+                if (v != null && v.location == VariableLocation.Global && v.resultActionFail == ResultAction.Stop)
+                {
+                    var now = GlobalVariables.GetVariable(v.variableID)?.IntegerValue ?? 0;
+                    var pass = v.intCondition switch
+                    {
+                        IntCondition.EqualTo => now == v.intValue,
+                        IntCondition.NotEqualTo => now != v.intValue,
+                        IntCondition.LessThan => now < v.intValue,
+                        IntCondition.MoreThan => now > v.intValue,
+                        _ => true,
+                    };
+                    if (!pass) return false;
+                    continue;
+                }
+                var o = a.TryCast<ActionObjectCheck>();
+                if (o != null && o.resultActionTrue == ResultAction.Stop)
+                {
+                    if (o.gameObject != null && o.gameObject.activeInHierarchy) return false;
+                    continue;
+                }
+                return true; // past the checks
+            }
+        }
+        catch (Exception ex) { Log.Once("Triggers.Armed", ex); }
+        return true;
     }
 
     /// <summary>"way to (area)" for a scene change, "something happens here" for other events, null for scaffolding.</summary>
