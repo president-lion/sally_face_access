@@ -82,4 +82,7 @@ internal static class Strings
     public const string SwitchesNone = "no switches down";
     public const string SwitchesAll = "all switches down";
     public const string FloorSwitch = "floor switch {0}";
+    public const string SkipAvailable = "skip puzzle available, press Delete";
+    public const string PuzzleSkipped = "puzzle skipped";
+    public const string GateAlreadyOpen = "the gate is already open";
 }

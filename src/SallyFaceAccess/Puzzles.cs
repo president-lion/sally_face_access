@@ -11,6 +11,9 @@ namespace SallyFaceAccess;
 ///   the gate opens when all are down.
 /// The state is spoken once it settles after a move, and added to the puzzle's objects' names
 /// in the room scan.
+///
+/// Skippable puzzles (the switch rooms) say so on entry; Delete solves them by setting the
+/// switches and running the game's own unlock script, so the game sees a normal solve.
 /// </summary>
 internal static class Puzzles
 {
@@ -31,13 +34,18 @@ internal static class Puzzles
 
     public static void Tick()
     {
+        if (IsSwitchRoom && Input.GetKeyDown(KeyCode.Delete)) Skip();
         var state = State();
         if (state == null) return;
         if (_last == null)
         {
             // Baseline: a load is not a move. The switch rooms say where they start.
             _last = state;
-            if (IsSwitchRoom) Speech.Say(state, interrupt: false);
+            if (IsSwitchRoom)
+            {
+                Speech.Say(state, interrupt: false);
+                if (!GateOpen()) Speech.Say(Strings.SkipAvailable, interrupt: false);
+            }
             return;
         }
         if (state != _pending) { _pending = state; _pendingSince = Time.unscaledTime; }
@@ -58,6 +66,24 @@ internal static class Puzzles
     private static bool IsSwitchRoom => _scene is "03_cult_L2" or "03_cult_S2";
 
     private static string State() => _scene == "03_cult_Main" ? Seal() : IsSwitchRoom ? Switches() : null;
+
+    // The switch rooms' gate: variable 38 is 55 once it has been opened.
+    private static bool GateOpen() => GlobalVariables.GetVariable(38)?.IntegerValue == 55;
+
+    private static void Skip()
+    {
+        if (KickStarter.stateHandler?.gameState != GameState.Normal) return;
+        if (GateOpen()) { Speech.Say(Strings.GateAlreadyOpen); return; }
+        ActionList unlock = null;
+        foreach (var l in UnityEngine.Object.FindObjectsOfType<ActionList>())
+            if (l != null && l.gameObject.name == "doorUnlocked") { unlock = l; break; }
+        if (unlock == null) { Log.Warn("Puzzles", $"no doorUnlocked in {_scene}"); return; }
+        for (var i = 0; i < 5; i++) GlobalVariables.GetVariable(33 + i)?.SetValue(1);
+        Log.Info("Puzzles", $"skipped the switch puzzle in {_scene}");
+        Speech.Say(Strings.PuzzleSkipped);
+        _last = Switches(); // no "switches down" announcement for the skip itself
+        unlock.Interact();
+    }
 
     private static string Switches()
     {
