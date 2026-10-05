@@ -114,7 +114,8 @@ internal static class WorldHandler
         var (minY, maxY) = TopDownAudio.IsScene(_scene) ? RoomRangeY() : (py - LevelHeight, py + LevelHeight);
         foreach (var h in UnityEngine.Object.FindObjectsOfType<Hotspot>())
         {
-            if (h == null || !h.gameObject.activeInHierarchy || !h.IsOn()) continue;
+            if (h == null || !h.gameObject.activeInHierarchy) continue;
+            if (!h.IsOn() && !TempleStealth.IsGuardedDoor(h)) continue; // a guarded doorway stays listed, "blocked"
             if (Y(h) < minY || Y(h) > maxY) continue;
             var x = X(h);
             if (x < minX || x > maxX) continue;
@@ -271,7 +272,7 @@ internal static class WorldHandler
     private static string DisplayName(Hotspot h)
     {
         var name = _names.TryGetValue(h.Pointer, out var n) ? n : Name(h);
-        var state = Puzzles.For(h);
+        var state = Puzzles.For(h) ?? TempleStealth.For(h);
         if (state != null) name = $"{name}, {state}";
         var hint = ItemHints.For(h);
         return hint == null ? name : $"{name}, {hint}";
@@ -351,7 +352,7 @@ internal static class WorldHandler
 
     internal static float Y(Hotspot h) => Centre(h).y;
 
-    private static Vector3 Centre(Hotspot h)
+    internal static Vector3 Centre(Hotspot h)
     {
         var c2 = h.GetComponent<Collider2D>();
         if (c2 != null) return c2.bounds.center;

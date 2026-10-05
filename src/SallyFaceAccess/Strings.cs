@@ -90,4 +90,8 @@ internal static class Strings
     public const string Dial = "dial {0}: {1}";
     public const string Tooth = "tooth {0}";
     public const string Hexagon = "{0} hexagon";
+    public const string Blocked = "blocked";
+    public const string WayBlocked = "{0} blocked";
+    public const string WayClear = "{0} clear";
+    public const string GetOut = "get out, {0} seconds";
 }
