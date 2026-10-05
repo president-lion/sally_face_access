@@ -11,8 +11,8 @@ namespace SallyFaceAccess;
 ///   - Doorways: a shut one stays in the room scan marked "blocked", and the change either
 ///     way is spoken for the room the player is in.
 ///   - Cultists: touching one (his 5.5-wide capture box) is capture, whichever way he faces.
-///     Each one in the player's row hums from where he stands, a little higher
-///     when he faces the player.
+///     Each one in the player's row hums from where he stands, higher while he is
+///     coming closer.
 ///   - The jar timer (the game's autoKillTimer list): spoken at the start, then counted down.
 /// </summary>
 internal static class TempleStealth
@@ -25,6 +25,8 @@ internal static class TempleStealth
     private static bool _active;
     private static readonly Dictionary<IntPtr, bool> _doorOn = new();
     private static List<Transform> _cultists = new();
+    private static readonly Dictionary<int, float> _lastGap = new();
+    private static readonly Dictionary<int, bool> _closing = new();
     private static float _nextGather, _nextDoors;
     private static float _timerStart = -1f;
     private static int _lastCount;
@@ -41,6 +43,8 @@ internal static class TempleStealth
         _active = scene.StartsWith("05_temple");
         _doorOn.Clear();
         _cultists.Clear();
+        _lastGap.Clear();
+        _closing.Clear();
         _nextGather = 0;
         _nextDoors = 0;
         _timerStart = -1f;
@@ -130,34 +134,19 @@ internal static class TempleStealth
             var t = near[i];
             var dx = t.position.x - p.x;
             var place = TopDownLogic.Place(dx, 0f, HumRange);
-            // Facing the player sounds higher: the one to worry about.
-            var facing = Facing(t);
-            var toward = facing != 0 && Math.Sign(facing) == -Math.Sign(dx);
+            // Coming closer sounds higher: the one to back away from. Standing or leaving is low.
+            var id = t.GetInstanceID();
+            var was = _lastGap.TryGetValue(id, out var g) ? g : Math.Abs(dx);
+            var gap = Math.Abs(dx);
+            if (Math.Abs(gap - was) > 0.02f) _closing[id] = gap < was;
+            _lastGap[id] = gap;
+            var toward = _closing.TryGetValue(id, out var c) && c;
             ToneEngine.Loop(i, ToneEngine.Cue.Hum, place with { Pitch = toward ? 1.3f : 0.85f }, 0.8f);
         }
     }
 
     // Every cultist is an AC character "Cultist E", "Cultist N1"...; his sprite child is not counted again.
     private static bool IsCultist(string name) => name.StartsWith("Cultist ");
-
-    /// <summary>+1 facing right, -1 left, 0 unknown.</summary>
-    private static int Facing(Transform t)
-    {
-        try
-        {
-            var ch = t.GetComponent<Il2CppAC.Char>();
-            if (ch != null)
-            {
-                var dir = ch.GetSpriteDirection() ?? "";
-                if (dir.StartsWith("R")) return 1;
-                if (dir.StartsWith("L")) return -1;
-            }
-            var sr = t.GetComponentInChildren<SpriteRenderer>();
-            if (sr != null) return sr.flipX ? -1 : 1;
-        }
-        catch { }
-        return 0;
-    }
 
     private static void Timer()
     {
