@@ -185,7 +185,9 @@ internal static partial class Descriptions
 
         // ---- The final battles and the end
         Areas["05_32_field"] = "A pixel art arena of grass and stone. Sal, with his guitar, faces creeping black blobs with red " +
-                               "eyes, and green tentacles reach in from the edges.";
+                               "eyes, and green tentacles reach in from the edges. Four blobs crawl at Sal from the corners, each humming where " +
+                               "it is: higher above you, lower below. Press R to blast the ones close by; destroy fourteen. " +
+                               "Don't let one touch you, and don't step off the edge.";
         Areas["05_32_boss"] = "The pixel arena. Enormous arms rise to attack.";
         Areas["05_endless_2_clay"] = "A world of clay: three empty chairs in a red glow. A huge red clay eye in a burst of green.";
         Shots["05_endless_2_clay/salCam"] = "Sal made of clay, wide-eyed, half his face orange.";

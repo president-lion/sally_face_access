@@ -93,6 +93,7 @@ internal static class Strings
     public const string NothingEntered = "nothing entered";
     public const string ChoosePyramid = "choose a pyramid";
     public const string LightsOn = "{0} of 3 lights on";
+    public const string ArenaKills = "{0} of {1}";
     public const string SkipConsole = "the control console can be skipped: press Delete";
     public const string PyramidsClose = "Backspace closes this.";
     public const string Closed = "closed";
