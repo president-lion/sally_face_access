@@ -42,7 +42,7 @@ internal static partial class Descriptions
 
     // Episode 4's two versions of Addison Apartments: every room exists in both, so each
     // version is described once and prefixed to whatever the room itself has.
-    private const string NowVersion = "Addison Apartments, clean and new-looking, security cameras watching from the ceilings. ";
+    private const string NowVersion = "Addison Apartments under the cult's spell: black ooze drips from the ceiling and pools on the floor. ";
     private const string OtherSide = "The other side: a grey, colourless mirror of the building, walls cracked and peeling, " +
                                      "the edges of the room swallowed in darkness. ";
 

@@ -120,6 +120,14 @@ internal static partial class Descriptions
         Lines[5364] = "Sal finds a note left at the foot of the tree, and reads it in the rain.";
         AfterLineTexts[5364] = ("Item Close Up", "larrysNote Text");
 
+        // The barrier spells: the camera moves to the pillar when Sal steps up to it.
+        const string pillar = "A barrier pillar: a towering block of blue marble veined with red, black ooze dripping " +
+                              "down its sides and spreading across the floor. Carved on its face, a ring of eight circles " +
+                              "around a diamond inside a square.";
+        foreach (var f in new[] { "04_2_F1", "04_2_F2", "04_2_F3" }) Shots[$"{f}/guitarCam"] = pillar;
+        Shots["04_2_F4/pillarCam"] = pillar;
+        Shots["04_2_roof/pillarCam"] = pillar;
+
         // Todd's guitar, in any scene: choosing a group of notes with a direction.
         Cutscenes["*/trigger_gUP"] = "up";
         Cutscenes["*/trigger_gR"] = "right";
