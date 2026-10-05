@@ -95,6 +95,11 @@ internal static partial class Descriptions
         Areas["04_403"] = "Apartment 403: dim and empty, green walls and carpet.";
         Shots["04_403/ghostCam"] = "The ghost of a thin old man with wisps of red hair, in a lilac sweater, stands with his head bowed. " +
                                    "Mr. Sanderson.";
+        Areas["04_2_403"] = "Apartment 403, almost black: bare green walls and carpet, nothing else in the room.";
+        // The zone a few steps in: a stinger as Sal sees what is at the far end.
+        Cutscenes["04_2_403/Interaction"] = "Slumped against the far right wall: Mr. Sanderson's body, in his lilac sweater. " +
+                                            "The top of his head is blown open, blood sprayed up the wall above him and " +
+                                            "pooled around him, a pistol fallen by his hand.";
         Areas["04_404"] = "Apartment 404: dark, bare, and empty, a broken jar on the floor in the corner.";
         Areas["04_502"] = "Apartment 502: dark and empty, the old birdcage on the floor.";
         Shots["04_502/coveredCam"] = "A round metal plate, scratched and screwed down at four points.";

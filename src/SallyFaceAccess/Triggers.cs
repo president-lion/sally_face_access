@@ -41,6 +41,7 @@ internal static class Triggers
         ["04_2_F3/guitarIN"] = "barrier spell",
         ["04_2_F4/guitarIN"] = "barrier spell",
         ["04_2_roof/guitarIN"] = "barrier spell",
+        ["04_2_403/Trigger2D"] = "",      // only plays a stinger as Sal sees Mr. Sanderson; described instead
         ["04_201/safeTrig"] = "",         // only flags "standing at the safe"; the safe is its own hotspot
         ["04_201/safeTrigOut"] = "",
         ["04_201/safeTrigOut (1)"] = "",
