@@ -40,6 +40,17 @@ internal static class PuzzleText
         left == 1 && middle == 1 && right == 1 ? Strings.AllDialsUpright
             : $"{Strings.Left} {HexDial(left)}, {Strings.Middle} {HexDial(middle)}, {Strings.Right} {HexDial(right)}";
 
+    /// <summary>
+    /// The control console in the temple office (Episode 5): three switches (variables 33-35,
+    /// 1 = down), three sliders (36-38, 0-2 = positions 1-3) and three lights (39, 40, 111).
+    /// </summary>
+    public static string Console(int[] switches, int[] sliders, int lit)
+    {
+        var sw = string.Join(", ", switches.Select((v, i) => $"switch {i + 1} {(v == 1 ? Strings.Down : Strings.Up)}"));
+        var sl = string.Join(", ", sliders.Select((v, i) => $"slider {i + 1} at {v + 1}"));
+        return $"{sw}. {sl}. {string.Format(Strings.LightsOn, lit)}";
+    }
+
     // Todd's guitar (Episode 4): a direction picks a group of three notes, J/K/L strums one.
     private static readonly string[] GuitarGroups = { Strings.Up, Strings.Right, Strings.Down, Strings.Left };
     private static readonly string[] GuitarKeys = { "J", "K", "L" };

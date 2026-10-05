@@ -163,6 +163,12 @@ internal static class MenuHandler
         // The hex keypad keeps what was entered only in a variable, as digits.
         if (m.title == "HexPad") return MenuStates.HexPadEntry(GlobalVariables.GetVariable(17)?.IntegerValue ?? 0);
         if (m.title == "Pyramids") return PyramidState();
+        if (m.title == "Clay Console")
+        {
+            int V(int id) => GlobalVariables.GetVariable(id)?.IntegerValue ?? 0;
+            var lit = (V(39) == 1 ? 1 : 0) + (V(40) == 1 ? 1 : 0) + (V(111) == 1 ? 1 : 0);
+            return PuzzleText.Console(new[] { V(33), V(34), V(35) }, new[] { V(36), V(37), V(38) }, lit);
+        }
         // Todd's door keypad in the cartoon house: the digits typed so far, also kept in variable 17.
         if (m.title == "Toon Code") return MenuStates.DigitsEntry(GlobalVariables.GetVariable(17)?.IntegerValue ?? 0);
         if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book" or "Packerton's Clock" or "Dark Place Lock" or "Cell Phone" or "bird cage" or "HexCU" or "3D Code1" or "3D Code2")) return null;

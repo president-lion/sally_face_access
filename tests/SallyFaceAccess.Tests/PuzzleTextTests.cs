@@ -38,6 +38,14 @@ public class HexDialTextTests
     public void All_upright() => Assert.Equal("all three dials upright", PuzzleText.HexDials(1, 1, 1));
 }
 
+public class ConsoleTextTests
+{
+    [Fact]
+    public void Reads_switches_sliders_and_lights() =>
+        Assert.Equal("switch 1 down, switch 2 up, switch 3 up. slider 1 at 3, slider 2 at 1, slider 3 at 2. 1 of 3 lights on",
+            PuzzleText.Console(new[] { 1, 0, 0 }, new[] { 2, 0, 1 }, 1));
+}
+
 public class GuitarTextTests
 {
     // Notes 1-3 are up, 4-6 right, 7-9 down, 10-12 left; within a group J, K, L.

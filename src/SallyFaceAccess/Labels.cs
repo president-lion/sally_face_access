@@ -110,6 +110,10 @@ internal static class Labels
         ["HexPad/red"] = "red hexagon",
 
         ["Toon Code/E"] = "enter",
+        ["Clay Console/Slide 1"] = "slider 1",
+        ["Clay Console/Slide 2"] = "slider 2",
+        ["Clay Console/Slide 3"] = "slider 3",
+        ["Clay Console/X"] = Strings.Close,
 
         // The three pyramids (Episode 5): pick one, press its corners, then place.
         ["Pyramids/top"] = "north pyramid",
