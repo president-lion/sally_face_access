@@ -40,6 +40,22 @@ internal static class MenuStates
         ("red", "a red hexagon with six purple dots"),
     };
 
+    // The hex keypad (Episode 5) appends each colour pressed as a digit to variable 17
+    // (haxPad_black ... haxPad_white: black 1, blue 2, purple 3, green 4, red 5, white 6).
+    private static readonly string[] PadColours = { "", "black", "blue", "purple", "green", "red", "white" };
+
+    /// <summary>The colours entered on the hex keypad so far: 612 -> "entered: white, black, blue".</summary>
+    public static string HexPadEntry(int code)
+    {
+        var colours = new List<string>();
+        for (var c = code; c > 0; c /= 10)
+        {
+            var d = c % 10;
+            colours.Insert(0, d < PadColours.Length ? PadColours[d] : "?");
+        }
+        return colours.Count == 0 ? Strings.NothingEntered : string.Format(Strings.Entered, string.Join(", ", colours));
+    }
+
     // The bird cage's compass slots, by the number in their pictures' names, read clockwise from north.
     private static readonly (int Slot, string Name)[] CompassSlots =
         { (3, "north"), (4, "east"), (1, "south"), (2, "west"), (5, "centre") };

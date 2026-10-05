@@ -60,6 +60,14 @@ public class MenuStatesTests
         Assert.Equal("dial 1: double N. dial 2: dot. dial 3: zigzag", MenuStates.State("Dark Place Lock", v));
     }
 
+    [Theory]
+    [InlineData(0, "nothing entered")]
+    [InlineData(6, "entered: white")]
+    [InlineData(612, "entered: white, black, blue")]
+    [InlineData(345, "entered: purple, green, red")]
+    public void Hex_pad_reads_the_colours_entered(int code, string expected) =>
+        Assert.Equal(expected, MenuStates.HexPadEntry(code));
+
     [Fact]
     public void Hex_close_up_describes_the_hexagon_shown() =>
         Assert.Equal("a black hexagon with five green dots",

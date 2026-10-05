@@ -131,6 +131,8 @@ internal static class MenuHandler
 
     private static string State(Menu m, int lang)
     {
+        // The hex keypad keeps what was entered only in a variable, as digits.
+        if (m.title == "HexPad") return MenuStates.HexPadEntry(GlobalVariables.GetVariable(17)?.IntegerValue ?? 0);
         if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book" or "Packerton's Clock" or "Dark Place Lock" or "Cell Phone" or "bird cage" or "HexCU")) return null;
         var visible = new Dictionary<string, string>();
         var els = m.visibleElements;
