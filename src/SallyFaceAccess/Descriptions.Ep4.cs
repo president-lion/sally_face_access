@@ -211,9 +211,23 @@ internal static partial class Descriptions
                                                 "puppet, green slime oozing over it.";
         Shots["04_2_103/cam2"] = "His true form rises behind him: a colossal mass of green slime, human hands and arms sticking out " +
                                  "of it, a small pale head at its tip.";
-        Areas["04_2_battle"] = "A purple void between walls of green flesh. Sal floats in it, guitar in hand, his hair blazing like " +
-                               "blue fire. In the flesh wall, a giant eye opens, its pupil a glowing circle of symbols.";
         Shots["04_2_battle/gameCamWhite"] = "Endless white. Far off, a small figure: Terrence Addison, as he was.";
+        // The fight with the Endless One: six rounds of runes. Kept short - the next runes cut in within seconds.
+        Areas["04_2_battle"] = "A purple void between towering walls of green flesh, dripping slime. Sal falls through it, " +
+                               "guitar in hand, his hair blazing like blue fire. The Endless One: a giant slit eye in the flesh " +
+                               "wall, smaller black eyes clustered around it. Each round a glowing circle of symbols lights " +
+                               "its pupil, and the rune to play burns at the centre.";
+        Visuals["anim:endless_intro"] = "The wall of flesh heaves. The giant eye rolls open and stares at Sal.";
+        for (var i = 0; i < 5; i++)
+            Cutscenes[$"04_2_battle/song_{i}_WIN"] = $"Hit! Lightning blasts from the guitar into the eye. It shrieks, squeezes " +
+                                                     $"shut, and the flesh drags Sal deeper. {i + 1} of 6.";
+        Cutscenes["04_2_battle/song_5_WIN_KILLED"] = "The last blast! Lightning tears through the eye; it bursts, the walls of flesh " +
+                                                     "rip apart and shake, and everything floods with blinding white.";
+        for (var i = 1; i < 6; i++)
+            Cutscenes[$"04_2_battle/song_{i}_FAIL"] = $"Too slow. The symbol fades, the eye snaps shut, and the flesh hauls Sal back " +
+                                                      $"up. Back to {i - 1} of 6.";
+        Cutscenes["04_2_battle/song_0_FAIL_END"] = "Too slow. The eye snaps shut and the walls of flesh crush in around Sal.";
+        Shots["04_2_battle/gameCamBlack"] = "The Black Room: nothing but darkness, and Rosenberg's voice.";
         Visuals["anim:terrenceKnife"] = "Terrence holds out a knife to Sal.";
         Visuals["anim:terrenceFade"] = "Terrence fades into the white.";
         Cutscenes["04_3_end/onSceneStart"] = "The entrance hall of Addison Apartments at night, the Addison Tea sign on the floor, " +
