@@ -107,9 +107,9 @@ internal static class Triggers
                     name = string.Format(Strings.WayTo, WorldTables.Area(scene.sceneName));
                     break;
                 }
-                // Changing the player's standard walk (and its footstep sound) is scaffolding too.
+                // Changing anyone's standard walk (and its footstep sound, e.g. onto grass) is scaffolding too.
                 var anim = a.TryCast<ActionCharAnim>();
-                if (anim != null && anim.isPlayer && anim.method == ActionCharAnim.AnimMethodChar.SetStandard) continue;
+                if (anim != null && anim.method == ActionCharAnim.AnimMethodChar.SetStandard) continue;
                 if (!Silent.Contains(a.GetIl2CppType().Name)) meaningful = true;
             }
             if (name == null && meaningful) name = Strings.SomethingHappens;
