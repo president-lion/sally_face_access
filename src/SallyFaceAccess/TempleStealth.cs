@@ -49,6 +49,8 @@ internal static class TempleStealth
         _nextDoors = 0;
         _timerStart = -1f;
         _offered = false;
+        _autoStep = -1;
+        _killTimer = null;
     }
 
     /// <summary>A doorway a patrol can shut: "hs_W-N", not the locked doors.</summary>
@@ -61,6 +63,10 @@ internal static class TempleStealth
     public static void Tick()
     {
         if (!_active || KickStarter.player == null) return;
+        OfferSkip();
+        if (IsTemple1 && Input.GetKeyDown(KeyCode.Delete)) Skip();
+        Autoplay();
+        if (Autoplaying) return;
         var p = KickStarter.player.transform.position;
         if (Time.unscaledTime >= _nextDoors) { _nextDoors = Time.unscaledTime + 0.25f; Doors(p); }
         Hum(p);
@@ -78,24 +84,79 @@ internal static class TempleStealth
         if (!AllPlaced) Speech.Say(Strings.SkipAvailable, interrupt: false);
     }
 
+    // Autoplay for Delete: each jar in turn - (jar variable, room camera, jar hotspot, row floor y,
+    // the game's planting script). The third of West/Inner West/East breaks its jar; Inner East is last.
+    private static readonly (int Var, string Camera, string Jar, float Y, string Script)[] Jars =
+    {
+        (33, "cam_W", "jarHS_w", -4.1f, "Place C-4: W"),
+        (35, "cam_IW", "jarHS_IW", 45.9f, "Place C-4: IW"),
+        (34, "cam_E", "jarHS_E", -4.1f, "Place C-4: E"),
+        (36, "cam_IE", "jarHS_IE", 45.9f, "Place C-4: IE"),
+    };
+    private static int _autoStep = -1;   // -1 idle; 0..3 jars; 4 to the dungeon; 5 done
+    private static float _autoNext;
+    private static ActionList _killTimer;
+    private static bool Autoplaying => _autoStep >= 0;
+
+    private static bool Placed(int v) => (GlobalVariables.GetVariable(v)?.IntegerValue ?? 0) == 1;
+
+    private static ActionList FindList(string name)
+    {
+        foreach (var l in UnityEngine.Object.FindObjectsOfType<ActionList>())
+            if (l != null && l.gameObject.name == name) return l;
+        return null;
+    }
+
     /// <summary>
-    /// Delete: every jar counts as planted, the C-4 leaves the inventory, and the game's own
-    /// dungeon doorway script (IE-D) runs - it checks the last jar, then plays the ending.
+    /// Delete: plays the section out. The cultists' capture zones are switched off, then Ash is
+    /// taken to each jar still empty and the game's own planting script runs there - the jar
+    /// breaking, the alarm, Sal's line - and finally the dungeon doorway (IE-D) plays the ending.
     /// </summary>
     private static void Skip()
     {
-        if (KickStarter.stateHandler?.gameState != GameState.Normal || AllPlaced) return;
-        ActionList toDungeon = null;
-        foreach (var l in UnityEngine.Object.FindObjectsOfType<ActionList>())
-            if (l != null && l.gameObject.name == "IE-D") { toDungeon = l; break; }
-        if (toDungeon == null) { Log.Warn("TempleStealth", "no IE-D list to finish the temple"); return; }
-        foreach (var l in UnityEngine.Object.FindObjectsOfType<ActionList>())
-            if (l != null && (l.gameObject.name == "autoKillTimer" || l.gameObject.name.StartsWith("cultistsAfterJar"))) l.Kill();
-        for (var v = FirstJarVar; v <= LastJarVar; v++) GlobalVariables.GetVariable(v)?.SetValue(1);
-        try { KickStarter.runtimeInventory.Remove(C4Item, 0, true); } catch (Exception ex) { Log.Once("TempleStealth.C4", ex); }
-        Log.Info("TempleStealth", "skipped the C-4 stealth section");
-        Speech.Say(Strings.PuzzleSkipped);
-        toDungeon.Interact();
+        if (_autoStep >= 0 || KickStarter.stateHandler?.gameState != GameState.Normal || AllPlaced) return;
+        foreach (var t in UnityEngine.Object.FindObjectsOfType<AC_Trigger>())
+            if (t != null && t.gameObject.name == "Trigger W") t.gameObject.SetActive(false);
+        var needed = Jars.Count(j => !Placed(j.Var));
+        try
+        {
+            var have = KickStarter.runtimeInventory.GetCount(C4Item);
+            if (have < needed) KickStarter.runtimeInventory.Add(C4Item, needed - have);
+        }
+        catch (Exception ex) { Log.Once("TempleStealth.C4", ex); }
+        Log.Info("TempleStealth", "autoplaying the C-4 section");
+        ToneEngine.StopLoops(); // no hums over the autoplay
+        Speech.Say(Strings.Autoplaying);
+        _autoStep = 0;
+        _autoNext = Time.unscaledTime + 1.5f;
+    }
+
+    private static void Autoplay()
+    {
+        if (_autoStep < 0 || _autoStep > 4) return;
+        // The alarm's 12-second count would end in capture; the autoplay is already leaving.
+        _killTimer ??= FindList("autoKillTimer");
+        _killTimer?.Kill();
+        if (Time.unscaledTime < _autoNext) return;
+        // Let each planting (and the alarm) finish before the next.
+        if (KickStarter.stateHandler?.gameState != GameState.Normal) { _autoNext = Time.unscaledTime + 0.5f; return; }
+
+        if (_autoStep == 4)
+        {
+            _autoStep = 5;
+            FindList("IE-D")?.Interact();
+            return;
+        }
+        var jar = Jars[_autoStep++];
+        if (Placed(jar.Var)) { _autoNext = Time.unscaledTime; return; }
+        var hs = UnityEngine.Object.FindObjectsOfType<Hotspot>().FirstOrDefault(h => h != null && h.gameObject.name == jar.Jar);
+        var cam = UnityEngine.Object.FindObjectsOfType<GameCamera2D>().FirstOrDefault(c => c != null && c.gameObject.name == jar.Camera);
+        var script = FindList(jar.Script);
+        if (hs == null || script == null) { Log.Warn("TempleStealth", $"autoplay: {jar.Jar} or {jar.Script} missing"); return; }
+        KickStarter.player.Teleport(new Vector3(WorldHandler.Centre(hs).x, jar.Y, 0f));
+        if (cam != null) KickStarter.mainCamera.SetGameCamera(cam);
+        script.Interact();
+        _autoNext = Time.unscaledTime + 4f;
     }
 
     private static void Doors(Vector3 p)
