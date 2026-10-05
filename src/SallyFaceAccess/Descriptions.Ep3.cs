@@ -127,6 +127,14 @@ internal static partial class Descriptions
             "statues wrapped in serpents, beneath an inscription: May our sight pierce the heavens and our reach be infinite and " +
             "everlasting. A great pentagram is set into the floor before it, flanked by triangular stone markers. Stone pedestals " +
             "carved with red symbols hold books, and wooden doors lead off to the halls on either side.";
+        // The two hot spots (right and left): an iron trident spire with a glass bulb, lit by the Super Gear Boy.
+        Cutscenes["03_cult_Main/rLightON"] = "The ground shudders. On the right, a tall iron spire shaped like a trident lights up: the " +
+                                             "glass bulb on its tip glows green, and green light runs down through cracks along the spire.";
+        Cutscenes["03_cult_Main/lLightON"] = "The ground shudders. On the left, a tall iron spire shaped like a trident lights up: the " +
+                                             "glass bulb on its tip glows green, and green light runs down through cracks along the spire.";
+        // Both lit: the lever blocks rise.
+        Cutscenes["03_cult_Main/checkLights"] = "With both spires lit, two stone pyramids with triangular cut-outs grind up out of the " +
+                                                "floor, each with a lever.";
         Shots["03_cult_Main/book1Cam"] = "A stone pedestal carved with red symbols, an old book lying open on top.";
         Shots["03_cult_Main/book2Cam"] = "A stone pedestal carved with red symbols, an old book lying open on top.";
         Areas["03_cult_L1"] = "A maze of stone halls, three rows high, each lined with arched wooden doors.";
