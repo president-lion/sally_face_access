@@ -31,7 +31,12 @@ internal static partial class WorldTables
         Areas["03_502"] = "apartment 502";
         Areas["03_504"] = "apartment 504";
         Areas["03_Fbr1"] = "Larry's apartment";
-        Areas["03_Fbr2"] = "Larry's apartment";
+        Areas["03_Fbr2"] = "the hidden apartment";
+        // Its cameras are copies of Sal's apartment's, named after Sal's and his dad's rooms.
+        Rooms["03_Fbr2/NavCam 1"] = "living room";
+        Rooms["03_Fbr2/bathroomCam"] = "bathroom";
+        Rooms["03_Fbr2/salsRoomCam"] = "bedroom 1";
+        Rooms["03_Fbr2/dadsRoomCam"] = "bedroom 2";
         Areas["03_clumpy"] = "Clumpy, the game";
 
         // ---- Rooms

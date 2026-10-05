@@ -26,6 +26,10 @@ internal static partial class WorldTables
         Areas["04_Fbr1"] = "Larry's apartment";
         Areas["04_Fbr1_dark"] = "Larry's apartment, at night";
         Areas["04_Fbr2"] = "the hidden apartment";
+        Rooms["04_Fbr2/NavCam 1"] = "living room";
+        Rooms["04_Fbr2/bathroomCam"] = "bathroom";
+        Rooms["04_Fbr2/salsRoomCam"] = "bedroom 1";
+        Rooms["04_Fbr2/dadsRoomCam"] = "bedroom 2";
         Areas["04_outBack"] = "behind the building";
         Areas["04_outBack_Dark"] = "behind the building, at night";
         Areas["04_treeHouse"] = "the treehouse";
