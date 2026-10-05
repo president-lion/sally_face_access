@@ -52,6 +52,13 @@ internal static class DialogueHandler
             Speech.Say(line, interrupt: !sp.isBackground && shown == null);
             var after = Descriptions.AfterLine(sp.LineID);
             if (after != null) Speech.Say(after, interrupt: false);
+            var note = Descriptions.AfterLineText(sp.LineID) is { } t
+                ? TextClean.Clean(PlayerMenus.GetElementWithName(t.Menu, t.Element)?.GetLabel(0, lang)) : "";
+            if (note.Length > 0)
+            {
+                Speech.Say(note, interrupt: false);
+                if (!sp.isBackground) _currentText = $"{line} {note}"; // the arrow keys repeat it too
+            }
         }
 
         // Forget lines that have ended, so the set does not grow and a reused pointer

@@ -82,6 +82,13 @@ internal static partial class Descriptions
 
     public static string AfterLine(int lineID) => AfterLines.TryGetValue(lineID, out var d) ? d : null;
 
+    // Game text read out after a speech line, by line ID: a note the scene shows Sal reading,
+    // kept in the game's language by naming the menu label that holds it.
+    private static readonly Dictionary<int, (string Menu, string Element)> AfterLineTexts = new();
+
+    public static (string Menu, string Element)? AfterLineText(int lineID) =>
+        AfterLineTexts.TryGetValue(lineID, out var t) ? t : null;
+
     // Visual events by name, in any scene (see ActionHooks): "anim:clip", "show:object", "hide:object".
     private static readonly Dictionary<string, string> Visuals = new()
     {

@@ -116,7 +116,9 @@ internal static partial class Descriptions
         AfterLines[5335] = "Ash pulls Sal to his feet, and together they scream out across the lake.";
         Areas["04_outBack_Dark"] = "Behind the building, at night, in pouring rain. The back door and the trash cans, and far to " +
                                    "the left in the darkness, the treehouse tree.";
-        Cutscenes["04_outBack_Dark/getNote"] = "Sal finds a note left at the foot of the tree, and reads it in the rain.";
+        // Before Sal's "..." so the note's own text, read after that line, comes last.
+        Lines[5364] = "Sal finds a note left at the foot of the tree, and reads it in the rain.";
+        AfterLineTexts[5364] = ("Item Close Up", "larrysNote Text");
         Areas["04_Fbr1_dark"] = "Larry and Lisa's apartment, dark and silent.";
         Areas["04_treeHouseDark"] = "The treehouse at night, rain drumming on the roof. Todd is here with Sal.";
         Shots["04_treeHouseDark/cultCam1"] = "A vision: the cult's inner sanctum bathed in purple light. Hooded figures with glowing " +
