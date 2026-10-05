@@ -113,8 +113,12 @@ internal static partial class Descriptions
         Areas["05_void_House/cam_workshop (1)"] = Areas["05_void_House/cam_workshop"];
         Shots["05_void_House/cam_memory3"] = "A memory, scratched in white: a tangled mass hanging from above, strands dripping " +
                                              "down from it.";
-        Shots["05_void_House/cam_memory4"] = "A memory: a woman with long blonde hair, waving, and a little boy with spiky blue " +
-                                             "hair running to her.";
+        // Door 5's memory (after the hexagon keypad): one shot while the whole scene plays out (m4_play).
+        Shots["05_void_House/cam_memory4"] = "A memory, scratched in white lines on black. Sal's mother, long blonde hair, " +
+            "waves, and little Sal with spiky blue hair runs to her. A shadow rises behind them: a robed figure in a horned, " +
+            "fanged mask like a beast's skull, a third eye carved on its brow. It levels a shotgun. The blast tears through " +
+            "Sal's mother as she clutches him to her, blood spraying through them both, her mouth open in a scream, " +
+            "Sal's face caught in it.";
         Shots["05_void_House/cam_memory2"] = "A memory: a car at night, headlights glaring, a bearded man at the wheel.";
         Areas["05_void2"] = "A dark space under a web of black roots, glowing orbs hanging in it like stars. Each holds a memory.";
         Shots["05_void2/cam_F1"] = "A memory, scribbled in white lines on black: Larry, long-haired, on a couch beside Sal, " +
