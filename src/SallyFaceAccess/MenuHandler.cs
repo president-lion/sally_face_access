@@ -42,6 +42,7 @@ internal static class MenuHandler
 
         if (focused != null) CheckSelection(focused, lang);
         else _announcer.Clear();
+        CloseKeys();
     }
 
     // Menus whose labels are not worth reading on open: the title screen's version number,
@@ -50,6 +51,19 @@ internal static class MenuHandler
     // and the Super Gear Boy's button prompt (the Detector says what it does).
     private static readonly HashSet<string> NoIntro = new()
         { "Start Screen 2", "Episode Select 2", "Goal", "Invenotry Icon", "Super Gear Boy", "R" };
+
+    /// <summary>
+    /// Backspace closes the pyramid puzzle: it has no close button (a mouse click outside it does
+    /// that), and the game reopens it over a waiting conversation after each pyramid lights up.
+    /// </summary>
+    private static void CloseKeys()
+    {
+        if (!UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.Backspace)) return;
+        var m = PlayerMenus.GetMenuWithName("Pyramids");
+        if (m == null || !m.IsOn()) return;
+        m.TurnOff();
+        Speech.Say(Strings.Closed);
+    }
 
     private static void OnOpened(Menu m, int lang)
     {
@@ -67,9 +81,9 @@ internal static class MenuHandler
             "Inventory" => InventoryHandler.Summary(lang),
             // The newspaper the journalist shows Sal: its article label is hidden at first.
             "Newspaper" => ElementText(m, "Text", lang) ?? "",
-            _ when state != null => Descriptions.MenuPage(m.title) is { } shown ? $"{shown} {state}" : state,
+            _ when state != null => Page(m.title) is { } shown ? $"{shown} {state}" : state,
             // Picture-only menus (a photo close-up) are described by their title.
-            _ when Descriptions.MenuPage(m.title) is { } page => page,
+            _ when Page(m.title) is { } page => page,
             _ when NoIntro.Contains(m.title) => "",
             _ => IntroText(m, lang),
         };
@@ -82,6 +96,19 @@ internal static class MenuHandler
     }
 
     private static readonly Dictionary<int, string> _states = new();
+    private static readonly HashSet<string> _pagesRead = new();
+
+    /// <summary>
+    /// A menu's picture description, the first time it opens in a session (the pyramid notes run
+    /// to a minute); later openings go straight to its state.
+    /// </summary>
+    private static string Page(string title)
+    {
+        var page = Descriptions.MenuPage(title);
+        if (page == null) return null;
+        if (title == "Pyramids") page += " " + Strings.PyramidsClose;
+        return _pagesRead.Add(title) ? page : title == "Pyramids" ? Strings.PyramidsClose : null;
+    }
     private static readonly HashSet<IntPtr> _loggedButtons = new();
     private static readonly Dictionary<int, HashSet<int>> _labels = new();
 

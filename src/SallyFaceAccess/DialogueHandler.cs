@@ -74,8 +74,9 @@ internal static class DialogueHandler
     {
         if (_current == IntPtr.Zero) return;
 
-        // Arrow keys move the player in normal play, so they only repeat during cutscenes.
-        if (KickStarter.stateHandler?.gameState == GameState.Normal) return;
+        // Arrow keys move the player in normal play and move through menus and conversation
+        // choices, so they only repeat during cutscenes.
+        if (KickStarter.stateHandler?.gameState != GameState.Cutscene) return;
         if (UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.UpArrow) || UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.DownArrow)
             || UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.LeftArrow) || UnityEngine.Input.GetKeyDown(UnityEngine.KeyCode.RightArrow))
             Speech.Say(_currentText);
