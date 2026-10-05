@@ -10,7 +10,8 @@ namespace SallyFaceAccess;
 /// broken jar starts a 12-second count before the room is searched.
 ///   - Doorways: a shut one stays in the room scan marked "blocked", and the change either
 ///     way is spoken for the room the player is in.
-///   - Cultists: each one in the player's row hums from where he stands, a little higher
+///   - Cultists: touching one (his 5.5-wide capture box) is capture, whichever way he faces.
+///     Each one in the player's row hums from where he stands, a little higher
 ///     when he faces the player.
 ///   - The jar timer (the game's autoKillTimer list): spoken at the start, then counted down.
 /// </summary>
@@ -100,9 +101,8 @@ internal static class TempleStealth
         }
     }
 
-    // Patrolling cultists are AC characters "Cultist E"; standing ones are "cultist_Idle1" sprites.
-    private static bool IsCultist(string name) =>
-        name.StartsWith("Cultist ") || name.StartsWith("cultist_Idle");
+    // Every cultist is an AC character "Cultist E", "Cultist N1"...; his sprite child is not counted again.
+    private static bool IsCultist(string name) => name.StartsWith("Cultist ");
 
     /// <summary>+1 facing right, -1 left, 0 unknown.</summary>
     private static int Facing(Transform t)
