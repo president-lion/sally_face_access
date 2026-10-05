@@ -75,6 +75,8 @@ internal static partial class WorldTables
         Hotspots["03_cult_Main/hallDoorR"] = "right hall door";
         Hotspots["03_cult_L2/doorHS"] = "gate";
         Hotspots["03_cult_S2/doorHS"] = "gate";
+        Hotspots["03_cult_Final/insert"] = "hex keyhole";
+        Hotspots["03_cult_Final/pullL"] = "lever";
         Hotspots["03_201/freezer _BR2"] = "chest freezer";
         Hotspots["03_202/@35"] = "Bob the fish";
         Hotspots["03_202/toddHS"] = "Todd";

@@ -145,6 +145,11 @@ internal static partial class Descriptions
         Visuals["anim:cultUp"] = "The ghost of a hooded cultist rises before Sal.";
         Visuals["anim:cultistGhost_Down"] = "The cultist's ghost sinks away.";
         Areas["03_cult_Final"] = "The temple's main hall again, the pentagram in the floor and the great portcullis.";
+        // The lever raises the hex key pedestal; the key sets off a beam.
+        Visuals["anim:hexKey_Open"] = "A square hatch grinds open in the floor, and a small stone pedestal rises out of it, " +
+                                      "a six-sided keyhole on top.";
+        Visuals["anim:hexKey_Active"] = "The hex key sinks into the keyhole, and a beam of green light shoots straight up from " +
+                                        "the pedestal, rings of glowing runes circling it.";
         Areas["03_cult_Center"] = "The inner sanctum: an archway carved with serpents and demon faces, inscribed For we are the " +
             "devourers of god. Huge mounds of human bones and skulls are heaped against the walls, blood running down from a " +
             "window above them.";

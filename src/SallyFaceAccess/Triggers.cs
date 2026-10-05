@@ -21,7 +21,7 @@ internal static class Triggers
     // Actions that are scaffolding, not events.
     private static readonly HashSet<string> Silent = new()
         { "ActionCamera", "ActionTeleport", "ActionInstantiate", "ActionPlayerLock", "ActionHotspotEnable", "ActionVarSet",
-          "ActionVarCheck", "ActionComment", "ActionPause", "ActionCharFaceDirection", "ActionCharRender" };
+          "ActionVarCheck", "ActionComment", "ActionPause", "ActionCharFaceDirection", "ActionCharRender", "ActionCharFollow" };
 
     // Triggers whose purpose is known, by scene/name.
     private static readonly Dictionary<string, string> Known = new()
@@ -29,6 +29,7 @@ internal static class Triggers
         ["03_cult_Main/switchStep"] = "floor switch",
         ["03_cult_Main/doorFalls"] = "gate",
         ["03_cult_Main/doorFalls (1)"] = "gate",
+        ["03_cult_Center/AshTrigger"] = "Ash",
         ["03_cult_L2/switch1"] = "floor switch 1",
         ["03_cult_L2/switch2"] = "floor switch 2",
         ["03_cult_L2/switch3"] = "floor switch 3",
