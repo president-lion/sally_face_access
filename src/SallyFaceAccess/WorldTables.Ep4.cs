@@ -63,6 +63,18 @@ internal static partial class WorldTables
 
         // ---- Hotspots
         Hotspots["04_darkPlace/bubHS"] = "Beelzebub";
+        // The numbered doors have blank names; by position (collider centre), left to right.
+        Hotspots["04_darkPlace/@-6"] = "door 5, boarded up";
+        Hotspots["04_darkPlace/@1"] = "door 4";
+        Hotspots["04_darkPlace/@8"] = "door 3";
+        Hotspots["04_darkPlace/@15"] = "door 2";
+        Hotspots["04_darkPlace/@22"] = "door 1";
+        Hotspots["04_darkPlace/@45"] = "door 6";
+        // The doors back down from each room.
+        Hotspots["04_darkPlace/@41"] = "door back";
+        Hotspots["04_darkPlace/@14"] = "door back";
+        Hotspots["04_darkPlace/@27"] = "door back";
+        Hotspots["04_darkPlace/@7"] = "door back";
         Hotspots["04_darkPlace/limbsHS"] = "Trapanrot, the figure of limbs";
         Hotspots["04_house/charger"] = "phone charger";
         Hotspots["04_house/SalsRoom"] = "Sal's room";

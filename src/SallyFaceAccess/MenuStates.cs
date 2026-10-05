@@ -25,6 +25,10 @@ internal static class MenuStates
         ("T", "PP", "Telephone", "Ping Pong"),
     };
 
+    // The lock's symbols in dial order, named from the art (dp_lock_0 .. dp_lock_8).
+    private static readonly string[] LockSymbols =
+        { "dot", "line", "peak", "flag", "double N", "zigzag", "hourglass", "forked diamond", "boxed diamond" };
+
     /// <summary>
     /// The menu's current choice, or null for menus without one.
     /// <paramref name="visible"/> maps each visible element's title to its text ("" for pictures).
@@ -49,6 +53,15 @@ internal static class MenuStates
                 if (!visible.TryGetValue("1", out var h1) || !visible.TryGetValue("2", out var h2)
                     || !visible.TryGetValue("3", out var m1) || !visible.TryGetValue("4", out var m2)) return null;
                 return $"{h1}{h2}:{m1}{m2}";
+
+            // Door 4's lock in the Dark Place (Episode 4): three dials, each showing one of nine
+            // symbols as a picture "dial-symbol" (1-0 .. 3-8).
+            case "Dark Place Lock":
+                var dials = new List<string>();
+                for (var d = 1; d <= 3; d++)
+                    for (var k = 0; k < LockSymbols.Length; k++)
+                        if (visible.ContainsKey($"{d}-{k}")) { dials.Add(string.Format(Strings.Dial, d, LockSymbols[k])); break; }
+                return dials.Count == 0 ? null : string.Join(". ", dials);
 
             case "Game Book":
                 for (var i = 0; i < Spreads.Length; i++)

@@ -68,6 +68,12 @@ internal static class Labels
         ["Packerton's Clock/button 4"] = "digit 4, {4}",
         ["Packerton's Clock/close"] = Strings.Close,
 
+        // Door 4's lock in the Dark Place: one button turns each dial.
+        ["Dark Place Lock/Button 1"] = "turn dial 1",
+        ["Dark Place Lock/Button 2"] = "turn dial 2",
+        ["Dark Place Lock/Button 3"] = "turn dial 3",
+        ["Dark Place Lock/Close"] = Strings.Close,
+
         ["Achievements Nav/close button"] = Strings.Close,
         ["Achievements Nav/close button (MM)"] = Strings.Close,
         ["Achievements Nav/r 1"] = Strings.NextPage,

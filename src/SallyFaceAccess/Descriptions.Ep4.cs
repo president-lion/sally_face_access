@@ -15,12 +15,19 @@ internal static partial class Descriptions
             "green bed, a TV hanging upside down from the ceiling. To the left, a dark stone archway, and beyond it Mrs. Packerton's " +
             "iron furnace with black bags beneath it and a blood-spattered freezer.";
         Shots["04_intro/alarmClock"] = "An alarm clock in the dark, its green display glowing 3:33 AM.";
-        Areas["04_darkPlace"] = "The Dark Place: a black void drawn in white chalk lines. A long row of numbered doors, door 5 " +
-            "boarded shut, then 4, 1, 3, 2, 2, 1, and a door 6 beside a goat-headed demon with a serpent's tail, Beelzebub. " +
-            "Further in: a pair of huge eyes watching from the dark, strange runes scratched on the walls, a cluster of " +
-            "dripping, screaming masks floating above a puddle, a figure made of severed limbs, a kneeling figure wreathed in " +
-            "flickering flames, a goat skull hanging from a chain, two TVs on stands, and glowing numbers written on the " +
-            "wall: 342, 697.";
+        Areas["04_darkPlace"] = "The Dark Place: a black void drawn in white chalk lines. A long row of numbered doors, left to " +
+            "right: door 5, boarded shut, then 4, 3, 2 and 1, and further along door 6, beside a goat-headed demon with a " +
+            "serpent's tail, Beelzebub.";
+        // Behind each door, a room of its own (camera = room), from the tour screenshots.
+        Areas["04_darkPlace/cam1"] = "Behind door 1: a pair of huge chalk-drawn eyes hang in the dark on the left, following you. " +
+            "On the far right wall a rune is scratched: an N with a doubled slash, beside a line with a triangle on its right side.";
+        Areas["04_darkPlace/cam2"] = "Behind door 2: on the far left wall a rune is scratched: a line with a triangle on its left " +
+            "side, like a flag, beside an F. Far to the right, a cluster of square, weeping faces on dripping stalks, above a puddle.";
+        Areas["04_darkPlace/cam3"] = "Behind door 3: to the left stands Trapanrot, a figure made of jumbled arms and legs. On the " +
+            "far right wall a rune is scratched: a zigzag hook, beside a line crossed by an X, like a starburst.";
+        Areas["04_darkPlace/cam4"] = "Behind door 4: numbers glow on the wall at the left, 342 above 697. Further on, pale smoke " +
+            "rises from flames around a dark kneeling figure, and a goat's skull hangs on a chain above.";
+        Areas["04_darkPlace/cam6"] = "Behind door 6: an old TV on a little stand, alone in the dark.";
         Areas["04_tv"] = "An old television on a metal table, a tall stack of VCRs beside it, tangled cables pooling on a " +
                          "black and white zigzag floor.";
 

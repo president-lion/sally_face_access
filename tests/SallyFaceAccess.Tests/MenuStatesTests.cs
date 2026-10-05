@@ -54,6 +54,13 @@ public class MenuStatesTests
     }
 
     [Fact]
+    public void Dark_place_lock_names_each_dial()
+    {
+        var v = Visible(("Graphic", ""), ("1-4", ""), ("2-0", ""), ("3-5", ""));
+        Assert.Equal("dial 1: double N. dial 2: dot. dial 3: zigzag", MenuStates.State("Dark Place Lock", v));
+    }
+
+    [Fact]
     public void Other_menus_have_no_state()
     {
         Assert.Null(MenuStates.State("Pause", Visible(("Resume", "Resume"))));
