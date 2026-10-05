@@ -25,4 +25,23 @@ internal static class PuzzleText
         if (d.Count == 0) return Strings.SwitchesNone;
         return string.Format(Strings.SwitchesDown, string.Join(", ", d));
     }
+
+    // Todd's guitar (Episode 4): a direction picks a group of three notes, J/K/L strums one.
+    private static readonly string[] GuitarGroups = { Strings.Up, Strings.Right, Strings.Down, Strings.Left };
+    private static readonly string[] GuitarKeys = { "J", "K", "L" };
+
+    /// <summary>How to play guitar note 1-12: "right, K" for note 5.</summary>
+    public static string GuitarNote(int note) => $"{GuitarGroups[(note - 1) / 3]}, {GuitarKeys[(note - 1) % 3]}";
+
+    private static readonly System.Text.RegularExpressions.Regex Rune = new(@"^anim:rune_(\d+)$");
+
+    /// <summary>
+    /// The note a barrier rune asks for, from its animation ("anim:rune_7" -> 7), or 0 for
+    /// anything else (a rune fading, the timer).
+    /// </summary>
+    public static int RuneNote(string key)
+    {
+        var m = Rune.Match(key ?? "");
+        return m.Success && int.TryParse(m.Groups[1].Value, out var n) && n is >= 1 and <= 12 ? n : 0;
+    }
 }

@@ -74,7 +74,7 @@ internal static partial class Descriptions
     public static string Shot(string scene, string camera) => Shots.TryGetValue($"{scene}/{camera}", out var d) ? d : null;
 
     public static string Cutscene(string scene, string list) =>
-        Cutscenes.TryGetValue($"{scene}/{list}", out var d) ? d : null;
+        Cutscenes.TryGetValue($"{scene}/{list}", out var d) || Cutscenes.TryGetValue($"*/{list}", out d) ? d : null;
 
     public static string Line(int lineID) => Lines.TryGetValue(lineID, out var d) ? d : null;
 

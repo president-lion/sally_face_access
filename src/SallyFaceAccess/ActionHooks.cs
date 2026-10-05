@@ -20,10 +20,14 @@ internal static class ActionHooks
     {
         if (string.IsNullOrEmpty(key)) return;
         var now = UnityEngine.Time.unscaledTime;
-        if (_recent.TryGetValue(action.Pointer, out var at) && now - at < 3f) return;
+        // A barrier rune is a timed prompt to play its note, so it is spoken at once, and again
+        // whenever the sequence restarts after a miss.
+        var rune = PuzzleText.RuneNote(key);
+        if (_recent.TryGetValue(action.Pointer, out var at) && now - at < (rune > 0 ? 0.5f : 3f)) return;
         _recent[action.Pointer] = now;
         if (_recent.Count > 256) _recent.Clear();
 
+        if (rune > 0) { Speech.Say(PuzzleText.GuitarNote(rune), interrupt: true); return; }
         var text = Descriptions.Visual(key);
         if (text != null) { if (text.Length > 0) Speech.Say(text, interrupt: false); } // "" = known, deliberately silent
         else if (Settings.DebugLog) Log.Append("visuals.log", $"{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name} {key}");

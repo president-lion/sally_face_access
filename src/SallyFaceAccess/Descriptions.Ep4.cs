@@ -119,6 +119,12 @@ internal static partial class Descriptions
         // Before Sal's "..." so the note's own text, read after that line, comes last.
         Lines[5364] = "Sal finds a note left at the foot of the tree, and reads it in the rain.";
         AfterLineTexts[5364] = ("Item Close Up", "larrysNote Text");
+
+        // Todd's guitar, in any scene: choosing a group of notes with a direction.
+        Cutscenes["*/trigger_gUP"] = "up";
+        Cutscenes["*/trigger_gR"] = "right";
+        Cutscenes["*/trigger_gD"] = "down";
+        Cutscenes["*/trigger_gL"] = "left";
         Areas["04_Fbr1_dark"] = "Larry and Lisa's apartment, dark and silent.";
         Areas["04_treeHouseDark"] = "The treehouse at night, rain drumming on the roof. Todd is here with Sal.";
         Shots["04_treeHouseDark/cultCam1"] = "A vision: the cult's inner sanctum bathed in purple light. Hooded figures with glowing " +

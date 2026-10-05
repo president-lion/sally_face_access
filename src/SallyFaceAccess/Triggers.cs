@@ -35,6 +35,12 @@ internal static class Triggers
         ["04_darkPlace/herTrigger"] = "her",
         ["04_house/tvOff"] = "",          // turns the TV off when you walk away from it
         ["04_house/tvOff (1)"] = "",
+        // The barrier spells (Episode 4): standing here and playing the guitar starts the runes.
+        ["04_2_F1/guitarIN"] = "barrier spell",
+        ["04_2_F2/guitarIN"] = "barrier spell",
+        ["04_2_F3/guitarIN"] = "barrier spell",
+        ["04_2_F4/guitarIN"] = "barrier spell",
+        ["04_2_roof/guitarIN"] = "barrier spell",
         ["04_201/safeTrig"] = "",         // only flags "standing at the safe"; the safe is its own hotspot
         ["04_201/safeTrigOut"] = "",
         ["04_201/safeTrigOut (1)"] = "",
