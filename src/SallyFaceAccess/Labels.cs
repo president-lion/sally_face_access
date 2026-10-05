@@ -61,6 +61,13 @@ internal static class Labels
         ["Todd's Locker/potato"] = "potato light",
         ["locker message/Button"] = Strings.Continue,
 
+        // Mrs. Packerton's clock (Episode 3): each button turns the digit it sits under.
+        ["Packerton's Clock/button 1"] = "digit 1, {1}",
+        ["Packerton's Clock/button 2"] = "digit 2, {2}",
+        ["Packerton's Clock/button 3"] = "digit 3, {3}",
+        ["Packerton's Clock/button 4"] = "digit 4, {4}",
+        ["Packerton's Clock/close"] = Strings.Close,
+
         ["Achievements Nav/close button"] = Strings.Close,
         ["Achievements Nav/close button (MM)"] = Strings.Close,
         ["Achievements Nav/r 1"] = Strings.NextPage,

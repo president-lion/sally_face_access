@@ -128,7 +128,7 @@ internal static class MenuHandler
 
     private static string State(Menu m, int lang)
     {
-        if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book")) return null;
+        if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book" or "Packerton's Clock")) return null;
         var visible = new Dictionary<string, string>();
         var els = m.visibleElements;
         for (var i = 0; els != null && i < els.Count; i++)

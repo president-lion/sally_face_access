@@ -47,6 +47,13 @@ public class MenuStatesTests
     }
 
     [Fact]
+    public void Clock_reads_the_whole_time()
+    {
+        var v = Visible(("Label", "Change Time"), ("1", "0"), ("2", "3"), ("3", "1"), ("4", "4"), (":", ":"));
+        Assert.Equal("03:14", MenuStates.State("Packerton's Clock", v));
+    }
+
+    [Fact]
     public void Other_menus_have_no_state()
     {
         Assert.Null(MenuStates.State("Pause", Visible(("Resume", "Resume"))));

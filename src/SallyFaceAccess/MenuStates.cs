@@ -3,7 +3,8 @@ namespace SallyFaceAccess;
 /// <summary>
 /// Menus that show their current choice as a picture or a lone label rather than a selected
 /// button: the stereo's station (one frequency label visible at a time) and Azaria's game
-/// book (a two-page spread of game pictures plus a marker on the chosen side). The state is
+/// book (a two-page spread of game pictures plus a marker on the chosen side), Mrs. Packerton's
+/// clock (four digit labels). The state is
 /// worked out from which elements are visible, and spoken whenever it changes.
 /// Pure logic - no Unity types - so it is unit tested.
 /// </summary>
@@ -42,6 +43,12 @@ internal static class MenuStates
                         return visible.ContainsKey("static") ? $"{s}, {Strings.Static}" : s;
                     }
                 return null;
+
+            // Mrs. Packerton's clock: four digit labels, each changed by its own button.
+            case "Packerton's Clock":
+                if (!visible.TryGetValue("1", out var h1) || !visible.TryGetValue("2", out var h2)
+                    || !visible.TryGetValue("3", out var m1) || !visible.TryGetValue("4", out var m2)) return null;
+                return $"{h1}{h2}:{m1}{m2}";
 
             case "Game Book":
                 for (var i = 0; i < Spreads.Length; i++)
