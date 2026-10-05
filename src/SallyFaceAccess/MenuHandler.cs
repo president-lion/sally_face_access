@@ -138,7 +138,7 @@ internal static class MenuHandler
         if (m.title == "Pyramids") return PyramidState();
         // Todd's door keypad in the cartoon house: the digits typed so far, also kept in variable 17.
         if (m.title == "Toon Code") return MenuStates.DigitsEntry(GlobalVariables.GetVariable(17)?.IntegerValue ?? 0);
-        if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book" or "Packerton's Clock" or "Dark Place Lock" or "Cell Phone" or "bird cage" or "HexCU")) return null;
+        if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book" or "Packerton's Clock" or "Dark Place Lock" or "Cell Phone" or "bird cage" or "HexCU" or "3D Code1" or "3D Code2")) return null;
         var visible = new Dictionary<string, string>();
         var els = m.visibleElements;
         for (var i = 0; els != null && i < els.Count; i++)

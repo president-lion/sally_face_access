@@ -48,6 +48,14 @@ internal static partial class Descriptions
             "empty left half, filled upper half, empty lower half. " +
             "East: filled left half, empty left half, filled upper half, empty left half, filled right half, empty right half, " +
             "filled upper half, empty right half, filled right half, empty right half, filled upper half, empty left half.";
+        // The forest terminals (Episode 5). The middle one first shows two pictures - the clues for the
+        // two tile terminals, each drawn in the other terminal's symbols (checked against G1/G2_checkSolved).
+        MenuPages["3D Grids"] = "Two pictures. On the left, a 3 by 3 grid of moons and suns. Top row: moon, moon, sun. " +
+            "Middle row: sun, sun, moon. Bottom row: moon, sun, moon. On the right, a grid two wide and three tall of light " +
+            "and dark squares. Top row: light, light. Middle row: dark, light. Bottom row: dark, dark.";
+        MenuPages["3D Code1"] = "A terminal with a 3 by 3 grid of tiles, each black or white. Pressing a tile flips it.";
+        MenuPages["3D Code2"] = "A terminal with a grid of tiles two wide and three tall, each a sun or a moon. Pressing a " +
+            "tile flips it.";
         MenuPages["Toon Code"] = "The keypad on Todd's door: a grey screen that shows what you type, and across the top " +
                                  "of its frame, three plus signs.";
         MenuPages["Toon Photo"] = "A framed photo, drawn like a cartoon: the four friends together. Larry on the left, " +

@@ -68,6 +68,13 @@ public class MenuStatesTests
     public void Hex_pad_reads_the_colours_entered(int code, string expected) =>
         Assert.Equal(expected, MenuStates.HexPadEntry(code));
 
+    [Fact]
+    public void Tile_terminal_reads_rows()
+    {
+        var v = Visible(("1 - M", ""), ("2 - S", ""), ("3 - S", ""), ("4 - M", ""), ("5 - M", ""), ("6 - S", ""), ("Cancel", ""));
+        Assert.Equal("top row: moon, sun. middle row: sun, moon. bottom row: moon, sun", MenuStates.State("3D Code2", v));
+    }
+
     [Theory]
     [InlineData(0, 0, "choose a pyramid")]
     [InlineData(1, 0, "north pyramid, nothing entered")]

@@ -57,6 +57,26 @@ internal static class MenuStates
         return corners.Count == 0 ? $"{PyramidNames[pyramid]}, {Strings.NothingEntered}" : $"{PyramidNames[pyramid]}: {string.Join(", ", corners)}";
     }
 
+    private static readonly string[] RowNames = { "top row", "middle row", "bottom row" };
+
+    private static string TileRows(IReadOnlyDictionary<string, string> visible, int width, int height,
+        (string Key, string Name) a, (string Key, string Name) b)
+    {
+        var rows = new List<string>();
+        for (var r = 0; r < height; r++)
+        {
+            var cells = new List<string>();
+            for (var c = 0; c < width; c++)
+            {
+                var n = r * width + c + 1;
+                cells.Add(visible.ContainsKey($"{n} - {a.Key}") ? a.Name : visible.ContainsKey($"{n} - {b.Key}") ? b.Name : "?");
+            }
+            if (cells.All(x => x == "?")) return null;
+            rows.Add($"{RowNames[r]}: {string.Join(", ", cells)}");
+        }
+        return string.Join(". ", rows);
+    }
+
     /// <summary>A number keypad's entry so far: 502 -> "entered: 5 0 2".</summary>
     public static string DigitsEntry(int code) =>
         code <= 0 ? Strings.NothingEntered : string.Format(Strings.Entered, string.Join(" ", code.ToString().ToCharArray()));
@@ -123,6 +143,13 @@ internal static class MenuStates
                     slots.Add($"{name}: {(tooth == null ? Strings.Empty : string.Format(Strings.Tooth, tooth.ToUpperInvariant()))}");
                 }
                 return string.Join(". ", slots);
+
+            // The forest's tile terminals: cells "1 - W"/"1 - B" (3 by 3) and "1 - S"/"1 - M" (2 by 3),
+            // numbered along each row from the top left; the visible one of each pair is the tile's face.
+            case "3D Code1":
+                return TileRows(visible, 3, 3, ("W", "white"), ("B", "black"));
+            case "3D Code2":
+                return TileRows(visible, 2, 3, ("S", "sun"), ("M", "moon"));
 
             // The hexagons hidden through Episode 5: a close-up of the one just found.
             case "HexCU":
