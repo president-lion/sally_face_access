@@ -30,11 +30,13 @@ internal static class Puzzles
         _scene = scene;
         _last = null;
         _pending = null;
+        _consoleOffered = false;
     }
 
     public static void Tick()
     {
         if (IsSwitchRoom && Input.GetKeyDown(KeyCode.Delete)) Skip();
+        if (_scene == "05_lab") ConsoleRoom();
         var state = State();
         if (state == null) return;
         if (_last == null)
@@ -109,6 +111,33 @@ internal static class Puzzles
 
     // The switch rooms' gate: variable 38 is 55 once it has been opened.
     private static bool GateOpen() => GlobalVariables.GetVariable(38)?.IntegerValue == 55;
+
+    // The temple office console (Episode 5): story step 12 (variable 15) is "open the Center
+    // Chamber"; the game's Console_Solved moves it on to 13.
+    private static bool _consoleOffered;
+
+    private static bool ConsoleNeeded => (GlobalVariables.GetVariable(15)?.IntegerValue ?? 0) == 12;
+
+    private static void ConsoleRoom()
+    {
+        if (KickStarter.runtimeVariables == null) return;
+        if (!_consoleOffered && ConsoleNeeded)
+        {
+            _consoleOffered = true;
+            Speech.Say(Strings.SkipConsole, interrupt: false);
+        }
+        if (!Input.GetKeyDown(KeyCode.Delete) || !ConsoleNeeded) return;
+        ActionList solved = null;
+        foreach (var l in UnityEngine.Object.FindObjectsOfType<ActionList>())
+            if (l != null && l.gameObject.name == "Console_Solved") { solved = l; break; }
+        if (solved == null) { Log.Warn("Puzzles", "no Console_Solved in 05_lab"); return; }
+        // The solved positions: switch 1 and 3 down, 2 up; sliders at 3, 1, 2; all three lights on.
+        foreach (var (id, v) in new[] { (33, 1), (34, 0), (35, 1), (36, 2), (37, 0), (38, 1), (39, 1), (40, 1), (111, 1) })
+            GlobalVariables.GetVariable(id)?.SetValue(v);
+        Log.Info("Puzzles", "skipped the temple office console");
+        Speech.Say(Strings.PuzzleSkipped);
+        solved.Interact();
+    }
 
     private static void Skip()
     {
