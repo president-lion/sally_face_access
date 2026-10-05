@@ -41,6 +41,7 @@ internal static class Triggers
         ["04_2_F3/guitarIN"] = "barrier spell",
         ["04_2_F4/guitarIN"] = "barrier spell",
         ["04_2_roof/guitarIN"] = "barrier spell",
+        ["05_cave/Trigger2D"] = "someone up ahead",   // meeting Tala (once)
         ["05_forest/exitHex"] = "",       // walking out of these steps back from the hex dials
         ["05_forest/exitHex (1)"] = "",
         ["05_forest/exitHex (2)"] = "",

@@ -60,7 +60,7 @@ internal static class Puzzles
     public static string For(Hotspot h)
     {
         if (_scene == "03_cult_Main" && h.gameObject.name is "pullL" or "pullR") return Seal();
-        if (_scene is "05_alt_House" or "05_forest" && DialVar(h.gameObject.name) is int v)
+        if (_scene is "05_alt_House" or "05_forest" or "05_cave" && DialVar(h.gameObject.name) is int v)
             return PuzzleText.HexDial(GlobalVariables.GetVariable(v)?.IntegerValue ?? 1);
         return null;
     }
@@ -68,7 +68,7 @@ internal static class Puzzles
     private static bool IsSwitchRoom => _scene is "03_cult_L2" or "03_cult_S2";
 
     private static string State() =>
-        _scene == "03_cult_Main" ? Seal() : IsSwitchRoom ? Switches() : _scene == "05_alt_House" ? Dials() : _scene == "05_forest" ? ForestDials() : null;
+        _scene == "03_cult_Main" ? Seal() : IsSwitchRoom ? Switches() : _scene == "05_alt_House" ? Dials() : _scene == "05_forest" ? ForestDials() : _scene == "05_cave" ? CaveDials() : null;
 
     // The other house's hexagon dials (Episode 5): "gear 1 hs" is the right dial (variable 85),
     // "gear 2 hs" the middle (86, and turns the right one too), "gear 3 hs" the left (87, and
@@ -78,8 +78,18 @@ internal static class Puzzles
         "gear 1 hs" => 85, "gear 2 hs" => 86, "gear 3 hs" => 87,
         // The forest's three dials, left to right: 85, 86, 87 (each also turns a neighbour).
         "hexHS 2_1" => 85, "hexHS 2_2" => 86, "hexHS 2_3" => 87,
+        // The cave's dials (Hall 2): "turn" is the right one (85), "turn (1)" the middle (86),
+        // "turn (2)" the left (87).
+        "turn" => 85, "turn (1)" => 86, "turn (2)" => 87,
         _ => null,
     };
+
+    private static string CaveDials()
+    {
+        if (KickStarter.runtimeVariables == null) return null;
+        int V(int id) => GlobalVariables.GetVariable(id)?.IntegerValue ?? 1;
+        return PuzzleText.HexDials(V(87), V(86), V(85));
+    }
 
     private static string ForestDials()
     {

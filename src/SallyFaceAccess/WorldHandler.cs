@@ -213,7 +213,8 @@ internal static class WorldHandler
         var pos = KickStarter.player.transform.position;
         var dx = item.X - pos.x;
         var where = TopDownAudio.IsScene(_scene) ? TopDownLogic.Direction(dx, item.Y - pos.y)
-            : WorldText.Direction(dx, item.Z - pos.z, Settings.StepSize);
+            // Depth only means something in the 3D areas; flat scenes keep objects at odd depths.
+            : Is3D ? WorldText.Direction(dx, item.Z - pos.z, Settings.StepSize) : WorldText.Direction(dx, Settings.StepSize);
         Speech.Say($"{name}, {where}");
     }
 

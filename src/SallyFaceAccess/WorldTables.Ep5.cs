@@ -47,6 +47,10 @@ internal static partial class WorldTables
         Hotspots["05_alt_House/gear 1 hs"] = "right hex dial";
         Hotspots["05_alt_House/gear 2 hs"] = "middle hex dial, turns the right one too";
         Hotspots["05_alt_House/gear 3 hs"] = "left hex dial, turns the middle one too";
+        Hotspots["05_cave/turn (2)"] = "left hex dial, turns the middle one too";
+        Hotspots["05_cave/turn (1)"] = "middle hex dial, turns the right one too";
+        Hotspots["05_cave/turn"] = "right hex dial, turns the left one too";
+        Hotspots["05_cave/buttonHS"] = "button in the rock";
         Hotspots["05_forest/hexHS 1"] = "middle terminal";
         Hotspots["05_forest/hexHS 2_1"] = "left hex dial, turns the right one too";
         Hotspots["05_forest/hexHS 2_2"] = "middle hex dial, turns the left one too";
