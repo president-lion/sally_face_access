@@ -44,6 +44,8 @@ internal static class Triggers
         ["05_void2/f1_trigger"] = "memory of Larry",
         ["05_void2/f2_trigger"] = "memory of Todd",
         ["05_void2/f3_trigger"] = "memory of Ash",
+        ["05_cemetery/enemyTest (1)"] = "walk here to go on",  // continues the story once Ash has her power
+        ["05_cemetery/salAgain"] = "Sal's grave",
         ["05_cave/Trigger2D"] = "someone up ahead",   // meeting Tala (once)
         ["05_forest/exitHex"] = "",       // walking out of these steps back from the hex dials
         ["05_forest/exitHex (1)"] = "",

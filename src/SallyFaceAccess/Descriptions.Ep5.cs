@@ -33,6 +33,10 @@ internal static partial class Descriptions
                                             "fingers, a pale glow in her eyes.";
         Visuals["anim:ash_awaken"] = "Ash's eyes snap open.";
         Visuals["anim:ash_powerUp"] = "Light crackles down Ash's scarred arm.";
+        // Sal's power in Ash: R strikes with it (R-ON runs ashAttack for this player).
+        MenuPages["R Icon"] = "Press R to use Sal's power.";
+        Visuals["anim:ashAttack"] = "Ash throws out her scarred arm and Sal's power bursts from her hand.";
+        Shots["05_cemetery/blankCam"] = "Darkness.";
 
         // ---- The house, and its other versions
         Areas["05_house1"] = "Sal and Todd's house, in daylight: the kitchen with floral wallpaper, the hallway and stairs, the " +
