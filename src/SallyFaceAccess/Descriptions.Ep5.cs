@@ -30,7 +30,8 @@ internal static partial class Descriptions
         Areas["05_house1_basement"] = "The basement, grey brick: a water heater, a washer and dryer, wardrobes, an old green " +
             "couch, boxes, a broken cage under the stairs, and dozens of photos and notes pinned to the wall.";
         Areas["05_house1_Shed"] = "The shed out back, the workshop. A package sits on the bench.";
-        Areas["05_alt_House"] = "The house again, but flat and wrong, as if drawn without shadows: the kitchen, a metal door with " +
+        Areas["05_alt_House"] = "The house again, but flat and wrong, as if drawn without shadows: the kitchen, its microwave clock " +
+            "glowing green, reading 1:45; a metal door with " +
             "a keypad, a scratched and splintered door, the living room, Sal's room with its masks, and hexagon plates mounted " +
             "on the walls with green lights above them.";
         Visuals["anim:black_on"] = "The lights go out.";
@@ -41,6 +42,8 @@ internal static partial class Descriptions
             "right, wild orange hair and big round glasses, arms folded, smiling.";
 
         // The TV in the cartoon house: a number shows faintly through its static.
+        Visuals["05_alt_House/anim:sink_num"] = "Hot water runs and the mirror over the sink fogs up. Written in the steam: " +
+                                                "7, 8, 4, 2.";
         Visuals["05_alt_House/anim:tv_on"] = "The TV flickers on to snowy static. Faint dark digits show through it: 5, 0, 2, 3.";
 
         // ---- The treehouse fire, and the void
