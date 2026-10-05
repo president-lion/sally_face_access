@@ -70,7 +70,7 @@ internal static class Triggers
             var name = NameOf(t);
             if (name == null) continue;
             // Finding hot spots is the search itself; with hints off only the glow gives them away.
-            if (name == Strings.HotSpot && Settings.Hints == "off") continue;
+            if ((name is Strings.HotSpot or Strings.DeadstoneSpot or Strings.PonySpot) && Settings.Hints == "off") continue;
             var c = t.GetComponent<Collider2D>()?.bounds.center ?? t.GetComponent<Collider>()?.bounds.center ?? t.transform.position;
             list.Add(new Entry { Trigger = t, X = c.x, Y = c.y, Name = name });
         }
@@ -88,6 +88,17 @@ internal static class Triggers
             _names[t.Pointer] = known;
             return known;
         }
+        // The other side (Episode 4): "stoneIN"/"dsIN" mark where squeezing the Deadstone works,
+        // "ponyIN" where the dark pony can be used; the OUT zones only clear that again.
+        var obj = t.gameObject.name;
+        if (System.Text.RegularExpressions.Regex.IsMatch(obj, @"^(stone|ds|pony)OUT\b"))
+        {
+            _names[t.Pointer] = null;
+            return null;
+        }
+        if (System.Text.RegularExpressions.Regex.IsMatch(obj, @"^(stone|ds)IN\b")) return _names[t.Pointer] = Strings.DeadstoneSpot;
+        if (System.Text.RegularExpressions.Regex.IsMatch(obj, @"^ponyIN\b")) return _names[t.Pointer] = Strings.PonySpot;
+
         try
         {
             var actions = t.source == ActionListSource.AssetFile && t.assetFile != null ? t.assetFile.actions : t.actions;

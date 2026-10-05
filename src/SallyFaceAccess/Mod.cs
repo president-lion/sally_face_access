@@ -102,5 +102,12 @@ public sealed class Mod : MelonMod
         catch (Exception ex) { Log.Once("SceneLoaded", ex); }
     }
 
+    // After the game's own Update, so volume changes made there are scaled the same frame.
+    public override void OnLateUpdate()
+    {
+        try { RainVolume.LateTick(); }
+        catch (Exception ex) { Log.Once("RainVolume", ex); }
+    }
+
     public override void OnDeinitializeMelon() => Speech.Shutdown();
 }

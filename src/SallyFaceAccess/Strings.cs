@@ -61,6 +61,8 @@ internal static class Strings
     public const string DetectorGlow = "Gear Boy glowing, press R";
     public const string DetectorFade = "glow fades";
     public const string HotSpot = "supernatural hot spot";
+    public const string DeadstoneSpot = "Deadstone spot";
+    public const string PonySpot = "dark pony spot";
 
     // Top-down handheld games.
     public const string Up = "up";
