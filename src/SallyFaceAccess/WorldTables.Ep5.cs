@@ -26,7 +26,7 @@ internal static partial class WorldTables
         Areas["05_forest"] = "the forest";
         Areas["05_caveEnt"] = "the cave mouth";
         Areas["05_cave"] = "the cave";
-        Areas["05_lab"] = "Jim's workshop";
+        Areas["05_lab"] = "the office in the temple";
         Areas["05_32_field"] = "the arena";
         Areas["05_32_boss"] = "the arena";
         Areas["05_endless_2_clay"] = "the clay world";
