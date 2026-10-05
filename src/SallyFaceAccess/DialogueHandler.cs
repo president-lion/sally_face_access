@@ -22,8 +22,27 @@ internal static class DialogueHandler
     private static IntPtr _current;
     private static string _currentText;
 
+    private static bool _skipTuned;
+
+    /// <summary>
+    /// The game waits a moment before a line can be skipped and spends the first press finishing
+    /// the text's scroll. The line is already spoken in full, so (InstantSkip) Enter skips at once.
+    /// </summary>
+    private static void TuneSkipping()
+    {
+        if (_skipTuned || !Settings.InstantSkip) return;
+        var sm = KickStarter.speechManager;
+        if (sm == null) return;
+        _skipTuned = true;
+        Log.Info("Dialogue", $"speech skip: threshold {sm.skipThresholdTime}s, minimum display {sm.minimumDisplayTime}s, " +
+                             $"end scroll first {sm.endScrollBeforeSkip}; setting threshold 0, no scroll step");
+        sm.skipThresholdTime = 0f;
+        sm.endScrollBeforeSkip = false;
+    }
+
     public static void Tick()
     {
+        TuneSkipping();
         var list = KickStarter.dialog?.speechList;
         if (list == null) return;
         var lang = Options.GetLanguage();

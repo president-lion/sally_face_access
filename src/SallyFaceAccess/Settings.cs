@@ -17,6 +17,7 @@ internal static class Settings
     private static MelonPreferences_Entry<string> _tourOnly;
     private static MelonPreferences_Entry<bool> _selfTest;
     private static MelonPreferences_Entry<float> _rainVolume;
+    private static MelonPreferences_Entry<bool> _instantSkip;
 
     public static string Backend => _backend?.Value ?? "auto";
     public static bool DebugLog => _debugLog?.Value ?? false;
@@ -27,6 +28,7 @@ internal static class Settings
     public static string TourOnly => _tourOnly?.Value ?? "";
     public static bool SelfTest => _selfTest?.Value ?? false;
     public static bool CaptureCutscenes => _captureCutscenes?.Value ?? false;
+    public static bool InstantSkip => _instantSkip?.Value ?? true;
     public static float RainVolume => Math.Clamp(_rainVolume?.Value ?? 0.35f, 0f, 1f);
     public static float StepSize => Math.Max(0.01f, _stepSize?.Value ?? 1f);
 
@@ -47,6 +49,8 @@ internal static class Settings
             "Say who is talking before each line of dialogue");
         _stepSize = cat.CreateEntry("StepSize", 1f, "Step size",
             "World units per 'step' when the room scan gives distances");
+        _instantSkip = cat.CreateEntry("InstantSkip", true, "Skip dialogue at once",
+            "Enter advances a line immediately instead of after the game's short wait");
         _rainVolume = cat.CreateEntry("RainVolume", 0.35f, "Rain volume",
             "How loud the game's rain is, from 0 (silent) to 1 (unchanged)");
         _captureCutscenes = cat.CreateEntry("CaptureCutscenes", false, "Capture cutscenes",
