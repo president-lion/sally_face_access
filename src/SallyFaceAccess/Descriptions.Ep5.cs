@@ -154,8 +154,9 @@ internal static partial class Descriptions
         Areas["05_cave"] = "Inside a sandy cave: walls painted with red stick figures and handprints, a figure with a spiked crown, " +
             "a mouth of light where the cave opens onto water, a tunnel spiralling back into darkness, and a wall carved with " +
             "three squares beneath a downward triangle.";
-        Areas["05_lab"] = "An office hidden in the temple, a red-lit cellar: anatomy charts and diagrams pinned up, a desk with an old computer, " +
-                          "a heavy ornate safe, a nightstand, a rug, and a big wooden door.";
+        Areas["05_lab"] = "An office hidden in the temple, a red-lit cellar: anatomy charts and diagrams pinned up, a bookcase " +
+                          "of old books and specimen jars, the center chamber's control console, a tall tank of glowing green " +
+                          "liquid plastered with biohazard signs, a heavy ornate safe, a nightstand, a rug, and a big wooden door.";
         Shots["05_lab/safeCam"] = "An ornate metal safe with a numbered dial.";
         Shots["05_lab/consoleCam"] = "Three wall panels, each with a switch and a slider marked 1, 2, 3.";
 

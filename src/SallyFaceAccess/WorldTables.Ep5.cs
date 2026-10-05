@@ -27,6 +27,8 @@ internal static partial class WorldTables
         Areas["05_caveEnt"] = "the cave mouth";
         Areas["05_cave"] = "the cave";
         Areas["05_lab"] = "the office in the temple";
+        Hotspots["05_lab/@-17"] = "bookcase";        // nameless; its script is "voidDoor Use"
+        Hotspots["05_lab/@-5"] = "tank of liquid";   // nameless; its script is "tube"
         Areas["05_32_field"] = "the arena";
         Areas["05_32_boss"] = "the arena";
         Areas["05_endless_2_clay"] = "the clay world";
