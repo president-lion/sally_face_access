@@ -55,6 +55,7 @@ internal static partial class Descriptions
         Areas["05_void_House/cam_workshop"] = "A workshop in the dark: a great heap of broken things, toppled buildings, crystals " +
             "and machine parts. On top of it a figure sits hunched at a little table, working, and from his head a river of " +
             "glowing blue and violet threads pours up into the blackness. A door far to the right.";
+        Areas["05_void_House/cam_workshop (1)"] = Areas["05_void_House/cam_workshop"];
         Shots["05_void_House/cam_memory3"] = "A memory, scratched in white: a tangled mass hanging from above, strands dripping " +
                                              "down from it.";
         Shots["05_void_House/cam_memory4"] = "A memory: a woman with long blonde hair, waving, and a little boy with spiky blue " +
