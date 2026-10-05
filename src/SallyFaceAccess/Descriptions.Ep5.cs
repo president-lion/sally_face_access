@@ -13,7 +13,22 @@ internal static partial class Descriptions
             "Holmes family, a freshly dug grave: a raw heap of loose dark earth, no headstone yet, a plain cross " +
             "standing behind it.";
         Shots["05_cemetery/salCam 1"] = "A headstone: Sal Fisher, 1976 to 2004, son of Henry and Diane Fisher.";
-        Shots["05_cemetery/cutCam"] = "Sal's gloved hand holds a pocket knife over his other open palm.";
+        Shots["05_cemetery/cutCam"] = "Ash looks down at her own gloved hands: one held open, the other flicking out a " +
+                                      "small pocket knife.";
+        // The pyramids lighting up at Sal's grave: each time his ghost comes back a little more.
+        Cutscenes["05_cemetery/P1_active"] = "The pyramid by the grave blazes white, a shaft of light shooting up into " +
+            "the sky. Sal's ghost turns towards Ash: a floating skeleton.";
+        Cutscenes["05_cemetery/P2_active"] = "The second pyramid blazes white and the ground shakes. Sal's ghost turns: no " +
+            "longer bare bones, but a body of raw red muscle, with no skin.";
+        Cutscenes["05_cemetery/P3_active"] = "The third pyramid blazes white. Crackling lightning arcs between the three. Sal's " +
+            "ghost hangs over the grave with skin now, but pale and patchy, rotting green in places, like a corpse.";
+        Visuals["05_cemetery/anim:cut_cut"] = "She draws the blade across her palm. Blood wells up.";
+        Visuals["05_cemetery/anim:lightning_strike"] = "Lightning from the three pyramids strikes Ash, lifting her off her feet.";
+        Visuals["05_cemetery/anim:ash2_down1"] = "Ash crumples to the ground.";
+        Visuals["05_cemetery/show:Ash_blood"] = "Blood spreads out from under her across the grass.";
+        Shots["05_cemetery/ashDownCam1"] = "The view sinks slowly down to the grass at the foot of the grave, where Sal's " +
+                                           "mask lies, its straps spread out around it.";
+        Visuals["05_cemetery/anim:zomb_end"] = "Sal's ghost fades away.";
         Shots["05_cemetery/ashAwakenCam"] = "Ash rises from the grave, her hair matted, her arm burned and scarred down to the " +
                                             "fingers, a pale glow in her eyes.";
         Visuals["anim:ash_awaken"] = "Ash's eyes snap open.";

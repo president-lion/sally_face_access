@@ -50,13 +50,17 @@ internal static class MenuStates
     /// <summary>A pyramid picked before it has been found: only "place" shows, and does nothing.</summary>
     public static string PyramidNotFound(int pyramid) => string.Format(Strings.PyramidNotFound, PyramidNames[pyramid]);
 
-    /// <summary>The pyramid puzzle's state: "north pyramid: top, bottom right" or a bare name.</summary>
-    public static string PyramidEntry(int pyramid, int code)
+    /// <summary>
+    /// The pyramid puzzle's state: "north pyramid: top, bottom right". North and west keep their
+    /// presses in order as digits; east only adds them up, so its presses are passed in as seen.
+    /// </summary>
+    public static string PyramidEntry(int pyramid, int code, IReadOnlyList<int> eastPresses = null)
     {
         if (pyramid is < 1 or > 3) return Strings.ChoosePyramid;
-        if (pyramid == 3) return PyramidNames[3];
-        var corners = new List<string>();
-        for (var c = code; c > 0; c /= 10) corners.Insert(0, c % 10 is var d && d is >= 1 and <= 3 ? Corners[d] : "?");
+        var presses = new List<int>();
+        if (pyramid == 3) presses.AddRange(eastPresses ?? Array.Empty<int>());
+        else for (var c = code; c > 0; c /= 10) presses.Insert(0, c % 10);
+        var corners = presses.Select(d => d is >= 1 and <= 3 ? Corners[d] : "?").ToList();
         return corners.Count == 0 ? $"{PyramidNames[pyramid]}, {Strings.NothingEntered}" : $"{PyramidNames[pyramid]}: {string.Join(", ", corners)}";
     }
 

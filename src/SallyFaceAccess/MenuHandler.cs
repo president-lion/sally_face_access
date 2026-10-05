@@ -183,6 +183,9 @@ internal static class MenuHandler
     /// the two that record presses in order, the corners pressed so far (variable 17's digits).
     /// The east one only keeps a running count, so only its name is said.
     /// </summary>
+    private static readonly List<int> _eastPresses = new();
+    private static int _eastTotal;
+
     private static string PyramidState()
     {
         var which = GlobalVariables.GetVariable(10)?.IntegerValue ?? 0;
@@ -190,7 +193,13 @@ internal static class MenuHandler
         // Variables 60-62 (north, west, east): 0 not found yet, 1 found, 2 solved. The corners only
         // appear for a pyramid that has been found.
         var found = which is >= 1 and <= 3 ? GlobalVariables.GetVariable(59 + which)?.IntegerValue ?? 0 : 1;
-        return found == 0 ? MenuStates.PyramidNotFound(which) : MenuStates.PyramidEntry(which, code);
+        if (found == 0) return MenuStates.PyramidNotFound(which);
+        // The east pyramid adds each press (top 1, bottom left 2, bottom right 3) to a running total;
+        // each rise in the total is one press.
+        if (which != 3 || code == 0) _eastPresses.Clear();
+        else if (code > _eastTotal) _eastPresses.Add(code - _eastTotal);
+        _eastTotal = which == 3 ? code : 0;
+        return MenuStates.PyramidEntry(which, code, _eastPresses);
     }
 
     /// <summary>

@@ -83,9 +83,12 @@ public class MenuStatesTests
     [InlineData(0, 0, "choose a pyramid")]
     [InlineData(1, 0, "north pyramid, nothing entered")]
     [InlineData(2, 132, "west pyramid: top, bottom right, bottom left")]
-    [InlineData(3, 7, "east pyramid")]
     public void Pyramid_state(int pyramid, int code, string expected) =>
         Assert.Equal(expected, MenuStates.PyramidEntry(pyramid, code));
+
+    [Fact]
+    public void East_pyramid_reads_presses_seen() =>
+        Assert.Equal("east pyramid: bottom right, top", MenuStates.PyramidEntry(3, 4, new[] { 3, 1 }));
 
     [Theory]
     [InlineData(0, "nothing entered")]
