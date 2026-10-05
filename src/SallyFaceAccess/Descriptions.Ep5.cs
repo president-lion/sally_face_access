@@ -90,6 +90,15 @@ internal static partial class Descriptions
                                                 "7, 8, 4, 2.";
         Visuals["05_alt_House/anim:tv_on"] = "The TV flickers on to snowy static. Faint dark digits show through it: 5, 0, 2, 3.";
 
+        // The Center Chamber fight: cultists charge one at a time (c6 right, c1 left, c5 right, c2 left);
+        // a touch is capture, Ash's R strike kills.
+        Cutscenes["05_temple2_center/c6_attack"] = "A cultist charges in from the right!";
+        Cutscenes["05_temple2_center/c1_attack"] = "A cultist charges in from the left!";
+        Cutscenes["05_temple2_center/c5_attack"] = "A cultist charges in from the right!";
+        Cutscenes["05_temple2_center/c2_attack"] = "A cultist charges in from the left!";
+        foreach (var c in new[] { "c1", "c2", "c5", "c6" })
+            Cutscenes[$"05_temple2_center/{c}_killed"] = "Sal's power blasts him; the cultist drops dead.";
+
         // ---- The treehouse fire, and the void
         Cutscenes["05_treeHouse/burning"] = "The treehouse catches fire. Flames climb the walls and roar up into the dark.";
         Areas["05_void"] = "The void: an endless dark grey space. Overhead, a tangle of black roots spreads like a web, " +

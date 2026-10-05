@@ -67,6 +67,12 @@ internal static class TempleStealth
         if (IsTemple1 && Input.GetKeyDown(KeyCode.Delete)) Skip();
         Autoplay();
         if (Autoplaying) return;
+        // Hums are for moving around; silent through dialogue and cutscenes.
+        if (KickStarter.stateHandler?.gameState != GameState.Normal)
+        {
+            for (var i = 0; i < Voices; i++) ToneEngine.Loop(i, ToneEngine.Cue.Hum, default);
+            return;
+        }
         var p = KickStarter.player.transform.position;
         if (Time.unscaledTime >= _nextDoors) { _nextDoors = Time.unscaledTime + 0.25f; Doors(p); }
         Hum(p);
