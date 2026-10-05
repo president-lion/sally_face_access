@@ -23,7 +23,7 @@ internal static class Triggers
         { "ActionCamera", "ActionTeleport", "ActionInstantiate", "ActionPlayerLock", "ActionHotspotEnable", "ActionVarSet",
           "ActionVarCheck", "ActionComment", "ActionPause", "ActionCharFaceDirection", "ActionCharRender", "ActionCharFollow" };
 
-    // Triggers whose purpose is known, by scene/name.
+    // Triggers whose purpose is known, by scene/name; "" hides scaffolding the generic rules let through.
     private static readonly Dictionary<string, string> Known = new()
     {
         ["03_cult_Main/switchStep"] = "floor switch",
@@ -33,6 +33,8 @@ internal static class Triggers
         ["04_darkPlace/eyeTriggerR"] = "the eyes",
         ["04_darkPlace/faceTrigger"] = "the faces",
         ["04_darkPlace/herTrigger"] = "her",
+        ["04_house/tvOff"] = "",          // turns the TV off when you walk away from it
+        ["04_house/tvOff (1)"] = "",
         ["03_cult_L2/switch1"] = "floor switch 1",
         ["03_cult_L2/switch2"] = "floor switch 2",
         ["03_cult_L2/switch3"] = "floor switch 3",
@@ -73,6 +75,7 @@ internal static class Triggers
         string name = null;
         if (Known.TryGetValue($"{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}/{t.gameObject.name}", out var known))
         {
+            known = known.Length == 0 ? null : known;
             _names[t.Pointer] = known;
             return known;
         }
