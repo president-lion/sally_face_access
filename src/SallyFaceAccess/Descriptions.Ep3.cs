@@ -75,7 +75,7 @@ internal static partial class Descriptions
             "pliers hanging on the wall, an iron furnace with a grate and black bags piled beneath it, melted candles, jars, and " +
             "a wall covered in MISSING posters, scribbled notes and a symbol.";
         Shots["03_201/goatHeadCam"] = "Inside the fridge: a severed goat's head with curling horns and a staring yellow eye, a " +
-                                      "numbered tag in its ear, lying in blood. Pentagrams are drawn on the fridge's inner walls.";
+                                      "green tag in its ear reading 1047, lying in blood. Pentagrams are drawn on the fridge's inner walls.";
         Shots["03_201/freezerCam (1)"] = "Inside the freezer: human remains. Severed faces, hands and organs, heaped and soaked in blood.";
         Shots["03_201/freezerCam"] = "Larry, Sal and Ash stare down into the freezer in horror, Larry clutching his mouth.";
         Shots["03_201/hidieCam1"] = "Larry and Sal crouch hidden in a dark corner.";
