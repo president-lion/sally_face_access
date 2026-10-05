@@ -69,6 +69,14 @@ public class MenuStatesTests
         Assert.Equal(expected, MenuStates.HexPadEntry(code));
 
     [Theory]
+    [InlineData(0, 0, "choose a pyramid")]
+    [InlineData(1, 0, "north pyramid, nothing entered")]
+    [InlineData(2, 132, "west pyramid: top, bottom right, bottom left")]
+    [InlineData(3, 7, "east pyramid")]
+    public void Pyramid_state(int pyramid, int code, string expected) =>
+        Assert.Equal(expected, MenuStates.PyramidEntry(pyramid, code));
+
+    [Theory]
     [InlineData(0, "nothing entered")]
     [InlineData(502, "entered: 5 0 2")]
     public void Number_pad_reads_the_digits_entered(int code, string expected) =>

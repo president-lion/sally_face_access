@@ -36,6 +36,18 @@ internal static partial class Descriptions
             "on the walls with green lights above them.";
         Visuals["anim:black_on"] = "The lights go out.";
 
+        // The pyramid puzzle's notes page, transcribed symbol by symbol (each is half a circle,
+        // filled in or empty); checked against the three answers in pyramidPress_Place.
+        MenuPages["Pyramids"] = "A crumpled page of handwritten notes. \"The three pyramids of Asintmah.\" A little map: " +
+            "three pyramids marked N, W and E around a circle with a question mark, \"to be placed around a corpse?\" " +
+            "A triangle split into three parts, each holding a circle: the top part's circle has its upper half filled in, " +
+            "the bottom left part's circle its left half, the bottom right part's circle its right half. " +
+            "\"These symbols are some kind of code... but where are they??\" Then three rows of half circles. " +
+            "North: filled upper half, empty left half, filled left half, empty lower half, filled left half, empty left half. " +
+            "West: empty left half, filled upper half, empty left half, filled left half, empty right half, filled upper half, " +
+            "empty left half, filled upper half, empty lower half. " +
+            "East: filled left half, empty left half, filled upper half, empty left half, filled right half, empty right half, " +
+            "filled upper half, empty right half, filled right half, empty right half, filled upper half, empty left half.";
         MenuPages["Toon Code"] = "The keypad on Todd's door: a grey screen that shows what you type, and across the top " +
                                  "of its frame, three plus signs.";
         MenuPages["Toon Photo"] = "A framed photo, drawn like a cartoon: the four friends together. Larry on the left, " +

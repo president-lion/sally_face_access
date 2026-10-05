@@ -135,6 +135,7 @@ internal static class MenuHandler
     {
         // The hex keypad keeps what was entered only in a variable, as digits.
         if (m.title == "HexPad") return MenuStates.HexPadEntry(GlobalVariables.GetVariable(17)?.IntegerValue ?? 0);
+        if (m.title == "Pyramids") return PyramidState();
         // Todd's door keypad in the cartoon house: the digits typed so far, also kept in variable 17.
         if (m.title == "Toon Code") return MenuStates.DigitsEntry(GlobalVariables.GetVariable(17)?.IntegerValue ?? 0);
         if (m.title is not ("Stereo" or "Stereo 2" or "Stereo OS" or "Game Book" or "Packerton's Clock" or "Dark Place Lock" or "Cell Phone" or "bird cage" or "HexCU")) return null;
@@ -148,6 +149,18 @@ internal static class MenuHandler
             visible[el.title] = label != null ? TextClean.Clean(label.GetLabel(0, lang)) : "";
         }
         return MenuStates.State(m.title, visible);
+    }
+
+    /// <summary>
+    /// The pyramid puzzle: which pyramid is picked (variable 10: 1 north, 2 west, 3 east) and, for
+    /// the two that record presses in order, the corners pressed so far (variable 17's digits).
+    /// The east one only keeps a running count, so only its name is said.
+    /// </summary>
+    private static string PyramidState()
+    {
+        var which = GlobalVariables.GetVariable(10)?.IntegerValue ?? 0;
+        var code = GlobalVariables.GetVariable(17)?.IntegerValue ?? 0;
+        return MenuStates.PyramidEntry(which, code);
     }
 
     /// <summary>

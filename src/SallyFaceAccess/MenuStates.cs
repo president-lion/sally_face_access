@@ -44,6 +44,19 @@ internal static class MenuStates
     // (haxPad_black ... haxPad_white: black 1, blue 2, purple 3, green 4, red 5, white 6).
     private static readonly string[] PadColours = { "", "black", "blue", "purple", "green", "red", "white" };
 
+    private static readonly string[] Corners = { "", "top", "bottom left", "bottom right" };
+    private static readonly string[] PyramidNames = { "", "north pyramid", "west pyramid", "east pyramid" };
+
+    /// <summary>The pyramid puzzle's state: "north pyramid: top, bottom right" or a bare name.</summary>
+    public static string PyramidEntry(int pyramid, int code)
+    {
+        if (pyramid is < 1 or > 3) return Strings.ChoosePyramid;
+        if (pyramid == 3) return PyramidNames[3];
+        var corners = new List<string>();
+        for (var c = code; c > 0; c /= 10) corners.Insert(0, c % 10 is var d && d is >= 1 and <= 3 ? Corners[d] : "?");
+        return corners.Count == 0 ? $"{PyramidNames[pyramid]}, {Strings.NothingEntered}" : $"{PyramidNames[pyramid]}: {string.Join(", ", corners)}";
+    }
+
     /// <summary>A number keypad's entry so far: 502 -> "entered: 5 0 2".</summary>
     public static string DigitsEntry(int code) =>
         code <= 0 ? Strings.NothingEntered : string.Format(Strings.Entered, string.Join(" ", code.ToString().ToCharArray()));

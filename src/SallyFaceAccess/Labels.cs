@@ -111,6 +111,14 @@ internal static class Labels
 
         ["Toon Code/E"] = "enter",
 
+        // The three pyramids (Episode 5): pick one, press its corners, then place.
+        ["Pyramids/top"] = "north pyramid",
+        ["Pyramids/left"] = "west pyramid",
+        ["Pyramids/right"] = "east pyramid",
+        ["Pyramids/b_top"] = "top corner",
+        ["Pyramids/b_left"] = "bottom left corner",
+        ["Pyramids/b_right"] = "bottom right corner",
+
         ["Achievements Nav/close button"] = Strings.Close,
         ["Achievements Nav/close button (MM)"] = Strings.Close,
         ["Achievements Nav/r 1"] = Strings.NextPage,
