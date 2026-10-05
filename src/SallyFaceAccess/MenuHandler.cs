@@ -65,6 +65,8 @@ internal static class MenuHandler
         var intro = m.title switch
         {
             "Inventory" => InventoryHandler.Summary(lang),
+            // The newspaper the journalist shows Sal: its article label is hidden at first.
+            "Newspaper" => ElementText(m, "Text", lang) ?? "",
             _ when state != null => state,
             _ when NoIntro.Contains(m.title) => "",
             _ => IntroText(m, lang),
@@ -186,7 +188,25 @@ internal static class MenuHandler
             return Labels.Expand(template, title => ElementText(m, title, lang));
         var label = TextClean.Clean(el.GetLabel(slot, lang));
         if (!string.IsNullOrEmpty(label)) return label;
+        var does = ButtonPurpose(el);
+        if (does != null) return does;
         return el.TryCast<MenuInventoryBox>() != null ? Strings.Empty : Labels.Humanize(el.title);
+    }
+
+    /// <summary>
+    /// What an unnamed button ("Button", "Button1") does: "close" if it turns the menu off,
+    /// else the name of the script it runs. Null when it can't be told.
+    /// </summary>
+    private static string ButtonPurpose(MenuElement el)
+    {
+        var b = el.TryCast<MenuButton>();
+        if (b == null || !Labels.IsPlaceholder(el.title)) return null;
+        var list = b.actionList != null ? b.actionList.name : null;
+        Log.Debug("Menu", $"unnamed button {el.title}: click={b.buttonClickType} list={list}");
+        if (b.buttonClickType == AC_ButtonClickType.TurnOffMenu) return Strings.Close;
+        if (b.buttonClickType == AC_ButtonClickType.RunActionList && !string.IsNullOrEmpty(list))
+            return Labels.Humanize(System.Text.RegularExpressions.Regex.Replace(list, "(?<=[a-z])(?=[A-Z])", " ")).ToLowerInvariant();
+        return null;
     }
 
     /// <summary>The current text of another element in the same menu, found by its title.</summary>

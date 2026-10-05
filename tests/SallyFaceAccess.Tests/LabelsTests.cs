@@ -1,6 +1,17 @@
 using SallyFaceAccess;
 using Xunit;
 
+public class GenericButtonTests
+{
+    [Theory]
+    [InlineData("Button", true)]
+    [InlineData("Button1", true)]
+    [InlineData("button 2", true)]
+    [InlineData("Left Arrow", false)]
+    [InlineData("Close", false)]
+    public void Placeholder_names(string title, bool generic) => Assert.Equal(generic, Labels.IsPlaceholder(title));
+}
+
 public class LabelsTests
 {
     private static string Lookup(string title) => title switch

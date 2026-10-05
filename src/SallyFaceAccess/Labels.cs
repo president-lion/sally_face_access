@@ -104,6 +104,11 @@ internal static class Labels
     private static readonly Regex Separators = new(@"[_\-\s]+", RegexOptions.Compiled);
 
     /// <summary>A readable guess from an internal element name, for buttons not in the table.</summary>
+    private static readonly Regex Placeholder = new(@"^button\s*\d*$", RegexOptions.IgnoreCase);
+
+    /// <summary>A button title that says nothing ("Button", "Button1"): name it from what it does instead.</summary>
+    public static bool IsPlaceholder(string title) => title != null && Placeholder.IsMatch(title.Trim());
+
     public static string Humanize(string title)
     {
         if (string.IsNullOrWhiteSpace(title)) return "";
