@@ -80,6 +80,11 @@ internal static partial class Descriptions
 
     public static string MenuPicture(int lineID) => MenuPictures.TryGetValue(lineID, out var d) ? d : null;
 
+    // Menus that are only a picture and a close button, described by menu title when they open.
+    private static readonly Dictionary<string, string> MenuPages = new();
+
+    public static string MenuPage(string menuTitle) => MenuPages.TryGetValue(menuTitle, out var d) ? d : null;
+
     public static string AfterLine(int lineID) => AfterLines.TryGetValue(lineID, out var d) ? d : null;
 
     // Game text read out after a speech line, by line ID: a note the scene shows Sal reading,

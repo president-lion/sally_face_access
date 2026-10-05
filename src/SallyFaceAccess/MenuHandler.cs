@@ -68,6 +68,8 @@ internal static class MenuHandler
             // The newspaper the journalist shows Sal: its article label is hidden at first.
             "Newspaper" => ElementText(m, "Text", lang) ?? "",
             _ when state != null => state,
+            // Picture-only menus (a photo close-up) are described by their title.
+            _ when Descriptions.MenuPage(m.title) is { } page => page,
             _ when NoIntro.Contains(m.title) => "",
             _ => IntroText(m, lang),
         };
