@@ -98,6 +98,22 @@ internal static class TempleStealth
     private static ActionList _killTimer;
     private static bool Autoplaying => _autoStep >= 0;
 
+    private static IntPtr _line;
+    private static float _lineSince;
+
+    /// <summary>
+    /// Lines in this game wait for Enter; the autoplay presses on itself once a line has had
+    /// time to be spoken (about 3 seconds, longer for long lines).
+    /// </summary>
+    private static void AdvanceSpeech()
+    {
+        var sp = KickStarter.dialog?.GetLatestSpeech();
+        if (sp == null || !sp.isAlive || sp.isBackground) return;
+        if (sp.Pointer != _line) { _line = sp.Pointer; _lineSince = Time.unscaledTime; return; }
+        var wait = 2.5f + (sp.FullText?.Length ?? 0) * 0.04f;
+        if (Time.unscaledTime - _lineSince >= wait) sp.EndMessage();
+    }
+
     private static bool Placed(int v) => (GlobalVariables.GetVariable(v)?.IntegerValue ?? 0) == 1;
 
     private static ActionList FindList(string name)
@@ -139,7 +155,12 @@ internal static class TempleStealth
         _killTimer?.Kill();
         if (Time.unscaledTime < _autoNext) return;
         // Let each planting (and the alarm) finish before the next.
-        if (KickStarter.stateHandler?.gameState != GameState.Normal) { _autoNext = Time.unscaledTime + 0.5f; return; }
+        if (KickStarter.stateHandler?.gameState != GameState.Normal)
+        {
+            AdvanceSpeech();
+            _autoNext = Time.unscaledTime + 0.25f;
+            return;
+        }
 
         if (_autoStep == 4)
         {
