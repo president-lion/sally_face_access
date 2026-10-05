@@ -26,6 +26,20 @@ internal static class PuzzleText
         return string.Format(Strings.SwitchesDown, string.Join(", ", d));
     }
 
+    /// <summary>
+    /// The hexagon dials in the other house (Episode 5): six positions, 1 with the triangle up,
+    /// each turn one step on (6 back to 1). Spoken as how far each is from upright.
+    /// </summary>
+    public static string HexDial(int position)
+    {
+        var turns = ((7 - position) % 6 + 6) % 6;
+        return turns == 0 ? Strings.Upright : string.Format(turns == 1 ? Strings.TurnToUpright : Strings.TurnsToUpright, turns);
+    }
+
+    public static string HexDials(int left, int middle, int right) =>
+        left == 1 && middle == 1 && right == 1 ? Strings.AllDialsUpright
+            : $"{Strings.Left} {HexDial(left)}, {Strings.Middle} {HexDial(middle)}, {Strings.Right} {HexDial(right)}";
+
     // Todd's guitar (Episode 4): a direction picks a group of three notes, J/K/L strums one.
     private static readonly string[] GuitarGroups = { Strings.Up, Strings.Right, Strings.Down, Strings.Left };
     private static readonly string[] GuitarKeys = { "J", "K", "L" };

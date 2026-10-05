@@ -60,12 +60,30 @@ internal static class Puzzles
     public static string For(Hotspot h)
     {
         if (_scene == "03_cult_Main" && h.gameObject.name is "pullL" or "pullR") return Seal();
+        if (_scene == "05_alt_House" && DialVar(h.gameObject.name) is int v)
+            return PuzzleText.HexDial(GlobalVariables.GetVariable(v)?.IntegerValue ?? 1);
         return null;
     }
 
     private static bool IsSwitchRoom => _scene is "03_cult_L2" or "03_cult_S2";
 
-    private static string State() => _scene == "03_cult_Main" ? Seal() : IsSwitchRoom ? Switches() : null;
+    private static string State() =>
+        _scene == "03_cult_Main" ? Seal() : IsSwitchRoom ? Switches() : _scene == "05_alt_House" ? Dials() : null;
+
+    // The other house's hexagon dials (Episode 5): "gear 1 hs" is the right dial (variable 85),
+    // "gear 2 hs" the middle (86, and turns the right one too), "gear 3 hs" the left (87, and
+    // turns the middle one). Upright is 1; the door opens when all three are.
+    private static int? DialVar(string obj) => obj switch
+    {
+        "gear 1 hs" => 85, "gear 2 hs" => 86, "gear 3 hs" => 87, _ => null,
+    };
+
+    private static string Dials()
+    {
+        if (KickStarter.runtimeVariables == null) return null;
+        int V(int id) => GlobalVariables.GetVariable(id)?.IntegerValue ?? 1;
+        return PuzzleText.HexDials(V(87), V(86), V(85));
+    }
 
     // The switch rooms' gate: variable 38 is 55 once it has been opened.
     private static bool GateOpen() => GlobalVariables.GetVariable(38)?.IntegerValue == 55;

@@ -21,6 +21,23 @@ public class PuzzleTextTests
     public void Switches_all() => Assert.Equal("all switches down", PuzzleText.Switches(new[] { true, true, true, true, true }));
 }
 
+public class HexDialTextTests
+{
+    // Each dial has six positions; 1 is its triangle pointing up, each turn moves it on one.
+    [Theory]
+    [InlineData(1, "upright")]
+    [InlineData(6, "1 turn to upright")]
+    [InlineData(2, "5 turns to upright")]
+    public void One_dial(int position, string expected) => Assert.Equal(expected, PuzzleText.HexDial(position));
+
+    [Fact]
+    public void All_three_left_to_right() =>
+        Assert.Equal("left upright, middle 1 turn to upright, right 3 turns to upright", PuzzleText.HexDials(1, 6, 4));
+
+    [Fact]
+    public void All_upright() => Assert.Equal("all three dials upright", PuzzleText.HexDials(1, 1, 1));
+}
+
 public class GuitarTextTests
 {
     // Notes 1-3 are up, 4-6 right, 7-9 down, 10-12 left; within a group J, K, L.

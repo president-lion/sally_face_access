@@ -91,6 +91,11 @@ internal static class Strings
     public const string Tooth = "tooth {0}";
     public const string Hexagon = "{0} hexagon";
     public const string NothingEntered = "nothing entered";
+    public const string Upright = "upright";
+    public const string TurnToUpright = "{0} turn to upright";
+    public const string TurnsToUpright = "{0} turns to upright";
+    public const string AllDialsUpright = "all three dials upright";
+    public const string Middle = "middle";
     public const string Entered = "entered: {0}";
     public const string Blocked = "blocked";
     public const string WayBlocked = "{0} blocked";
