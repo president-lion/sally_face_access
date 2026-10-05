@@ -40,6 +40,9 @@ internal static partial class Descriptions
             "in his mask and blue pigtails. Ash beside them in her purple top, one arm around Sal too, and Todd on the " +
             "right, wild orange hair and big round glasses, arms folded, smiling.";
 
+        // The TV in the cartoon house: a number shows faintly through its static.
+        Visuals["05_alt_House/anim:tv_on"] = "The TV flickers on to snowy static. Faint dark digits show through it: 5, 0, 2, 3.";
+
         // ---- The treehouse fire, and the void
         Cutscenes["05_treeHouse/burning"] = "The treehouse catches fire. Flames climb the walls and roar up into the dark.";
         Areas["05_void"] = "The void: an endless dark grey space. Overhead, a tangle of black roots spreads like a web, " +

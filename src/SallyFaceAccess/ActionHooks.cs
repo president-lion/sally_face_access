@@ -28,9 +28,11 @@ internal static class ActionHooks
         if (_recent.Count > 256) _recent.Clear();
 
         if (rune > 0) { Speech.Say(PuzzleText.GuitarNote(rune), interrupt: true); return; }
-        var text = Descriptions.Visual(key);
+        // A scene's own entry ("05_alt_House/anim:tv_on") wins over the one for every scene.
+        var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        var text = Descriptions.Visual($"{scene}/{key}") ?? Descriptions.Visual(key);
         if (text != null) { if (text.Length > 0) Speech.Say(text, interrupt: false); } // "" = known, deliberately silent
-        else if (Settings.DebugLog) Log.Append("visuals.log", $"{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name} {key}");
+        else if (Settings.DebugLog) Log.Append("visuals.log", $"{scene} {key}");
     }
 
     [HarmonyPatch(typeof(ActionCharAnim), nameof(ActionCharAnim.Run))]
