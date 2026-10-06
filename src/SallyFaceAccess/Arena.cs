@@ -38,11 +38,24 @@ internal static class Arena
     private static bool _autoStrike;          // stays on for the session once chosen
     private static ActionList _attack;
 
-    private static void AutoStrike()
+    /// <summary>Delete in a fight: Sal strikes by himself when something is in reach.</summary>
+    public static bool AutoStrikeOn => _autoStrike;
+
+    public static void ToggleAutoStrike()
     {
-        if (_attack == null)
+        _autoStrike = !_autoStrike;
+        Speech.Say(_autoStrike ? Strings.AutoStrikeOn : Strings.AutoStrikeOff, interrupt: true);
+    }
+
+    /// <summary>Runs the scene's R action list (the same one the R button runs), unless it is busy or locked.</summary>
+    public static void AutoStrike(string listName)
+    {
+        if (_attack == null || _attack.gameObject.name != listName)
+        {
+            _attack = null;
             foreach (var l in UnityEngine.Object.FindObjectsOfType<ActionList>())
-                if (l != null && l.gameObject.name == "attack") { _attack = l; break; }
+                if (l != null && l.gameObject.name == listName) { _attack = l; break; }
+        }
         if (_attack == null || KickStarter.actionListManager.IsListRunning(_attack)) return;
         var r = PlayerMenus.GetMenuWithName("R");
         if (r == null || r.isLocked || KickStarter.stateHandler?.gameState != GameState.Normal) return;
@@ -180,12 +193,11 @@ internal static class Arena
         // Delete: Sal strikes by himself whenever a blob (or a downed arm's hand) is in reach.
         if (Input.GetKeyDown(KeyCode.Delete))
         {
-            _autoStrike = !_autoStrike;
-            Speech.Say(_autoStrike ? Strings.AutoStrikeOn : Strings.AutoStrikeOff, interrupt: true);
+            ToggleAutoStrike();
         }
         for (var side = 0; side < 2 && _boss; side++)
             if (_armDown[side] && Math.Abs(Strike(side) - p.x) < 0.5f) inReach = true;
-        if (_autoStrike && inReach && !talking) AutoStrike();
+        if (_autoStrike && inReach && !talking) AutoStrike("attack");
 
         // A downed arm's hand: a beacon to walk to and hit.
         for (var side = 0; side < 2; side++)

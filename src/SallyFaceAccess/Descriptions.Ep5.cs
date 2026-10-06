@@ -194,6 +194,11 @@ internal static partial class Descriptions
                               "enough a chirp sounds, press R as it arrives; Delete turns on auto strike. Sal can only walk left and right. When an arm rises " +
                               "you hear where it will strike; get out from under it. It slams down and stays down for three " +
                               "seconds, a beacon sounding at its hand: walk next to it and press R to hit it.";
+        Areas["05_endless_3_B"] = "A dark streaked void. Three huge green slime mouths hang across the top, left, middle and " +
+                                  "right, rows of fangs dripping. Sal stands below with his red guitar and can walk left and right. " +
+                                  "A mouth wiggles, then spits straight down: get out from under it. Press R to fire a bolt straight " +
+                                  "up into the mouth above you. Kill all three. You hear where you are as you walk; Delete turns on " +
+                                  "auto strike.";
         Areas["05_endless_2_clay"] = "A world of clay: three empty chairs in a red glow. A huge red clay eye in a burst of green.";
         Shots["05_endless_2_clay/salCam"] = "Sal made of clay, wide-eyed, half his face orange.";
         Areas["05_endless_5_Toon"] = "A flat green cartoon world, a giant yellow eye with a purple pupil watching Sal.";

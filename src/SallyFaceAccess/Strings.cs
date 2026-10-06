@@ -95,6 +95,16 @@ internal static class Strings
     public const string LightsOn = "{0} of 3 lights on";
     public const string ArenaKills = "{0} of {1}";
     public const string OnYou = "on you";
+    public const string Middle = "middle";
+    public const string UnderMouth = "under the {0} mouth";
+    public const string UnderDeadMouth = "under the dead {0} mouth";
+    public const string BetweenMouths = "between the {0} and {1} mouths";
+    public const string FarLeft = "far left";
+    public const string FarRight = "far right";
+    public const string MouthSpits = "{0} mouth spits";
+    public const string MouthSpitsMove = "{0} mouth spits, move!";
+    public const string MouthHit = "{0} mouth hit";
+    public const string MouthDead = "{0} mouth dead, {1} left";
     public const string AutoStrikeOn = "auto strike on: Sal blasts whatever comes in reach";
     public const string AutoStrikeOff = "auto strike off";
     public const string StepsBeside = "{0} steps {1} of you";
@@ -113,7 +123,6 @@ internal static class Strings
     public const string TurnToUpright = "{0} turn to upright";
     public const string TurnsToUpright = "{0} turns to upright";
     public const string AllDialsUpright = "all three dials upright";
-    public const string Middle = "middle";
     public const string Entered = "entered: {0}";
     public const string Blocked = "blocked";
     public const string WayBlocked = "{0} blocked";
