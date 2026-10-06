@@ -197,8 +197,8 @@ internal static partial class Descriptions
         Areas["05_endless_3_B"] = "A dark streaked void. Three huge green slime mouths hang across the top, left, middle and " +
                                   "right, rows of fangs dripping. Sal stands below with his red guitar and can walk left and right. " +
                                   "A mouth wiggles, then spits straight down: get out from under it. Press R to fire a bolt straight " +
-                                  "up into the mouth above you. Kill all three. You hear where you are as you walk; Delete turns on " +
-                                  "auto strike.";
+                                  "up into the mouth above you. Kill all three. You hear where you are as you walk. Delete autoplays the " +
+                                  "fight.";
         Areas["05_endless_2_clay"] = "A world of clay: three empty chairs in a red glow. A huge red clay eye in a burst of green.";
         Shots["05_endless_2_clay/salCam"] = "Sal made of clay, wide-eyed, half his face orange.";
         Areas["05_endless_5_Toon"] = "A flat green cartoon world, a giant yellow eye with a purple pupil watching Sal.";

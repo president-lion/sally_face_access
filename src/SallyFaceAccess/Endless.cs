@@ -12,8 +12,9 @@ namespace SallyFaceAccess;
 /// three are dead. Sal walks left and right only.
 ///
 /// Spoken: where Sal is among the mouths as he walks, each wiggle (urgent, with "move" if he is
-/// under it), hits and deaths. Delete toggles auto strike: Sal blasts whenever he stands under a
-/// living mouth.
+/// under it), hits and deaths. Delete autoplays the fight: the spit is made harmless (the spit
+/// boxes' colliders are switched off, every frame, since the spit animation may turn them back on)
+/// and Sal steps under each living mouth in turn and blasts it until all three are dead.
 /// </summary>
 internal static class Endless
 {
@@ -25,6 +26,7 @@ internal static class Endless
     private static string _pending;
     private static float _pendingSince;
     private static float _nextGather;
+    private static bool _auto;
 
     private static string Name(int i) => i switch { 0 => Strings.Left, 1 => Strings.Middle, _ => Strings.Right };
 
@@ -36,6 +38,7 @@ internal static class Endless
         Array.Clear(_clip);
         _place = _pending = null;
         _nextGather = 0;
+        _auto = false;
     }
 
     /// <summary>The damage box's centre and half width: where the bolt hits and the spit falls.</summary>
@@ -85,6 +88,7 @@ internal static class Endless
         switch (clip)
         {
             case "endlessB_wiggle":
+                if (_auto) break; // the spit is harmless now
                 Speech.Say(string.Format(under ? Strings.MouthSpitsMove : Strings.MouthSpits, Name(i)), interrupt: true);
                 break;
             case "endlessB_hit":
@@ -98,6 +102,26 @@ internal static class Endless
         }
     }
 
+    /// <summary>One frame of the autoplay: harmless spit, Sal under the next living mouth, blast.</summary>
+    private static void Autoplay(float x, int under)
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            var box = _mouths[i]?.Find("spit/spitBox");
+            var col = box?.GetComponent<Collider2D>();
+            if (col != null && col.enabled) col.enabled = false;
+        }
+        var target = Array.FindIndex(_dead, d => !d);
+        if (target < 0 || _mouths[target] == null) return;
+        if (under != target)
+        {
+            var p = KickStarter.player.transform.position;
+            KickStarter.player.Teleport(new Vector3(Column(target).X, p.y, p.z));
+            return;
+        }
+        Arena.AutoStrike("Blast");
+    }
+
     public static void Tick()
     {
         if (!_active || KickStarter.player == null) return;
@@ -108,11 +132,15 @@ internal static class Endless
                 if (_mouths[i] == null) _mouths[i] = GameObject.Find($"Mouth {i + 1}")?.transform.Find($"mouth{i + 1}");
         }
 
-        if (Input.GetKeyDown(KeyCode.Delete)) Arena.ToggleAutoStrike();
+        if (Input.GetKeyDown(KeyCode.Delete) && !_auto)
+        {
+            _auto = true;
+            Speech.Say(Strings.EndlessAuto, interrupt: true);
+        }
 
         var x = KickStarter.player.transform.position.x;
         var under = Under(x);
-        if (Arena.AutoStrikeOn && under >= 0 && !_dead[under]) Arena.AutoStrike("Blast");
+        if (_auto) Autoplay(x, under);
 
         // Where Sal is, once he has settled there for a moment.
         var place = Place(x);

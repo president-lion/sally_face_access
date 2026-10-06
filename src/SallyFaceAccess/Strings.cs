@@ -96,6 +96,7 @@ internal static class Strings
     public const string ArenaKills = "{0} of {1}";
     public const string OnYou = "on you";
     public const string Middle = "middle";
+    public const string EndlessAuto = "autoplaying the fight: the spit can't hurt Sal now";
     public const string UnderMouth = "under the {0} mouth";
     public const string UnderDeadMouth = "under the dead {0} mouth";
     public const string BetweenMouths = "between the {0} and {1} mouths";
