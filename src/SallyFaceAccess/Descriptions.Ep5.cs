@@ -201,11 +201,39 @@ internal static partial class Descriptions
                                   "fight.";
         Areas["05_endless_2_clay"] = "A world of clay: three empty chairs in a red glow. A huge red clay eye in a burst of green.";
         Shots["05_endless_2_clay/salCam"] = "Sal made of clay, wide-eyed, half his face orange.";
-        Areas["05_endless_5_Toon"] = "A flat green cartoon world, a giant yellow eye with a purple pupil watching Sal.";
         Cutscenes["05_END/dialog"] = "Dawn over the ruins of the church: shattered walls and splintered beams on the hilltop, the " +
                                      "sun rising. Ash, glowing, kneels beside Todd, lying in the rubble.";
-        Shots["05_END/finalBlowCam2"] = "The final blow: Ash's beam of light, a burst of green lightning from Sal in the void, and " +
-                                        "a wave of purple from Larry, all striking together.";
+        Visuals["05_endless_2_clay/anim:eyeOpen"] = "The clay lids peel back: a glistening red eyeball in a burst of pale green clay.";
+        Visuals["05_endless_2_clay/anim:eyeClose"] = "The clay eye closes.";
+        Areas["05_endless_4_3D"] = "Sal, a blocky low-poly figure with his guitar, floats in a purple sky of cloud. Huge tentacles of " +
+                                   "the Endless One lash in to snatch him; a touch and he is eaten. Press R to call down lightning " +
+                                   "and blast them away.";
+        Visuals["05_endless_4_3D/anim:endlessDeath"] = "A tentacle is blasted apart and falls away.";
+        Visuals["05_endless_4_3D/anim:endlessEat"] = "!A tentacle snaps Sal up.";
+        Areas["05_endless_5_Toon"] = "A flat green cartoon world. Sal is a cartoon kid with a red guitar, and a giant yellow eye with " +
+                                     "a purple pupil watches from above. Smaller eyes float in at Sal; their touch is death. Press R " +
+                                     "to strum and blast them. Destroy six.";
+        Visuals["05_endless_5_Toon/anim:toonTar_Hit"] = "!An eye reaches Sal.";
+        Areas["05_endless_6_void"] = "Sal falls down a dark shaft, glitching and glowing, between two walls of purple flesh covered in " +
+                                     "bone spikes. Red veined orbs, swollen and glowing orange inside, push out of the walls and come " +
+                                     "at him. Don't touch the spikes. Press R to blast the orbs; destroy twelve.";
+        Visuals["05_endless_6_void/anim:endless_wall_kill"] = "The walls of flesh convulse.";
+        Cutscenes["05_END/finalBlow"] = "The final blow. In the void, Sal hangs in a column of blue light, glitching, guitar raised, " +
+                                        "and a jagged bolt of green lightning crashes down into the heart of the Endless One, a mass " +
+                                        "of green flesh and thrashing tentacles.";
+        Visuals["05_END/anim:finalBlow2"] = "Beside him, in the temple, Ash screams, a beam of white-blue light blasting from her " +
+                                            "scarred arm into the same green flesh.";
+        Visuals["05_END/anim:finalBlow3"] = "And on the other side, Larry, old and bearded in a brown hooded robe, pours a torrent of " +
+                                            "purple energy from his hands into it.";
+        Visuals["anim:oldLarry_gone"] = "Larry fades away into nothing.";
+        MenuPictures[6916] = "The Earth from space, its oceans and continents scarred with black veins of shadow.";
+        MenuPictures[6917] = "Todd in a mirror, bearded, holding his head, his eyes bloodshot red and cracks of shadow in his skin.";
+        MenuPictures[6918] = "Sal drifting, his blue hair streaming, his hand reaching out across a crackling line of lightning " +
+                             "between a dark world and a grey ruined city.";
+        MenuPictures[6919] = "A radio on a desk, its display glowing with a waveform, beside an old photo of Larry and a purple " +
+                             "glowing relic.";
+        Shots["05_END/finalBlowCam2"] = "All three strike together: Ash's beam of light, Sal's green lightning, Larry's purple fire. " +
+                                        "The Endless One shrieks and dies.";
         Visuals["anim:oldLarry_appear"] = "Larry appears, old and bearded.";
         Visuals["anim:toddCough"] = "Todd coughs and stirs.";
         Visuals["anim:ashArmOut"] = "Ash holds out her glowing arm over Todd.";

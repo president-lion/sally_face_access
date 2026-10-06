@@ -30,6 +30,8 @@ internal static class ActionHooks
         if (rune > 0) { Speech.Say(PuzzleText.GuitarNote(rune), interrupt: true); return; }
         // A scene's own entry ("05_alt_House/anim:tv_on") wins over the one for every scene.
         var scene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+        // The ending replays its poses behind a black screen while the epilogue pages show.
+        if (scene == "05_END" && KickStarter.mainCamera?.attachedCamera?.gameObject.name == "blankCam") return;
         var text = Descriptions.Visual($"{scene}/{key}") ?? Descriptions.Visual(key);
         // "" = known, deliberately silent; a leading "!" marks a warning that cuts in at once.
         if (text != null && text.StartsWith("!")) Speech.Say(text[1..], interrupt: true);
