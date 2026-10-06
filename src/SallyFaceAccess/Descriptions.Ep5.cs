@@ -188,7 +188,10 @@ internal static partial class Descriptions
                                "eyes, and green tentacles reach in from the edges. Four blobs crawl at Sal from the corners, each humming where " +
                                "it is: higher above you, lower below. Press R to blast the ones close by; destroy fourteen. " +
                                "Don't let one touch you, and don't step off the edge.";
-        Areas["05_32_boss"] = "The pixel arena. Enormous arms rise to attack.";
+        Areas["05_32_boss"] = "The pixel arena. Two enormous green arms hang from the treetops, left and right, and the blobs " +
+                              "crawl at Sal again, humming where they are. Sal can only walk left and right. When an arm rises " +
+                              "you hear where it will strike; get out from under it. It slams down and stays down for three " +
+                              "seconds, a beacon sounding at its hand: walk next to it and press R to hit it.";
         Areas["05_endless_2_clay"] = "A world of clay: three empty chairs in a red glow. A huge red clay eye in a burst of green.";
         Shots["05_endless_2_clay/salCam"] = "Sal made of clay, wide-eyed, half his face orange.";
         Areas["05_endless_5_Toon"] = "A flat green cartoon world, a giant yellow eye with a purple pupil watching Sal.";

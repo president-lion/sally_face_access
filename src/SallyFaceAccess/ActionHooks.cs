@@ -56,7 +56,11 @@ internal static class ActionHooks
     {
         private static void Prefix(ActionAnim __instance)
         {
-            try { Seen(__instance, "anim:" + __instance.clip2D); }
+            try
+            {
+                Arena.ArmAnim(__instance.runtimeAnimator ?? __instance.animator, __instance.clip2D);
+                Seen(__instance, "anim:" + __instance.clip2D);
+            }
             catch (Exception ex) { Log.Once("ActionHooks.Anim", ex); }
         }
     }

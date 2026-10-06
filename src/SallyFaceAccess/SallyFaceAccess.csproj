@@ -39,6 +39,7 @@
     <Reference Include="$(MLDir)\Il2CppAssemblies\UnityEngine.Physics2DModule.dll" Private="false" />
     <Reference Include="$(MLDir)\Il2CppAssemblies\UnityEngine.ScreenCaptureModule.dll" Private="false" />
     <Reference Include="$(MLDir)\Il2CppAssemblies\UnityEngine.AudioModule.dll" Private="false" />
+    <Reference Include="$(MLDir)\Il2CppAssemblies\UnityEngine.AnimationModule.dll" Private="false" />
   </ItemGroup>
 
   <!-- Deploy: the mod into Mods\, Prism into UserLibs\. -->

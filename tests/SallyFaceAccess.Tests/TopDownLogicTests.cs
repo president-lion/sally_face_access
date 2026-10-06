@@ -31,6 +31,14 @@ public class TopDownLogicTests
     }
 
     [Fact]
+    public void Strike_spot_is_said_in_steps_or_on_you()
+    {
+        Assert.Equal("on you", TopDownLogic.Beside(0.2f, 0.45f));
+        Assert.Equal("3 steps right of you", TopDownLogic.Beside(0.96f, 0.45f));
+        Assert.Equal("5 steps left of you", TopDownLogic.Beside(-1.6f, 0.45f));
+    }
+
+    [Fact]
     public void Ticks_speed_up_near_walls()
     {
         Assert.Null(TopDownLogic.TickInterval(1.5f));

@@ -94,6 +94,13 @@ internal static class Strings
     public const string ChoosePyramid = "choose a pyramid";
     public const string LightsOn = "{0} of 3 lights on";
     public const string ArenaKills = "{0} of {1}";
+    public const string OnYou = "on you";
+    public const string StepsBeside = "{0} steps {1} of you";
+    public const string ArmRising = "{0} arm rising, strikes {1}";
+    public const string ArmMove = "{0} arm rising, strikes on you, move!";
+    public const string ArmDown = "{0} arm down {1}, hit it!";
+    public const string ArmBack = "{0} arm pulls back";
+    public const string ArmHit = "arm hit, {0}";
     public const string SkipConsole = "the control console can be skipped: press Delete";
     public const string PyramidsClose = "Backspace closes this.";
     public const string Closed = "closed";

@@ -47,6 +47,17 @@ internal static class TopDownLogic
     public static (float X, float Y) NearestPoint(float px, float py, float cx, float cy, float w, float h) =>
         (Math.Clamp(px, cx - w / 2, cx + w / 2), Math.Clamp(py, cy - h / 2, cy + h / 2));
 
+    /// <summary>
+    /// Where a spot on the player's row is: "on you" within <paramref name="reach"/>, otherwise
+    /// "3 steps right of you".
+    /// </summary>
+    public static string Beside(float dx, float reach)
+    {
+        if (Math.Abs(dx) < reach) return Strings.OnYou;
+        var steps = Math.Max(1, (int)MathF.Round(Math.Abs(dx) / Step));
+        return string.Format(Strings.StepsBeside, steps, dx > 0 ? Strings.Right : Strings.Left);
+    }
+
     /// <summary>"up 3, right 2"; "here" when within half a step both ways.</summary>
     public static string Direction(float dx, float dy)
     {
