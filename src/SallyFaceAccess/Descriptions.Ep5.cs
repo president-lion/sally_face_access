@@ -207,16 +207,19 @@ internal static partial class Descriptions
         Visuals["05_endless_2_clay/anim:eyeClose"] = "The clay eye closes.";
         Areas["05_endless_4_3D"] = "Sal, a blocky low-poly figure with his guitar, floats in a purple sky of cloud. Huge tentacles of " +
                                    "the Endless One lash in to snatch him; a touch and he is eaten. Press R to call down lightning " +
-                                   "and blast them away.";
+                                   "and blast them away. Each tentacle hums where it is, and a chirp means one is about to come in " +
+                                   "reach: press R. Delete autoplays the fight.";
         Visuals["05_endless_4_3D/anim:endlessDeath"] = "A tentacle is blasted apart and falls away.";
         Visuals["05_endless_4_3D/anim:endlessEat"] = "!A tentacle snaps Sal up.";
         Areas["05_endless_5_Toon"] = "A flat green cartoon world. Sal is a cartoon kid with a red guitar, and a giant yellow eye with " +
                                      "a purple pupil watches from above. Smaller eyes float in at Sal; their touch is death. Press R " +
-                                     "to strum and blast them. Destroy six.";
+                                     "to strum and blast them. Destroy six. Each eye hums where it is, and a chirp means one is about " +
+                                     "to come in reach: press R. Delete autoplays the fight.";
         Visuals["05_endless_5_Toon/anim:toonTar_Hit"] = "!An eye reaches Sal.";
         Areas["05_endless_6_void"] = "Sal falls down a dark shaft, glitching and glowing, between two walls of purple flesh covered in " +
                                      "bone spikes. Red veined orbs, swollen and glowing orange inside, push out of the walls and come " +
-                                     "at him. Don't touch the spikes. Press R to blast the orbs; destroy twelve.";
+                                     "at him. Don't touch the spikes. Press R to blast the orbs; destroy twelve. Each orb hums where it " +
+                                     "is, and a chirp means one is about to come in reach: press R. Delete autoplays the fight.";
         Visuals["05_endless_6_void/anim:endless_wall_kill"] = "The walls of flesh convulse.";
         Cutscenes["05_END/finalBlow"] = "The final blow. In the void, Sal hangs in a column of blue light, glitching, guitar raised, " +
                                         "and a jagged bolt of green lightning crashes down into the heart of the Endless One, a mass " +

@@ -62,6 +62,8 @@ public sealed class Mod : MelonMod
         catch (Exception ex) { Log.Once("Arena", ex); }
         try { Endless.Tick(); }
         catch (Exception ex) { Log.Once("Endless", ex); }
+        try { FinalFights.Tick(); }
+        catch (Exception ex) { Log.Once("FinalFights", ex); }
         try { TempleStealth.Tick(); }
         catch (Exception ex) { Log.Once("TempleStealth", ex); }
         try { Puzzles.Tick(); }
@@ -104,7 +106,7 @@ public sealed class Mod : MelonMod
     public override void OnSceneWasLoaded(int buildIndex, string sceneName)
     {
         Log.Debug("Scene", $"loaded {buildIndex} {sceneName}");
-        try { InventoryHandler.OnSceneLoaded(); GoalHandler.OnSceneLoaded(); Detector.OnSceneLoaded(); CutsceneHandler.OnSceneLoaded(sceneName); TourMode.OnSceneLoaded(sceneName); ItemHints.OnSceneLoaded(sceneName); WorldHandler.OnSceneLoaded(sceneName); TopDownAudio.OnSceneLoaded(sceneName); Footsteps.OnSceneLoaded(); Puzzles.OnSceneLoaded(sceneName); TempleStealth.OnSceneLoaded(sceneName); Arena.OnSceneLoaded(sceneName); Endless.OnSceneLoaded(sceneName); SelfTest.OnSceneLoaded(sceneName); }
+        try { InventoryHandler.OnSceneLoaded(); GoalHandler.OnSceneLoaded(); Detector.OnSceneLoaded(); CutsceneHandler.OnSceneLoaded(sceneName); TourMode.OnSceneLoaded(sceneName); ItemHints.OnSceneLoaded(sceneName); WorldHandler.OnSceneLoaded(sceneName); TopDownAudio.OnSceneLoaded(sceneName); Footsteps.OnSceneLoaded(); Puzzles.OnSceneLoaded(sceneName); TempleStealth.OnSceneLoaded(sceneName); Arena.OnSceneLoaded(sceneName); Endless.OnSceneLoaded(sceneName); FinalFights.OnSceneLoaded(sceneName); SelfTest.OnSceneLoaded(sceneName); }
         catch (Exception ex) { Log.Once("SceneLoaded", ex); }
     }
 
