@@ -187,10 +187,11 @@ internal static partial class Descriptions
         Areas["05_32_field"] = "A pixel art arena of grass and stone. Sal, with his guitar, faces creeping black blobs with red " +
                                "eyes, and green tentacles reach in from the edges. Four blobs crawl at Sal from the corners, each humming where " +
                                "it is: higher above you, lower below. Press R to blast the ones close by; destroy fourteen. " +
-                               "Don't let one touch you, and don't step off the edge.";
+                               "Don't let one touch you, and don't step off the edge. A chirp means one is about to come in reach. " +
+                               "Delete turns auto strike on or off.";
         Areas["05_32_boss"] = "The pixel arena. Two enormous green arms hang from the treetops, left and right, and the blobs " +
                               "crawl at Sal again, humming where they are, and a blob's touch is death: when one is close " +
-                              "enough a chirp sounds, press R at once. Sal can only walk left and right. When an arm rises " +
+                              "enough a chirp sounds, press R as it arrives; Delete turns on auto strike. Sal can only walk left and right. When an arm rises " +
                               "you hear where it will strike; get out from under it. It slams down and stays down for three " +
                               "seconds, a beacon sounding at its hand: walk next to it and press R to hit it.";
         Areas["05_endless_2_clay"] = "A world of clay: three empty chairs in a red glow. A huge red clay eye in a burst of green.";

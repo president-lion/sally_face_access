@@ -95,6 +95,8 @@ internal static class Strings
     public const string LightsOn = "{0} of 3 lights on";
     public const string ArenaKills = "{0} of {1}";
     public const string OnYou = "on you";
+    public const string AutoStrikeOn = "auto strike on: Sal blasts whatever comes in reach";
+    public const string AutoStrikeOff = "auto strike off";
     public const string StepsBeside = "{0} steps {1} of you";
     public const string ArmRising = "{0} arm rising, strikes {1}";
     public const string ArmMove = "{0} arm rising, strikes on you, move!";

@@ -30,11 +30,27 @@ internal static class Arena
     private static int _lastKills = -1;
     private static readonly float[] _mutedUntil = new float[4];
     private const float DeathSilence = 1.2f; // the death animation, then the respawn at its corner
-    private const float StrikeRange = 0.6f;  // a blob this close: press R now
+    private const float Reach = 0.4f;        // R reaches a blob this close
+    private const float Lead = 0.6f;         // seconds of warning before a blob is in reach
     private static readonly bool[] _close = new bool[4];
+    private static readonly float[] _prevDist = new float[4];
+    private static readonly float[] _closing = new float[4];
+    private static bool _autoStrike;          // stays on for the session once chosen
+    private static ActionList _attack;
+
+    private static void AutoStrike()
+    {
+        if (_attack == null)
+            foreach (var l in UnityEngine.Object.FindObjectsOfType<ActionList>())
+                if (l != null && l.gameObject.name == "attack") { _attack = l; break; }
+        if (_attack == null || KickStarter.actionListManager.IsListRunning(_attack)) return;
+        var r = PlayerMenus.GetMenuWithName("R");
+        if (r == null || r.isLocked || KickStarter.stateHandler?.gameState != GameState.Normal) return;
+        _attack.Interact();
+    }
 
     // The arms: 0 = left, 1 = right; loop voices 4 and 5.
-    private const float Reach = 0.45f;      // how close to the strike spot counts as under it
+    private const float UnderArm = 0.45f;      // how close to the strike spot counts as under it
     private static readonly Transform[] _arms = new Transform[2];
     private static readonly string[] _armClip = new string[2];
     private static readonly bool[] _armDown = new bool[2];
@@ -59,7 +75,7 @@ internal static class Arena
         _armClip[side] = clip;
 
         var name = side == 0 ? Strings.Left : Strings.Right;
-        var where = TopDownLogic.Beside(Strike(side) - KickStarter.player.transform.position.x, Reach);
+        var where = TopDownLogic.Beside(Strike(side) - KickStarter.player.transform.position.x, UnderArm);
         switch (clip)
         {
             case "armOpen":
@@ -106,6 +122,9 @@ internal static class Arena
         _lastKills = -1;
         Array.Clear(_mutedUntil);
         Array.Clear(_close);
+        Array.Clear(_prevDist);
+        Array.Clear(_closing);
+        _attack = null;
         Array.Clear(_arms);
         Array.Clear(_armClip);
         Array.Clear(_armDown);
@@ -125,6 +144,7 @@ internal static class Arena
         var line = KickStarter.dialog?.GetLatestSpeech();
         var talking = line != null && line.isAlive && !line.isBackground;
         var p = KickStarter.player.transform.position;
+        var inReach = false;
         for (var i = 0; i < _enemies.Length; i++)
         {
             var e = _enemies[i];
@@ -132,21 +152,40 @@ internal static class Arena
             {
                 ToneEngine.Loop(i, ToneEngine.Cue.Hum, default);
                 _close[i] = false;
+                _prevDist[i] = 0;
+                _closing[i] = 0;
                 continue;
             }
             var d = e.position - p;
             ToneEngine.Loop(i, ToneEngine.Cue.Hum, TopDownLogic.Place(d.x, d.y, _range), 0.8f);
 
             // R only reaches a blob that is nearly touching (Sal's hit box 0.4, the blob's 0.4;
-            // its bite box 0.35): a chirp says "now", once per approach.
+            // its bite box 0.35). The chirp comes Lead seconds before the blob is in reach, from
+            // how fast it is closing, so there is time to press R as it arrives.
             var dist = new Vector2(d.x, d.y).magnitude;
-            if (!_close[i] && dist < StrikeRange)
+            var dt = Math.Max(Time.deltaTime, 0.001f);
+            if (_prevDist[i] > 0)
+                _closing[i] = Mathf.Lerp(_closing[i], (_prevDist[i] - dist) / dt, 0.2f);
+            _prevDist[i] = dist;
+            var warnAt = Reach + Math.Max(_closing[i], 0f) * Lead;
+            if (!_close[i] && dist < Math.Max(warnAt, 0.55f))
             {
                 _close[i] = true;
                 ToneEngine.Play(ToneEngine.Cue.Chirp, new TopDownLogic.Placement(Math.Clamp(d.x * 2f, -1f, 1f), 1.3f, 1f));
             }
-            else if (_close[i] && dist > StrikeRange + 0.3f) _close[i] = false;
+            else if (_close[i] && dist > Math.Max(warnAt, 0.55f) + 0.4f) _close[i] = false;
+            if (dist < Reach + 0.05f) inReach = true;
         }
+
+        // Delete: Sal strikes by himself whenever a blob (or a downed arm's hand) is in reach.
+        if (Input.GetKeyDown(KeyCode.Delete))
+        {
+            _autoStrike = !_autoStrike;
+            Speech.Say(_autoStrike ? Strings.AutoStrikeOn : Strings.AutoStrikeOff, interrupt: true);
+        }
+        for (var side = 0; side < 2 && _boss; side++)
+            if (_armDown[side] && Math.Abs(Strike(side) - p.x) < 0.5f) inReach = true;
+        if (_autoStrike && inReach && !talking) AutoStrike();
 
         // A downed arm's hand: a beacon to walk to and hit.
         for (var side = 0; side < 2; side++)
