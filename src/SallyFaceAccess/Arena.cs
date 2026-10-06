@@ -30,6 +30,8 @@ internal static class Arena
     private static int _lastKills = -1;
     private static readonly float[] _mutedUntil = new float[4];
     private const float DeathSilence = 1.2f; // the death animation, then the respawn at its corner
+    private const float StrikeRange = 0.6f;  // a blob this close: press R now
+    private static readonly bool[] _close = new bool[4];
 
     // The arms: 0 = left, 1 = right; loop voices 4 and 5.
     private const float Reach = 0.45f;      // how close to the strike spot counts as under it
@@ -103,6 +105,7 @@ internal static class Arena
         _nextGather = 0;
         _lastKills = -1;
         Array.Clear(_mutedUntil);
+        Array.Clear(_close);
         Array.Clear(_arms);
         Array.Clear(_armClip);
         Array.Clear(_armDown);
@@ -128,10 +131,21 @@ internal static class Arena
             if (talking || e == null || !e.gameObject.activeInHierarchy || Time.unscaledTime < _mutedUntil[i])
             {
                 ToneEngine.Loop(i, ToneEngine.Cue.Hum, default);
+                _close[i] = false;
                 continue;
             }
             var d = e.position - p;
             ToneEngine.Loop(i, ToneEngine.Cue.Hum, TopDownLogic.Place(d.x, d.y, _range), 0.8f);
+
+            // R only reaches a blob that is nearly touching (Sal's hit box 0.4, the blob's 0.4;
+            // its bite box 0.35): a chirp says "now", once per approach.
+            var dist = new Vector2(d.x, d.y).magnitude;
+            if (!_close[i] && dist < StrikeRange)
+            {
+                _close[i] = true;
+                ToneEngine.Play(ToneEngine.Cue.Chirp, new TopDownLogic.Placement(Math.Clamp(d.x * 2f, -1f, 1f), 1.3f, 1f));
+            }
+            else if (_close[i] && dist > StrikeRange + 0.3f) _close[i] = false;
         }
 
         // A downed arm's hand: a beacon to walk to and hit.
