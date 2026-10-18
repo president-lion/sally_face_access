@@ -6,3 +6,4 @@ src/prism/
 *.user
 .vs/
 FINDINGS.md
+src/SallyFaceAccess contents.txt
