@@ -9,7 +9,7 @@ It is built for Sally Face 1.5.50 on Windows (1.5.51, the current Steam version,
 ### With setup (recommended)
 
 1. Close the game.
-2. Run `Setup sally_face_access.exe` from the release page.
+2. Download and run `Setup.sally_face_access.exe` from the [release page](https://github.com/president-lion/sally_face_access/releases/latest).
 3. Check the game folder it found, then press Alt+I to install.
 
 Setup finds the game in Steam or GOG, installs MelonLoader and the mod, and offers to install Microsoft's .NET 6 runtime if it is missing (MelonLoader needs it). Alt+U uninstalls everything again. Your saves are never touched.
