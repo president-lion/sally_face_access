@@ -20,6 +20,18 @@ public class DialogueFormatTests
         Assert.Equal("Larry: Hi there.", DialogueFormat.Line(" Larry ", "<b>Hi</b>[wait] there.", true));
 
     [Fact]
+    public void MirroredTextReadsForwards() =>
+        Assert.Equal("some things will appear broken. do not be afraid. your mind cannot handle it all at once",
+            DialogueFormat.Unmirror("ecno ta lla ti eldnah tonnac dnim ruoy.diarfa eb ton od.nekorb raeppa lliw sgniht emos"));
+
+    [Fact]
+    public void OnlyMirroredLinesAreFlipped()
+    {
+        Assert.True(DialogueFormat.IsMirrored(1820));
+        Assert.False(DialogueFormat.IsMirrored(1821));
+    }
+
+    [Fact]
     public void EmptyTextGivesEmpty() =>
         Assert.Equal("", DialogueFormat.Line("Larry", "  ", true));
 }

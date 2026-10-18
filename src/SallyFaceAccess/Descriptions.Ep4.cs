@@ -204,6 +204,41 @@ internal static partial class Descriptions
                                         "tiles beside it.";
         Shots["04_os_504_2/holeCam1"] = "A jagged hole broken through the wall, pitch black inside.";
         Areas["04_2_roof"] = "The roof of Addison Apartments.";
+        // ---- The rooms while the stone pillars stand in the halls
+        Areas["04_2_104"] = "Apartment 104: dusty, a cobweb in the corner, a wardrobe, cardboard boxes stacked everywhere, and " +
+                            "filing cabinets at the far end.";
+        Areas["04_2_201/NavCam 1"] = "Apartment 201, bare: a kitchen with a checkered floor and an old blood stain on it, an " +
+                                     "orange couch, a pale patch on the wall where a painting hung, the green front door, and " +
+                                     "closed doors to the other rooms.";
+        Areas["04_2_201/bathroomCam"] = "A green-tiled bathroom, grubby: a stain in the tub, a dirty toilet with a plunger.";
+        Areas["04_2_201/bbr1_Cam"] = "Bedroom 1, empty but for the rack of life support machines against the wall.";
+        Areas["04_2_201/br2_Cam"] = "Bedroom 2, stripped bare: benches along stained walls, rows of hooks, pipes, and an old " +
+                                    "iron furnace in a puddle.";
+        Areas["04_2_202/NavCam 1"] = "Apartment 202: a kitchen, then a living room with plants, a hookah on a side table, framed " +
+                                     "pictures and a colourful round rug. On the tan couch sits Janis, a red-haired man asleep " +
+                                     "with his head in her lap. A green couch by the front door.";
+        Areas["04_2_202/bathroomCam"] = "A clean mint-tiled bathroom: a tub with an orange curtain, a pink towel, a blue mat.";
+        Areas["04_2_204/NavCam 1"] = "Apartment 204, empty and dim: bare walls, a kitchen at the far end.";
+        Areas["04_2_204/bathCam"] = "A filthy bathroom: a stained toilet and tub.";
+        Areas["04_2_301"] = "Apartment 301, CJ's place: the IGG banner, a stereo with speakers, a cabinet, a box of junk, a " +
+                            "folding chair. On the left, three friends: a blond man in a beanie in a wheelchair, a woman with " +
+                            "curly black hair and a green scarf standing, and a man in a red hoodie reading a book on a chair.";
+        Areas["04_2_302"] = "Apartment 302: a red couch with a mannequin torso propped on it, a shelf with a framed photo, a " +
+                            "board pinned with newspaper clippings, a small picture of a cloud. David stands by the cabinet, " +
+                            "thin as a rake, in a vest and underpants, staring.";
+        Areas["04_2_303"] = "Apartment 303: Chug, green hair and a cap, sits on the grey couch, his little girl on the floor " +
+                            "among scattered toys, a toy chest beside them.";
+        Areas["04_2_401"] = "Apartment 401, Robert's: punk and horror posters, a safe, CDs scattered by a boombox, a lamp on a " +
+                            "chair. Robert, red mohawk, sits hunched on the mattress.";
+        Areas["04_2_402/NavCam 1"] = "Apartment 402, dad and Lisa's home: a kitchen, then the living room, family photos on the " +
+                                     "wall. Dad and Lisa sit close together on the brown couch, facing the TV.";
+        Areas["04_2_402/bathroomCam"] = "The clean pale green bathroom: an orange towel, a plunger by the toilet.";
+        Areas["04_2_404"] = "Apartment 404: dark, bare, and empty, something broken on the floor in the corner.";
+        Areas["04_2_501"] = "Apartment 501, empty: a boarded window, holes in the plaster, and heaps of old newspapers on the floor.";
+        Areas["04_2_504/NavCam 1"] = "Apartment 504: dark and bare, handprints on a door, a boarded window, loose planks.";
+        Areas["04_2_504/bathroomCam"] = "The mouldy bathroom: a grimy tub, a stained toilet with a plunger, a pill bottle on the floor.";
+        Areas["04_2_504_2/NavCam 1"] = "504's bedroom: a broken shelf, the torn mattress against the wall, and the hole through to 503.";
+        Areas["04_2_504_2/503Cam"] = "Apartment 503: dark, the hole broken through from 504, and a noose hanging in the darkness.";
         // ---- The Endless One, the murders, the execution
         Areas["04_2_103"] = "Apartment 103, Mr. Addison's: dark, black ooze and tangled black tendrils spreading over the walls, a " +
                             "heap of black sludge full of bones in the middle of the room.";

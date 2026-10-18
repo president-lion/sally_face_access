@@ -130,5 +130,6 @@ internal static class Strings
     public const string WayBlocked = "{0} blocked";
     public const string WayClear = "{0} clear";
     public const string GetOut = "get out, {0} seconds";
+    public const string Backwards = "written backwards: {0}";
     public const string Autoplaying = "autoplaying: planting the C-4";
 }

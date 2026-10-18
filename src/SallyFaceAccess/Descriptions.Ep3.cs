@@ -89,6 +89,15 @@ internal static partial class Descriptions
         Shots["03_201/hidieCam1"] = "Larry and Sal crouch hidden in a dark corner.";
         Shots["03_201/hidieCam2"] = "Larry throws an arm out across Sal, shielding him, as Sal hugs his knees.";
         Shots["03_201/trashCam"] = "A dark, stained chute, dropping away into blackness.";
+        Visuals["03_201/anim:ashLookingAnim"] = "Ash leans head first into the chute, only her legs and boots sticking out.";
+        Visuals["03_201/anim:ashLookingGone"] = "Her legs vanish down the chute.";
+        Cutscenes["03_201/gaotGHOST"] = "The lights flicker. In the room stands the ghost of a goat: a headless brown body " +
+                                        "dripping blood, its severed head hovering beside it, eyes glowing yellow, a green tag " +
+                                        "in its ear.";
+        Visuals["03_201/anim:goatUp"] = "The goat swells into a heap of red flesh, then pulls itself back together, whole again, " +
+                                        "head and all.";
+        Visuals["03_201/anim:goatGone"] = "The ghost goat vanishes.";
+        Visuals["03_201/anim:lr_radioGlowOn"] = "The radio starts to glow.";
         Visuals["anim:br1_machineBeating"] = "The heart monitor beeps steadily.";
         Visuals["anim:br1_machineFlatline"] = "The heart monitor flatlines with a long, steady tone.";
         Areas["03_102"] = "Apartment 102, Miss Rosenberg's: the rocking chair, the cabinet of goblets and china, cat plaques on the walls.";

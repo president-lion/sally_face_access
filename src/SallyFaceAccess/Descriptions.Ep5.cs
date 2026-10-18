@@ -164,10 +164,13 @@ internal static partial class Descriptions
         Shots["05_temple2_center/travCam1"] = "Travis, older, blond and red-eyed, in a green cultist's robe, drives a glowing green " +
                                               "dagger into a shadowy figure in a horned skull mask.";
         Shots["05_temple2_center/detonateCam"] = "A bloodied thumb presses down on a button marked Detonate.";
+        Visuals["05_temple2_center/anim:endlessUp"] = "Green tendrils sprout from the floor and rise, writhing.";
         Areas["05_templeOS_center"] = "The heart of the temple's other side, grey: towering shadow creatures with glowing white " +
                                       "eyes rise from the pit, black tendrils reaching out.";
         Shots["05_templeOS_center/laryCUcam"] = "Larry, old now, with a thick black beard, his eyes blank and white, in a red hood.";
         Areas["05_pyramids"] = "Darkness, and three pyramids outlined in white: one glowing at the top, two below.";
+        Visuals["05_pyramids/anim:bonesUp"] = "Skeletons claw their way up out of the ground: bony arms reaching, a " +
+                                              "grinning skull rising.";
         Shots["05_pyramids/ashCam"] = "Ash sits on Sal's old bed in the moonlight, stroking a sleeping ginger cat.";
         Shots["05_pyramids/ashCam (1)"] = "Ash's green eyes, wide.";
         Areas["05_forest"] = "A misty forest at dusk under a violet sky, drawn in simple flat shapes: bare trees, pines and stumps. " +

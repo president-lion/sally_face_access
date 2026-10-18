@@ -57,7 +57,9 @@ internal static class DialogueHandler
             if (_spoken.Contains(key)) continue;
             _spoken.Add(key);
 
-            var line = DialogueFormat.Line(sp.GetSpeaker(lang), sp.FullText, Settings.SpeakerNames);
+            var text = DialogueFormat.IsMirrored(sp.LineID)
+                ? string.Format(Strings.Backwards, DialogueFormat.Unmirror(sp.FullText)) : sp.FullText;
+            var line = DialogueFormat.Line(sp.GetSpeaker(lang), text, Settings.SpeakerNames);
             if (!sp.isBackground)
             {
                 _current = key;

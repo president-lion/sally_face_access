@@ -101,6 +101,16 @@ internal static partial class Descriptions
         Areas["02_503"] = "Apartment 503, dark and wrecked: peeling wallpaper, a big hole broken through the wall from 504, a broken " +
                           "shelf, a torn mattress against the wall, and in the darkness to the left, a noose hanging from the ceiling.";
         Areas["02_therapy1"] = "Dr. Enon's office.";
+        // Chip: Todd's computer, the white room, and the voice.
+        Shots["02_202/chipCam1"] = "Todd's computer screen, close: line after line of jumbled green characters.";
+        Lines[1820] = "White light floods everything. Sal stands alone in an endless white emptiness, frightened.";
+        Visuals["02_202/anim:glitchOn"] = "Todd's screen breaks up into a smear of glitching colours.";
+        Visuals["02_202/anim:glitchDead"] = "The screen goes dead.";
+        Visuals["02_503/anim:hugAnim"] = "Larry pulls Sal into a hug, eyes shut, a tear running down his cheek.";
+        Areas["t02"] = "Darkness, and Dr. Enon's voice.";
+        Shots["t02/salStandCam"] = "Sal's masked face, close: long blue hair falling over the mask, an orange collar.";
+        Shots["t02/salStandCam2"] = "Sal stands alone against grey, head bowed, in an orange prison jumpsuit marked " +
+                                    "Inmate 081486, hands cuffed in front.";
         Cutscenes["02_therapy1/sessionStart"] = "Dr. Enon's office. Later, the door opens: two prison guards lead Sal out, in his " +
                                                 "orange jumpsuit, hands cuffed.";
         Cutscenes["02_drive/disablePlayerUpDown"] = "A long drive through the night.";
