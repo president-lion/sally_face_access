@@ -1,0 +1,13 @@
+Third-party components included in the release
+
+MelonLoader v0.7.3 (version.dll and the MelonLoader folder)
+    https://github.com/LavaGang/MelonLoader
+    Apache License 2.0. Redistributed unmodified from the v0.7.3 release (MelonLoader.x64.zip).
+    Its licence and notice ship with it in MelonLoaderDocumentation.
+
+prism.dll
+    Prism - https://github.com/ethindp/prism
+    Mozilla Public License 2.0. Redistributed unmodified as a 64-bit build.
+    Source: https://github.com/ethindp/prism
+
+Sally Face is copyright Portable Moose. No part of the game is included.

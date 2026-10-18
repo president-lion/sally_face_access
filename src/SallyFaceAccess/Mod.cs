@@ -1,7 +1,7 @@
 using MelonLoader;
 using MelonLoader.Utils;
 
-[assembly: MelonInfo(typeof(SallyFaceAccess.Mod), "Sally Face Access", "0.1.0", "president-lion")]
+[assembly: MelonInfo(typeof(SallyFaceAccess.Mod), "Sally Face Access", "1.0.0", "president-lion")]
 [assembly: MelonGame("Steve Gabry", "Sally Face")]
 
 namespace SallyFaceAccess;
