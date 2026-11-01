@@ -42,6 +42,11 @@
     <Reference Include="$(MLDir)\Il2CppAssemblies\UnityEngine.AnimationModule.dll" Private="false" />
   </ItemGroup>
 
+  <!-- Translations of the mod's wording, built in as lang.<code>.json (see Loc). -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\lang\*.json" Exclude="..\..\lang\en.json" LogicalName="lang.%(Filename).json" />
+  </ItemGroup>
+
   <!-- Deploy: the mod into Mods\, Prism into UserLibs\. -->
   <Target Name="Deploy" AfterTargets="Build" Condition="Exists('$(GamePath)\MelonLoader') And '$(SkipDeploy)' != 'true'">
     <MakeDir Directories="$(GamePath)\Mods;$(GamePath)\UserLibs" />

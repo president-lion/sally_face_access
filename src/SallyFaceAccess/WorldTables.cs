@@ -2,7 +2,7 @@ namespace SallyFaceAccess;
 
 /// <summary>
 /// Hand-written names for things the game only labels with a verb, and for areas whose
-/// scene name does not generate a good one. Mod wording, English for now.
+/// scene name does not generate a good one. Written in English and translated through Loc.
 /// Keys: hotspots "scene/GameObject name" or "scene/@x"; areas "scene"; rooms "scene/camera".
 /// One file per episode.
 /// </summary>
@@ -37,20 +37,20 @@ internal static partial class WorldTables
         RoomBounds.TryGetValue($"{scene}/{camera}", out var b) ? b : null;
 
     public static string Room(string scene, string camera) =>
-        Rooms.TryGetValue($"{scene}/{camera}", out var n) ? n : null;
+        Rooms.TryGetValue($"{scene}/{camera}", out var n) ? Loc.T(n) : null;
 
     /// <summary>
     /// A hand-written name, keyed "scene/object name", or for objects with no name of their
     /// own "scene/@x" with x rounded to a whole unit.
     /// </summary>
     public static string Hotspot(string scene, string objectName, float x) =>
-        Hotspots.TryGetValue($"{scene}/{objectName}", out var n) ? n
-        : Hotspots.TryGetValue($"{scene}/@{Math.Round(x):0}", out n) ? n
+        Hotspots.TryGetValue($"{scene}/{objectName}", out var n) ? Loc.T(n)
+        : Hotspots.TryGetValue($"{scene}/@{Math.Round(x):0}", out n) ? Loc.T(n)
         : WorldText.HallwayDoor(scene, objectName, x);
 
     public static string Area(string scene)
     {
-        var n = Areas.TryGetValue(scene, out var a) ? a : WorldText.SceneName(scene);
-        return scene.StartsWith("04_os_") ? $"{n}, the other side" : n;
+        var n = Areas.TryGetValue(scene, out var a) ? Loc.T(a) : WorldText.SceneName(scene);
+        return scene.StartsWith("04_os_") ? string.Format(Strings.TheOtherSide, n) : n;
     }
 }

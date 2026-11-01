@@ -48,7 +48,7 @@ internal static class MenuStates
     private static readonly string[] PyramidNames = { "", "north pyramid", "west pyramid", "east pyramid" };
 
     /// <summary>A pyramid picked before it has been found: only "place" shows, and does nothing.</summary>
-    public static string PyramidNotFound(int pyramid) => string.Format(Strings.PyramidNotFound, PyramidNames[pyramid]);
+    public static string PyramidNotFound(int pyramid) => string.Format(Strings.PyramidNotFound, Loc.T(PyramidNames[pyramid]));
 
     /// <summary>
     /// The pyramid puzzle's state: "north pyramid: top, bottom right". North and west keep their
@@ -60,11 +60,13 @@ internal static class MenuStates
         var presses = new List<int>();
         if (pyramid == 3) presses.AddRange(eastPresses ?? Array.Empty<int>());
         else for (var c = code; c > 0; c /= 10) presses.Insert(0, c % 10);
-        var corners = presses.Select(d => d is >= 1 and <= 3 ? Corners[d] : "?").ToList();
-        return corners.Count == 0 ? $"{PyramidNames[pyramid]}, {Strings.NothingEntered}" : $"{PyramidNames[pyramid]}: {string.Join(", ", corners)}";
+        var corners = presses.Select(d => d is >= 1 and <= 3 ? Loc.T(Corners[d]) : "?").ToList();
+        return corners.Count == 0 ? $"{Loc.T(PyramidNames[pyramid])}, {Strings.NothingEntered}" : $"{Loc.T(PyramidNames[pyramid])}: {string.Join(", ", corners)}";
     }
 
     private static readonly string[] RowNames = { "top row", "middle row", "bottom row" };
+    private static readonly (string Key, string Name) TileWhite = ("W", "white"), TileBlack = ("B", "black"),
+        TileSun = ("S", "sun"), TileMoon = ("M", "moon");
 
     private static string TileRows(IReadOnlyDictionary<string, string> visible, int width, int height,
         (string Key, string Name) a, (string Key, string Name) b)
@@ -76,10 +78,10 @@ internal static class MenuStates
             for (var c = 0; c < width; c++)
             {
                 var n = r * width + c + 1;
-                cells.Add(visible.ContainsKey($"{n} - {a.Key}") ? a.Name : visible.ContainsKey($"{n} - {b.Key}") ? b.Name : "?");
+                cells.Add(visible.ContainsKey($"{n} - {a.Key}") ? Loc.T(a.Name) : visible.ContainsKey($"{n} - {b.Key}") ? Loc.T(b.Name) : "?");
             }
             if (cells.All(x => x == "?")) return null;
-            rows.Add($"{RowNames[r]}: {string.Join(", ", cells)}");
+            rows.Add($"{Loc.T(RowNames[r])}: {string.Join(", ", cells)}");
         }
         return string.Join(". ", rows);
     }
@@ -95,7 +97,7 @@ internal static class MenuStates
         for (var c = code; c > 0; c /= 10)
         {
             var d = c % 10;
-            colours.Insert(0, d < PadColours.Length ? PadColours[d] : "?");
+            colours.Insert(0, d < PadColours.Length ? Loc.T(PadColours[d]) : "?");
         }
         return colours.Count == 0 ? Strings.NothingEntered : string.Format(Strings.Entered, string.Join(", ", colours));
     }
@@ -119,7 +121,7 @@ internal static class MenuStates
                 foreach (var (element, genre) in Stations)
                     if (visible.TryGetValue(element, out var freq))
                     {
-                        var s = $"{freq}, {genre}";
+                        var s = $"{freq}, {Loc.T(genre)}";
                         return visible.ContainsKey("static") ? $"{s}, {Strings.Static}" : s;
                     }
                 return null;
@@ -136,7 +138,7 @@ internal static class MenuStates
                 var dials = new List<string>();
                 for (var d = 1; d <= 3; d++)
                     for (var k = 0; k < LockSymbols.Length; k++)
-                        if (visible.ContainsKey($"{d}-{k}")) { dials.Add(string.Format(Strings.Dial, d, LockSymbols[k])); break; }
+                        if (visible.ContainsKey($"{d}-{k}")) { dials.Add(string.Format(Strings.Dial, d, Loc.T(LockSymbols[k]))); break; }
                 return dials.Count == 0 ? null : string.Join(". ", dials);
 
             // The bird cage compass (Episode 4): five slots, each showing the tooth put in it as a
@@ -147,21 +149,21 @@ internal static class MenuStates
                 foreach (var (slot, name) in CompassSlots)
                 {
                     var tooth = ToothLetters.FirstOrDefault(t => visible.ContainsKey($"tooth {t} {slot}"));
-                    slots.Add($"{name}: {(tooth == null ? Strings.Empty : string.Format(Strings.Tooth, tooth.ToUpperInvariant()))}");
+                    slots.Add($"{Loc.T(name)}: {(tooth == null ? Strings.Empty : string.Format(Strings.Tooth, tooth.ToUpperInvariant()))}");
                 }
                 return string.Join(". ", slots);
 
             // The forest's tile terminals: cells "1 - W"/"1 - B" (3 by 3) and "1 - S"/"1 - M" (2 by 3),
             // numbered along each row from the top left; the visible one of each pair is the tile's face.
             case "3D Code1":
-                return TileRows(visible, 3, 3, ("W", "white"), ("B", "black"));
+                return TileRows(visible, 3, 3, TileWhite, TileBlack);
             case "3D Code2":
-                return TileRows(visible, 2, 3, ("S", "sun"), ("M", "moon"));
+                return TileRows(visible, 2, 3, TileSun, TileMoon);
 
             // The hexagons hidden through Episode 5: a close-up of the one just found.
             case "HexCU":
                 foreach (var (colour, text) in Hexagons)
-                    if (visible.ContainsKey(colour)) return text;
+                    if (visible.ContainsKey(colour)) return Loc.T(text);
                 return null;
 
             // Sal's cell phone (Episode 4): the sender and message change in place as texts arrive.
@@ -176,7 +178,7 @@ internal static class MenuStates
                     if (!visible.ContainsKey(sp.Left)) continue;
                     var right = visible.ContainsKey("SelectR");
                     var n = i * 2 + (right ? 2 : 1);
-                    return string.Format(Strings.ItemOfCount, right ? sp.RightName : sp.LeftName, n, Spreads.Length * 2);
+                    return string.Format(Strings.ItemOfCount, Loc.T(right ? sp.RightName : sp.LeftName), n, Spreads.Length * 2);
                 }
                 return null;
         }

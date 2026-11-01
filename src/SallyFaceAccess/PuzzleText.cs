@@ -46,8 +46,8 @@ internal static class PuzzleText
     /// </summary>
     public static string Console(int[] switches, int[] sliders, int lit)
     {
-        var sw = string.Join(", ", switches.Select((v, i) => $"switch {i + 1} {(v == 1 ? Strings.Down : Strings.Up)}"));
-        var sl = string.Join(", ", sliders.Select((v, i) => $"slider {i + 1} at {v + 1}"));
+        var sw = string.Join(", ", switches.Select((v, i) => string.Format(Strings.ConsoleSwitch, i + 1, v == 1 ? Strings.Down : Strings.Up)));
+        var sl = string.Join(", ", sliders.Select((v, i) => string.Format(Strings.ConsoleSlider, i + 1, v + 1)));
         return $"{sw}. {sl}. {string.Format(Strings.LightsOn, lit)}";
     }
 
@@ -56,7 +56,7 @@ internal static class PuzzleText
     private static readonly string[] GuitarKeys = { "J", "K", "L" };
 
     /// <summary>How to play guitar note 1-12: "right, K" for note 5.</summary>
-    public static string GuitarNote(int note) => $"{GuitarGroups[(note - 1) / 3]}, {GuitarKeys[(note - 1) % 3]}";
+    public static string GuitarNote(int note) => $"{Loc.T(GuitarGroups[(note - 1) / 3])}, {GuitarKeys[(note - 1) % 3]}";
 
     private static readonly System.Text.RegularExpressions.Regex Rune = new(@"^anim:rune_(\d+)$");
 

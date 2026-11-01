@@ -34,6 +34,9 @@ public sealed class Mod : MelonMod
             try { Heartbeat(); } catch (Exception ex) { Log.Once("Heartbeat", ex); }
         }
 
+        try { LocSync.Tick(); }
+        catch (Exception ex) { Log.Once("LocSync", ex); }
+
         try { Hotkeys.Tick(); }
         catch (Exception ex) { Log.Once("Hotkeys", ex); }
 

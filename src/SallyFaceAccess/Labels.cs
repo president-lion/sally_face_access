@@ -7,7 +7,7 @@ namespace SallyFaceAccess;
 /// name is an internal one like "b_ep1_x".
 ///
 /// The table is keyed "Menu title/Element title". A value is either plain wording (the
-/// mod's own, English for now) or a template whose {references} pull in the text of other
+/// mod's own, translated through Loc) or a template whose {references} pull in the text of other
 /// elements in the same menu, so those parts stay in the game's language.
 /// Anything not in the table falls back to <see cref="Humanize"/>.
 /// Pure logic - no Unity types - so it is unit tested.
@@ -137,8 +137,12 @@ internal static class Labels
         ["Item Close Up/Close Button"] = Strings.Close,
     };
 
-    public static bool TryGet(string menuTitle, string elementTitle, out string template) =>
-        Table.TryGetValue($"{menuTitle}/{elementTitle}", out template);
+    public static bool TryGet(string menuTitle, string elementTitle, out string template)
+    {
+        var found = Table.TryGetValue($"{menuTitle}/{elementTitle}", out template);
+        if (found) template = Loc.T(template);
+        return found;
+    }
 
     private static readonly Regex Reference = new(@"\{([^{}]+)\}", RegexOptions.Compiled);
 

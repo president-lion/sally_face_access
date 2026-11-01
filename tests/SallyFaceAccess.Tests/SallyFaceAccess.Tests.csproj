@@ -22,6 +22,20 @@
     <Compile Include="..\..\src\SallyFaceAccess\TopDownLogic.cs" Link="Linked\TopDownLogic.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\FootstepLogic.cs" Link="Linked\FootstepLogic.cs" />
     <Compile Include="..\..\src\SallyFaceAccess\PuzzleText.cs" Link="Linked\PuzzleText.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\Loc.cs" Link="Linked\Loc.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\TriggerNames.cs" Link="Linked\TriggerNames.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\Descriptions.cs" Link="Linked\Descriptions.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\Descriptions.Ep1.cs" Link="Linked\Descriptions.Ep1.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\Descriptions.Ep2.cs" Link="Linked\Descriptions.Ep2.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\Descriptions.Ep3.cs" Link="Linked\Descriptions.Ep3.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\Descriptions.Ep4.cs" Link="Linked\Descriptions.Ep4.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\Descriptions.Ep5.cs" Link="Linked\Descriptions.Ep5.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\WorldTables.cs" Link="Linked\WorldTables.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\WorldTables.Ep1.cs" Link="Linked\WorldTables.Ep1.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\WorldTables.Ep2.cs" Link="Linked\WorldTables.Ep2.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\WorldTables.Ep3.cs" Link="Linked\WorldTables.Ep3.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\WorldTables.Ep4.cs" Link="Linked\WorldTables.Ep4.cs" />
+    <Compile Include="..\..\src\SallyFaceAccess\WorldTables.Ep5.cs" Link="Linked\WorldTables.Ep5.cs" />
   </ItemGroup>
 
   <ItemGroup>

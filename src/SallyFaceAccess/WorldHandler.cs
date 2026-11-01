@@ -307,7 +307,7 @@ internal static class WorldHandler
         var name = WorldText.HotspotName(WorldTables.Hotspot(_scene, h.gameObject.name, X(h)), h.gameObject.name, h.GetName(Options.GetLanguage()));
         if (name.Length > 0) return name;
         // Episode 5's hidden hexagons have neither a name nor a named script; one per scene, by colour.
-        if (HexColours.TryGetValue(_scene, out var colour) && OpensMenu(h, "HexCU")) return string.Format(Strings.Hexagon, colour);
+        if (HexColours.TryGetValue(_scene, out var colour) && OpensMenu(h, "HexCU")) return string.Format(Strings.Hexagon, Loc.T(colour));
         // Objects the game left nameless are still usable: name them from the script they run.
         return WorldText.NameFromScript(ScriptName(h));
     }
