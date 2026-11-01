@@ -121,8 +121,23 @@ public class CatalogueTests
             {
                 if (!english.TryGetValue(hash, out var en)) problems.Add($"{Path.GetFileName(file)} {hash}: not in en.json");
                 else if (Placeholders(en) != Placeholders(text)) problems.Add($"{Path.GetFileName(file)} {hash}: '{text}' vs '{en}'");
+                // A leading "!" makes a visual interrupt speech (ActionHooks), so it must survive translation.
+                else if (en.StartsWith('!') != text.StartsWith('!')) problems.Add($"{Path.GetFileName(file)} {hash}: interrupt marker");
             }
         Assert.True(problems.Count == 0, string.Join("\n", problems));
+    }
+
+    [Fact]
+    public void ARealTranslationReachesTheTables()
+    {
+        Loc.Use("ru", Loc.Parse(File.ReadAllText(Path.Combine(LangDir, "ru.json"))));
+        try
+        {
+            Assert.StartsWith("Внутри лифта", Descriptions.Area("elevator", "NavCam 1"));
+            Assert.Equal("пакеты с продуктами", WorldTables.Hotspot("F4r2", "groceryBagsHS", 0));
+            Assert.Equal("назад", Strings.Back);
+        }
+        finally { Loc.Use("en", null); }
     }
 
     [Fact]

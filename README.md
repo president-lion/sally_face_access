@@ -63,6 +63,12 @@ Settings are in `UserData\MelonPreferences.cfg` in the game folder, under `[Sall
 | `RainVolume` | How loud the rain is, from 0 (silent) to 1 (unchanged) |
 | `StepSize` | How far one "step" is when the room scan gives distances |
 
+## Languages
+
+The mod speaks in whatever language you pick in the game's own language menu. The game's text was already translated by its developers; the mod's own words (room and cutscene descriptions, object names, hints and messages) are translated into all 11 of the game's other languages: Russian, Brazilian Portuguese, German, Italian, French, Spanish, Simplified and Traditional Chinese, Japanese, Korean and Polish. Change the language in the game's menu and the mod follows at once. Your screen reader needs a voice that can speak that language.
+
+The translations were written by Claude, an AI, so some sentences may sound clumsy. To fix one for yourself, copy the line from `lang/<language>.json` in this repository into `UserData\SallyFaceAccess\lang\<language>.json` in the game folder (for example `ru.json`) and change the text; your file wins over the built-in one. `lang/en.json` shows the English for each line. Corrections are welcome as issues or pull requests.
+
 ## Credits
 
 Made by president-lion, with Claude.
